@@ -7,6 +7,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
+import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.kraken.KrakenUtils;
 import org.knowm.xchange.kraken.dto.account.KrakenTradeVolume;
 import org.knowm.xchange.kraken.dto.account.results.KrakenTradeVolumeResult;
@@ -185,7 +186,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
   }
 
   protected Map<String, KrakenOrder> getOrders(String... orderIds) throws IOException {
-
+      if (orderIds.length > 20) throw new ExchangeException("Maximum of 20 order IDs exceeded");
       StringBuilder sb = new StringBuilder();
       boolean firstTime = true;
       for (String orderId: orderIds) {
