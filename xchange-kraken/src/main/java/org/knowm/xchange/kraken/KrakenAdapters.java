@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -96,11 +95,12 @@ public class KrakenAdapters {
 
   public static List<Order> adaptOrders(Map<String,KrakenOrder> krakenOrdersMap) {
 
-    return krakenOrdersMap
-            .entrySet()
-            .stream()
-            .map(krakenOrderEntry -> adaptOrder(krakenOrderEntry.getKey(),krakenOrderEntry.getValue()))
-            .collect(Collectors.toList());
+    List<Order> orders = new ArrayList<>();
+    for (Entry<String, KrakenOrder> krakenOrder : krakenOrdersMap.entrySet()){
+      orders.add(adaptOrder(krakenOrder.getKey(), krakenOrder.getValue()));
+    }
+
+    return orders;
 
   }
 
