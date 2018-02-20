@@ -276,6 +276,42 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     this.counter = counter;
   }
 
+  public static CurrencyPair parse(String currencyPairIn){
+    CurrencyPair pair = null;
+    if (currencyPairIn.length() == 6) {
+      Currency base = Currency.getInstance(currencyPairIn.substring(0, 3));
+      if (base.getCommonlyUsedCurrency() != null) {
+        base = base.getCommonlyUsedCurrency();
+      }
+      Currency counter = Currency.getInstance(currencyPairIn.substring(3, 6));
+      if (counter.getCommonlyUsedCurrency() != null) {
+        counter = counter.getCommonlyUsedCurrency();
+      }
+      pair = new CurrencyPair(base, counter);
+    } else if (currencyPairIn.length() == 7) {
+      Currency base = Currency.getInstance(currencyPairIn.substring(0, 4));
+      if (base.getCommonlyUsedCurrency() != null) {
+        base = base.getCommonlyUsedCurrency();
+      }
+      Currency counter = Currency.getInstance(currencyPairIn.substring(4, 7));
+      if (counter.getCommonlyUsedCurrency() != null) {
+        counter = counter.getCommonlyUsedCurrency();
+      }
+      pair = new CurrencyPair(base, counter);
+    } else if (currencyPairIn.length() == 8){
+      Currency base = Currency.getInstance(currencyPairIn.substring(0, 4));
+      if (base.getCommonlyUsedCurrency() != null) {
+        base = base.getCommonlyUsedCurrency();
+      }
+      Currency counter = Currency.getInstance(currencyPairIn.substring(4, 8));
+      if (counter.getCommonlyUsedCurrency() != null) {
+        counter = counter.getCommonlyUsedCurrency();
+      }
+      pair = new CurrencyPair(base, counter);
+    }
+    return pair;
+  }
+
   /**
    * <p>
    * String constructor
