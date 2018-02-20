@@ -1,6 +1,7 @@
 package org.knowm.xchange.binance.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.binance.dto.marketdata.BinanceAggTrades;
 import org.knowm.xchange.binance.dto.marketdata.BinanceOrderbook;
+import org.knowm.xchange.binance.dto.marketdata.BinanceTicker24h;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.marketdata.OrderBook;
@@ -45,6 +47,20 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw implem
     List<LimitOrder> bids = ob.bids.entrySet().stream().map(e -> new LimitOrder(OrderType.BID, e.getValue(), pair, null, null, e.getKey())).collect(Collectors.toList());
     List<LimitOrder> asks = ob.asks.entrySet().stream().map(e -> new LimitOrder(OrderType.ASK, e.getValue(), pair, null, null, e.getKey())).collect(Collectors.toList());
     return new OrderBook(null, asks, bids);
+  }
+
+  @Override
+  public List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException {
+    List<Ticker> tickers = new ArrayList<>();
+    for (BinanceTicker24h binanceTicker24h : ticker24h()){
+      Ticker adapted = binanceTicker24h.toTicker();
+      for (CurrencyPair currencyPair : currencyPairs){
+        if (adapted.getCurrencyPair().equals(currencyPair)){
+          tickers.add(adapted);
+        }
+      }
+    }
+    return tickers;
   }
 
   @Override

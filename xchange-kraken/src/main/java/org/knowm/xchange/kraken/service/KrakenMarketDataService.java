@@ -1,6 +1,7 @@
 package org.knowm.xchange.kraken.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -32,6 +33,11 @@ public class KrakenMarketDataService extends KrakenMarketDataServiceRaw implemen
   }
 
   @Override
+  public List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException {
+    return KrakenAdapters.adaptTickers(getKrakenTicker(currencyPairs));
+  }
+
+  @Override
   public OrderBook getOrderBook(CurrencyPair currencyPair, Object... args) throws IOException {
 
     long count = Long.MAX_VALUE;
@@ -51,6 +57,8 @@ public class KrakenMarketDataService extends KrakenMarketDataServiceRaw implemen
 
     return KrakenAdapters.adaptOrderBook(krakenDepth, currencyPair);
   }
+
+
 
   @Override
   public Trades getTrades(CurrencyPair currencyPair, Object... args) throws IOException {

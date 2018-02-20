@@ -160,6 +160,14 @@ public class KrakenAdapters {
     return new LimitOrder(orderType, volume, currencyPair, "", timeStamp, order.getPrice());
   }
 
+  public static List<Ticker> adaptTickers(Map<String, KrakenTicker> tickerMap){
+    List<Ticker> tickers = new ArrayList<>();
+    for (Entry<String, KrakenTicker> entries : tickerMap.entrySet()){
+      tickers.add(adaptTicker(entries.getValue(), KrakenUtils.translateKrakenCurrencyPair(entries.getKey())));
+    }
+    return tickers;
+  }
+
   public static Ticker adaptTicker(KrakenTicker krakenTicker, CurrencyPair currencyPair) {
 
     Ticker.Builder builder = new Ticker.Builder();

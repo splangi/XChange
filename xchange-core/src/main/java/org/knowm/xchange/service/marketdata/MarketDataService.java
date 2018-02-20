@@ -1,6 +1,9 @@
 package org.knowm.xchange.service.marketdata;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -39,6 +42,11 @@ public interface MarketDataService extends BaseService {
    */
   Ticker getTicker(CurrencyPair currencyPair,
       Object... args) throws IOException;
+
+
+  default List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException{
+    throw new NotYetImplementedForExchangeException("not implemented yet");
+  }
 
   /**
    * <p>
