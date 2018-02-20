@@ -280,33 +280,26 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     CurrencyPair pair = null;
     if (currencyPairIn.length() == 6) {
       Currency base = Currency.getInstance(currencyPairIn.substring(0, 3));
-      if (base.getCommonlyUsedCurrency() != null) {
-        base = base.getCommonlyUsedCurrency();
-      }
       Currency counter = Currency.getInstance(currencyPairIn.substring(3, 6));
-      if (counter.getCommonlyUsedCurrency() != null) {
-        counter = counter.getCommonlyUsedCurrency();
-      }
       pair = new CurrencyPair(base, counter);
     } else if (currencyPairIn.length() == 7) {
-      Currency base = Currency.getInstance(currencyPairIn.substring(0, 4));
-      if (base.getCommonlyUsedCurrency() != null) {
-        base = base.getCommonlyUsedCurrency();
-      }
-      Currency counter = Currency.getInstance(currencyPairIn.substring(4, 7));
-      if (counter.getCommonlyUsedCurrency() != null) {
-        counter = counter.getCommonlyUsedCurrency();
-      }
+        Currency base;
+        Currency counter;
+        if (Currency.getInstanceNoCreate(currencyPairIn.substring(0 ,4)) != null){
+            base = Currency.getInstance(currencyPairIn.substring(0, 4));
+            counter = Currency.getInstance(currencyPairIn.substring(4, 7));
+        } else if (Currency.getInstanceNoCreate(currencyPairIn.substring(0 ,3)) != null){
+            base = Currency.getInstance(currencyPairIn.substring(0, 3));
+            counter = Currency.getInstance(currencyPairIn.substring(3, 7));
+        } else{
+            //Revert back to first option
+            base = Currency.getInstance(currencyPairIn.substring(0, 4));
+            counter = Currency.getInstance(currencyPairIn.substring(4, 7));
+        }
       pair = new CurrencyPair(base, counter);
     } else if (currencyPairIn.length() == 8){
       Currency base = Currency.getInstance(currencyPairIn.substring(0, 4));
-      if (base.getCommonlyUsedCurrency() != null) {
-        base = base.getCommonlyUsedCurrency();
-      }
       Currency counter = Currency.getInstance(currencyPairIn.substring(4, 8));
-      if (counter.getCommonlyUsedCurrency() != null) {
-        counter = counter.getCommonlyUsedCurrency();
-      }
       pair = new CurrencyPair(base, counter);
     }
     return pair;
