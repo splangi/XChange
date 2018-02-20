@@ -53,7 +53,9 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw implem
   public List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException {
     List<Ticker> tickers = new ArrayList<>();
     for (BinanceTicker24h binanceTicker24h : ticker24h()){
-        if (binanceTicker24h.getCurrencyPair() != null){
+        CurrencyPair pair = CurrencyPair.parse(binanceTicker24h.getSymbol(), exchange.getExchangeSymbols());
+        if (pair != null){
+            binanceTicker24h.setCurrencyPair(pair);
             Ticker adapted = binanceTicker24h.toTicker();
             for (CurrencyPair currencyPair : currencyPairs){
                 if (adapted.getCurrencyPair().equals(currencyPair)){

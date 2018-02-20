@@ -80,7 +80,6 @@ public final class BinanceTicker24h {
     this.lastId = lastId;
     this.count = count;
     this.symbol = symbol;
-    this.pair = CurrencyPair.parse(symbol);
   }
 
   public String getSymbol() {

@@ -33,7 +33,7 @@ public class MarketDataServiceIntegration {
 
   @Before
   public void before() {
-    Assume.assumeNotNull(exchange.getExchangeSpecification().getApiKey());
+//    Assume.assumeNotNull(exchange.getExchangeSpecification().getApiKey());
   }
 
   @Test

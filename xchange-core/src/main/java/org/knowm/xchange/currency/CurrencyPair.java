@@ -1,6 +1,7 @@
 package org.knowm.xchange.currency;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -276,23 +277,25 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     this.counter = counter;
   }
 
-  public static CurrencyPair parse(String currencyPairIn){
-    Currency base;
-    Currency counter;
-    int i = 1;
-    int j = currencyPairIn.length() - 2;
-    while (i <= j){
-      base = Currency.getInstanceNoCreate(currencyPairIn.substring(0, i));
-      counter = Currency.getInstanceNoCreate(currencyPairIn.substring(j, currencyPairIn.length() - 1));
-      if (base != null && counter != null){
-        return new CurrencyPair(base, counter);
-      } else if (base != null){
-        return new CurrencyPair(base, Currency.getInstance(currencyPairIn.substring(j, currencyPairIn.length() - 1)));
-      } else if (counter != null){
-        return new CurrencyPair(Currency.getInstance(currencyPairIn.substring(0, i)), counter);
+  public static CurrencyPair parse(String currencyPairIn, List<CurrencyPair> exchangePairs){
+    for (CurrencyPair currencyPair : exchangePairs){
+      boolean baseIn = false;
+      boolean counterIn = false;
+      for (String base : currencyPair.base.getCurrencyCodes()){
+        if (currencyPairIn.contains(base)){
+          baseIn = true;
+          break;
+        }
       }
-      i++;
-      j--;
+      for (String counter : currencyPair.counter.getCurrencyCodes()){
+        if (currencyPairIn.contains(counter)){
+          counterIn = true;
+          break;
+        }
+      }
+      if (baseIn && counterIn){
+        return currencyPair;
+      }
     }
     return null;
   }
