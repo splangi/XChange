@@ -284,6 +284,10 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
 
+  public static final Currency CMT = createCurrency("CMT", "CyberMiles", null);
+  public static final Currency RDN = createCurrency("RDN", "Raiden Network Token", null);
+  public static final Currency RPX = createCurrency("RPX", "Red Pulse", null);
+
   /**
    * Gets the set of available currencies.
    */
