@@ -1,9 +1,11 @@
 package org.knowm.xchange.service.marketdata;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.*;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -45,7 +47,28 @@ public interface MarketDataService extends BaseService {
 
 
   default List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException{
-    throw new NotYetImplementedForExchangeException("not implemented yet");
+    ExecutorService es = Executors.newCachedThreadPool();
+    List<Future<Ticker>> callableList = new ArrayList<>();
+    for (CurrencyPair currencyPair : currencyPairs){
+      Callable<Ticker> callable = new Callable<Ticker>() {
+        @Override
+        public Ticker call() throws Exception {
+          return getTicker(currencyPair, (Object[]) null);
+        }
+      };
+      callableList.add(es.submit(callable));
+    }
+    es.shutdown();
+    try {
+      es.awaitTermination(60, TimeUnit.SECONDS);
+      List<Ticker> tickers = new ArrayList<>();
+      for (Future<Ticker> future : callableList){
+        tickers.add(future.get());
+      }
+      return tickers;
+    } catch (InterruptedException | ExecutionException e) {
+      throw new IOException(e);
+    }
   }
 
   /**

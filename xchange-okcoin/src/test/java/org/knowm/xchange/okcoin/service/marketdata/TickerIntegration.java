@@ -23,7 +23,7 @@ public class TickerIntegration {
 
     Exchange exchange = ExchangeFactory.INSTANCE.createExchange(exSpec);
     MarketDataService marketDataService = exchange.getMarketDataService();
-    Ticker ticker = marketDataService.getTicker(new CurrencyPair("BTC", "CNY"));
+    Ticker ticker = marketDataService.getTicker(new CurrencyPair("BTC", "USDT"));
     System.out.println(ticker.toString());
     assertThat(ticker).isNotNull();
   }
@@ -35,7 +35,7 @@ public class TickerIntegration {
 
     Exchange exchange = ExchangeFactory.INSTANCE.createExchange(exSpec);
     MarketDataService marketDataService = exchange.getMarketDataService();
-    Ticker ticker = marketDataService.getTicker(new CurrencyPair("BTC", "USD"));
+    Ticker ticker = marketDataService.getTicker(new CurrencyPair("BTC", "USDT"));
     System.out.println(ticker.toString());
     assertThat(ticker).isNotNull();
   }
