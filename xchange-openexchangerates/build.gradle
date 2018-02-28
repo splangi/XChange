@@ -1,0 +1,5 @@
+
+description = 'XChange Open Exchange Rates'
+dependencies {
+  compile project(':xchange-core')
+}

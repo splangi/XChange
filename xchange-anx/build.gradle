@@ -1,0 +1,5 @@
+
+description = 'XChange ANX'
+dependencies {
+  compile project(':xchange-core')
+}

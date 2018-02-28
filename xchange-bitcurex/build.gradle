@@ -1,0 +1,5 @@
+
+description = 'XChange Bitcurex'
+dependencies {
+  compile project(':xchange-core')
+}

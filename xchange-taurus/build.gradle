@@ -1,0 +1,5 @@
+
+description = 'XChange taurus'
+dependencies {
+  compile project(':xchange-core')
+}

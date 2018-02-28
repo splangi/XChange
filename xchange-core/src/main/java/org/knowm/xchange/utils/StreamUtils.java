@@ -9,7 +9,7 @@ public final class StreamUtils {
     private StreamUtils () {
     }
     
-    public static <T> Collector<T, ?, T> singletonCollector() {
+    /*public static <T> Collector<T, ?, T> singletonCollector() {
         return Collectors.collectingAndThen(
                 Collectors.toList(),
                 list -> {
@@ -19,5 +19,5 @@ public final class StreamUtils {
                     return list.size() > 0 ? list.get(0) : null;
                 }
         );
-    }
+    }*/
 }

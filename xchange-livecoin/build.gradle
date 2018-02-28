@@ -1,0 +1,5 @@
+
+description = 'XChange Livecoin'
+dependencies {
+  compile project(':xchange-core')
+}

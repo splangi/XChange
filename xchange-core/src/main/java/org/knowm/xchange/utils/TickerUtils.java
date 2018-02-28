@@ -1,6 +1,7 @@
 package org.knowm.xchange.utils;
 
-import com.sun.tools.sjavac.Log;
+import android.util.Log;
+
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
 import org.knowm.xchange.service.marketdata.MarketDataService;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
+
 
 public class TickerUtils {
 
@@ -33,7 +35,7 @@ public class TickerUtils {
                 try{
                     tickers.add(future.get());
                 } catch (ExecutionException e){
-                    Log.error("Failed to get currencypair: " + e.getMessage());
+                    Log.e(TickerUtils.class.getSimpleName(), "Failed to get currencypair", e);
                 }
 
             }
