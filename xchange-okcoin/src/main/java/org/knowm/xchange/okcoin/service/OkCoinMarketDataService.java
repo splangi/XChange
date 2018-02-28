@@ -13,6 +13,7 @@ import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.okcoin.OkCoinAdapters;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinTrade;
 import org.knowm.xchange.service.marketdata.MarketDataService;
+import org.knowm.xchange.utils.TickerUtils;
 
 public class OkCoinMarketDataService extends OkCoinMarketDataServiceRaw implements MarketDataService {
 
@@ -34,6 +35,11 @@ public class OkCoinMarketDataService extends OkCoinMarketDataServiceRaw implemen
   @Override
   public OrderBook getOrderBook(CurrencyPair currencyPair, Object... args) throws IOException {
     return OkCoinAdapters.adaptOrderBook(getDepth(currencyPair), currencyPair);
+  }
+
+  @Override
+  public List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException {
+    return TickerUtils.getTickers(this, currencyPairs);
   }
 
   @Override

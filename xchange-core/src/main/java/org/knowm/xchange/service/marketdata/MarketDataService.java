@@ -47,28 +47,7 @@ public interface MarketDataService extends BaseService {
 
 
   default List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException{
-    ExecutorService es = Executors.newCachedThreadPool();
-    List<Future<Ticker>> callableList = new ArrayList<>();
-    for (CurrencyPair currencyPair : currencyPairs){
-      Callable<Ticker> callable = new Callable<Ticker>() {
-        @Override
-        public Ticker call() throws Exception {
-          return getTicker(currencyPair, (Object[]) null);
-        }
-      };
-      callableList.add(es.submit(callable));
-    }
-    es.shutdown();
-    try {
-      es.awaitTermination(60, TimeUnit.SECONDS);
-      List<Ticker> tickers = new ArrayList<>();
-      for (Future<Ticker> future : callableList){
-        tickers.add(future.get());
-      }
-      return tickers;
-    } catch (InterruptedException | ExecutionException e) {
-      throw new IOException(e);
-    }
+    throw new NotYetImplementedForExchangeException("Not implemented");
   }
 
   /**

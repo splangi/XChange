@@ -34,6 +34,9 @@ public class OkCoinMarketDataServiceRaw extends OkCoinBaseService {
     return okCoin.getTicker("1", OkCoinAdapters.adaptSymbol(currencyPair));
   }
 
+
+
+
   public OkCoinTickerResponse getFuturesTicker(CurrencyPair currencyPair, FuturesContract prompt) throws IOException {
 
     return okCoin.getFuturesTicker(OkCoinAdapters.adaptSymbol(currencyPair), prompt.getName());
