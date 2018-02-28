@@ -113,7 +113,7 @@ public class OkCoinExchange extends BaseExchange {
     exchangeSpecification.setExchangeDescription("OKCoin is a globally oriented crypto-currency trading platform.");
 
     // set to true to automatically use the Intl_ parameters for ssluri and host
-    exchangeSpecification.setExchangeSpecificParametersItem("Use_Intl", false);
+    exchangeSpecification.setExchangeSpecificParametersItem("Use_Intl", true);
     exchangeSpecification.setExchangeSpecificParametersItem("Use_Futures", false);
 
     return exchangeSpecification;
