@@ -39,15 +39,16 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw implem
       Object arg0 = args[0];
       if (!(arg0 instanceof Integer)) {
         throw new ExchangeException("Argument 0 must be an Integer!");
-      }
-      else {
+      } else {
         limitDepth = (Integer) arg0;
       }
 
     }
     BinanceOrderbook ob = getBinanceOrderbook(pair, limitDepth);
-    List<LimitOrder> bids = StreamSupport.stream(ob.bids.entrySet()).map(e -> new LimitOrder(OrderType.BID, e.getValue(), pair, null, null, e.getKey())).collect(Collectors.toList());
-    List<LimitOrder> asks = StreamSupport.stream(ob.asks.entrySet()).map(e -> new LimitOrder(OrderType.ASK, e.getValue(), pair, null, null, e.getKey())).collect(Collectors.toList());
+    List<LimitOrder> bids = StreamSupport.stream(ob.bids.entrySet()).map(e -> new LimitOrder(OrderType.BID, e.getValue(), pair, null, null, e.getKey()))
+                                   .collect(Collectors.toList());
+    List<LimitOrder> asks = StreamSupport.stream(ob.asks.entrySet()).map(e -> new LimitOrder(OrderType.ASK, e.getValue(), pair, null, null, e.getKey()))
+                                   .collect(Collectors.toList());
     return new OrderBook(null, asks, bids);
   }
 
@@ -77,7 +78,6 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw implem
 
   /**
    * optional parameters provided in the args array:
-   * <p>
    * <ul>
    * <li>0: Long fromId optional, ID to get aggregate trades from INCLUSIVE.
    * <li>1: Long startTime optional, Timestamp in ms to get aggregate trades from INCLUSIVE.
@@ -116,8 +116,9 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw implem
     }
 
     List<BinanceAggTrades> aggTrades = binance.aggTrades(BinanceAdapters.toSymbol(pair), fromId, startTime, endTime, limit);
-    List<Trade> trades = StreamSupport.stream(aggTrades).map(at -> new Trade(BinanceAdapters.convertType(at.buyerMaker), at.quantity, pair, at.price, at.getTimestamp(), Long.toString(at.aggregateTradeId)))
-        .collect(Collectors.toList());
+    List<Trade> trades = StreamSupport.stream(aggTrades).map(
+        at -> new Trade(BinanceAdapters.convertType(at.buyerMaker), at.quantity, pair, at.price, at.getTimestamp(),
+            Long.toString(at.aggregateTradeId))).collect(Collectors.toList());
     return new Trades(trades, TradeSortType.SortByTimestamp);
   }
 

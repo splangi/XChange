@@ -61,9 +61,7 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
   }
 
   public BinancePrice tickerPrice(CurrencyPair pair) throws IOException {
-    return StreamSupport.stream(tickerAllPrices())
-    .filter(p -> p.getCurrencyPair().equals(pair))
-    .collect(StreamUtils.singletonCollector());
+    return StreamSupport.stream(tickerAllPrices()).filter(p -> p.getCurrencyPair().equals(pair)).collect(StreamUtils.singletonCollector());
   }
 
   public List<BinancePrice> tickerAllPrices() throws IOException {

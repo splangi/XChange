@@ -1,6 +1,7 @@
 package org.knowm.xchange.dto.trade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public final class OpenOrders implements Serializable {
   /**
    * Constructor
    *
-   * @param openOrders The list of open orders
+   * @param openOrders   The list of open orders
    * @param hiddenOrders The list of orders which are active but hidden from the order book.
    */
   public OpenOrders(List<LimitOrder> openOrders, List<Order> hiddenOrders) {
@@ -41,10 +42,19 @@ public final class OpenOrders implements Serializable {
   }
 
   /**
-   * @return Orders which are shown on the order book.
+   * @return LimitOrders which are shown on the order book.
    */
   public List<LimitOrder> getOpenOrders() {
     return openOrders;
+  }
+
+  /**
+   * @return All Orders which are shown on the order book.
+   */
+  public List<Order> getAllOpenOrders() {
+    List<Order> allOpenOrders = new ArrayList<>(openOrders);
+    allOpenOrders.addAll(hiddenOrders);
+    return allOpenOrders;
   }
 
   /**

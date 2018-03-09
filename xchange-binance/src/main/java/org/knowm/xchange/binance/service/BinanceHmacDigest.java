@@ -1,5 +1,7 @@
 package org.knowm.xchange.binance.service;
 
+import static org.knowm.xchange.utils.DigestUtils.bytesToHex;
+
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 
@@ -14,8 +16,6 @@ import org.slf4j.LoggerFactory;
 import java8.util.stream.StreamSupport;
 import si.mazi.rescu.Params;
 import si.mazi.rescu.RestInvocation;
-
-import static org.knowm.xchange.utils.DigestUtils.bytesToHex;
 
 public class BinanceHmacDigest extends BaseParamsDigest {
 
@@ -36,6 +36,16 @@ public class BinanceHmacDigest extends BaseParamsDigest {
 
   public static BinanceHmacDigest createInstance(String secretKeyBase64) {
     return secretKeyBase64 == null ? null : new BinanceHmacDigest(secretKeyBase64);
+  }
+
+  /**
+   * @return the query string except of the "signature" parameter
+   */
+  private static String getQuery(RestInvocation restInvocation) {
+    final Params p = Params.of();
+    restInvocation.getParamsMap().get(QueryParam.class).asHttpHeaders().entrySet().stream()
+                  .filter(e -> !BinanceAuthenticated.SIGNATURE.equals(e.getKey())).forEach(e -> p.add(e.getKey(), e.getValue()));
+    return p.asQueryString();
   }
 
   @Override
@@ -91,10 +101,5 @@ public class BinanceHmacDigest extends BaseParamsDigest {
   /**
    * @return the query string except of the "signature" parameter
    */
-  private static String getQuery(RestInvocation restInvocation) {
-    final Params p = Params.of();
-    StreamSupport.stream(restInvocation.getParamsMap().get(QueryParam.class).asHttpHeaders().entrySet())
-        .filter(e -> !BinanceAuthenticated.SIGNATURE.equals(e.getKey())).forEach(e -> p.add(e.getKey(), e.getValue()));
-    return p.asQueryString();
-  }
+
 }
