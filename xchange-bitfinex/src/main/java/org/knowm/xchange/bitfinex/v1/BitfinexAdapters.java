@@ -46,6 +46,10 @@ import org.knowm.xchange.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.transform.stream.StreamSource;
+
+import java8.util.stream.StreamSupport;
+
 public final class BitfinexAdapters {
 
   public static final Logger log = LoggerFactory.getLogger(BitfinexAdapters.class);
@@ -336,7 +340,7 @@ public final class BitfinexAdapters {
    */
   public static ExchangeMetaData adaptMetaData(ExchangeMetaData exchangeMetaData, List<BitfinexSymbolDetail> symbolDetails) {
     final Map<CurrencyPair, CurrencyPairMetaData> currencyPairs = exchangeMetaData.getCurrencyPairs();
-    symbolDetails.parallelStream()
+    StreamSupport.parallelStream(symbolDetails)
         .forEach(bitfinexSymbolDetail -> {
               final CurrencyPair currencyPair = adaptCurrencyPair(bitfinexSymbolDetail.getPair());
               if (currencyPairs.get(currencyPair) == null) {
@@ -357,7 +361,9 @@ public final class BitfinexAdapters {
   public static ExchangeMetaData adaptMetaData(BitfinexAccountFeesResponse accountFeesResponse, ExchangeMetaData metaData) {
     Map<Currency, CurrencyMetaData> currencies = metaData.getCurrencies();
     final Map<Currency, BigDecimal> withdrawFees = accountFeesResponse.getWithdraw();
-    withdrawFees.forEach((currency, withdrawalFee) -> {
+    StreamSupport.stream(withdrawFees.entrySet()).forEach(entry -> {
+      Currency currency = entry.getKey();
+      BigDecimal withdrawalFee = entry.getValue();
       if (currencies.get(currency) == null) {
         CurrencyMetaData currencyMetaData = new CurrencyMetaData(0, withdrawalFee);
         currencies.put(currency, currencyMetaData);
@@ -376,7 +382,7 @@ public final class BitfinexAdapters {
     // lets go with the assumption that the trading fees are common across all trading pairs for now.
     // also setting the taker_fee as the trading_fee for now.
     final CurrencyPairMetaData metaData = new CurrencyPairMetaData(bitfinexAccountInfos[0].getTakerFees(), null, null, null);
-    currencyPairs.keySet().parallelStream()
+    StreamSupport.parallelStream(currencyPairs.keySet())
         .forEach(currencyPair -> currencyPairs.merge(currencyPair, metaData,
             (oldMetaData, newMetaData) -> new CurrencyPairMetaData(newMetaData.getTradingFee(), oldMetaData.getMinimumAmount(), oldMetaData.getMaximumAmount(),
                 oldMetaData.getPriceScale()))

@@ -21,6 +21,7 @@ javadoc/
 bin/
 log/
 classes/
+build/
 META-INF/
 
 # Misc.

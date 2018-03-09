@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.dto.account.BinanceAccountInformation;
@@ -38,7 +39,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
   public AccountInfo getAccountInfo() throws IOException {
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     BinanceAccountInformation acc = super.account(recvWindow, getTimestamp());
-    List<Balance> balances = acc.balances.stream().map(b -> new Balance(b.getCurrency(), b.getTotal(), b.getAvailable()))
+    List<Balance> balances = StreamSupport.stream(acc.balances).map(b -> new Balance(b.getCurrency(), b.getTotal(), b.getAvailable()))
         .collect(Collectors.toList());
     return new AccountInfo(new Wallet(balances));
   }
@@ -113,14 +114,14 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
 
     List<FundingRecord> result = new ArrayList<>();
     if (withdrawals) {
-      super.withdrawHistory(asset, startTime, endTime, recvWindow, getTimestamp()).forEach(w -> {
+      StreamSupport.stream(super.withdrawHistory(asset, startTime, endTime, recvWindow, getTimestamp())).forEach(w -> {
         result.add(new FundingRecord(w.address, new Date(w.applyTime), Currency.getInstance(w.asset), w.amount, w.id, w.txId, Type.WITHDRAWAL,
             withdrawStatus(w.status), null, null, null));
       });
     }
 
     if (deposits) {
-      super.depositHistory(asset, startTime, endTime, recvWindow, getTimestamp()).forEach(d -> {
+      StreamSupport.stream(super.depositHistory(asset, startTime, endTime, recvWindow, getTimestamp())).forEach(d -> {
         result.add(new FundingRecord(d.address, new Date(d.insertTime), Currency.getInstance(d.asset), d.amount, null, d.txId, Type.DEPOSIT,
             depositStatus(d.status), null, null, null));
       });

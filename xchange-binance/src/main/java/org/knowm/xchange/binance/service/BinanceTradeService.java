@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.BinanceAdapters;
@@ -34,6 +34,8 @@ import org.knowm.xchange.service.trade.params.orders.OpenOrdersParamCurrencyPair
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.utils.Assert;
 
+import java8.util.stream.StreamSupport;
+
 public class BinanceTradeService extends BinanceTradeServiceRaw implements TradeService {
 
   public BinanceTradeService(Exchange exchange) {
@@ -56,7 +58,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     CurrencyPair pair = pairParams.getCurrencyPair();
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     List<BinanceOrder> binanceOpenOrders = super.openOrders(pair, recvWindow, getTimestamp());
-    List<LimitOrder> openOrders = binanceOpenOrders.stream().map(o -> 
+    List<LimitOrder> openOrders = StreamSupport.stream(binanceOpenOrders).map(o ->
     new LimitOrder.Builder(BinanceAdapters.convert(o.side), pair)
       .id(Long.toString(o.orderId))
       .originalAmount(o.origQty)
@@ -140,7 +142,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
 
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     List<BinanceTrade> binanceTrades = super.myTrades(pair, limit, fromId, recvWindow, getTimestamp());
-    List<UserTrade> trades = binanceTrades.stream()
+    List<UserTrade> trades = StreamSupport.stream(binanceTrades)
         .map(t -> new UserTrade(BinanceAdapters.convertType(t.isBuyer), t.qty, pair, t.price, t.getTime()
             , Long.toString(t.id), Long.toString(t.orderId), t.commission, Currency.getInstance(t.commissionAsset)))
         .collect(Collectors.toList());

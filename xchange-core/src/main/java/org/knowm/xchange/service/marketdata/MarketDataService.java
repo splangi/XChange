@@ -1,5 +1,7 @@
 package org.knowm.xchange.service.marketdata;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,7 +49,36 @@ public interface MarketDataService extends BaseService {
 
 
   default List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException{
-    throw new NotYetImplementedForExchangeException("Not implemented");
+    ExecutorService es = Executors.newCachedThreadPool();
+    List<Future<Ticker>> callableList = new ArrayList<>();
+    for (CurrencyPair currencyPair : currencyPairs){
+      try {
+        synchronized (this){
+          wait(101);
+        }
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      } finally {
+        Callable<Ticker> callable = () -> getTicker(currencyPair, (Object[]) null);
+        callableList.add(es.submit(callable));
+      }
+    }
+    es.shutdown();
+    try {
+      es.awaitTermination(Math.max(currencyPairs.length, 60), TimeUnit.SECONDS);
+      List<Ticker> tickers = new ArrayList<>();
+      for (Future<Ticker> future : callableList){
+        try{
+          tickers.add(future.get());
+        } catch (ExecutionException e){
+          Log.e(MarketDataService.class.getSimpleName(), "Failed to get currencypair", e);
+        }
+
+      }
+      return tickers;
+    } catch (InterruptedException e) {
+      throw new IOException(e);
+    }
   }
 
   /**

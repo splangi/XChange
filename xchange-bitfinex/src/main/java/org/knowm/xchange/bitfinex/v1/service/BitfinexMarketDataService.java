@@ -19,7 +19,6 @@ import org.knowm.xchange.dto.trade.FixedRateLoanOrder;
 import org.knowm.xchange.dto.trade.FloatingRateLoanOrder;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.service.marketdata.MarketDataService;
-import org.knowm.xchange.utils.TickerUtils;
 
 /**
  * <p>
@@ -47,10 +46,6 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw impl
     return BitfinexAdapters.adaptTicker(getBitfinexTicker(BitfinexUtils.toPairString(currencyPair)), currencyPair);
   }
 
-  @Override
-  public List<Ticker> getTickers(CurrencyPair... currencyPairs) throws IOException {
-    return TickerUtils.getTickers(this, currencyPairs);
-  }
 
   /**
    * @param args If two integers are provided, then those count as limit bid and limit ask count
