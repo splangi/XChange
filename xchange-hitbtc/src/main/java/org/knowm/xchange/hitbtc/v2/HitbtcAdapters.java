@@ -1,14 +1,5 @@
 package org.knowm.xchange.hitbtc.v2;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -39,6 +30,17 @@ import org.knowm.xchange.hitbtc.v2.dto.HitbtcTicker;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcTrade;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcTransaction;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import java8.util.stream.StreamSupport;
+
 public class HitbtcAdapters {
 
   /**
@@ -47,7 +49,7 @@ public class HitbtcAdapters {
   private static final Set<String> counters = new HashSet<>(Arrays.asList("USD", "EUR", "BTC", "ETH", "USDT"));
 
   public static CurrencyPair adaptSymbol(String symbol) {
-    String counter = counters.stream().filter(cnt -> symbol.endsWith(cnt)).findAny()
+    String counter = StreamSupport.stream(counters).filter(cnt -> symbol.endsWith(cnt)).findAny()
                              .orElseThrow(() -> new RuntimeException("Not supported HitBTC symbol: " + symbol));
     String base = symbol.substring(0, symbol.length() - counter.length());
     return new CurrencyPair(base, counter);
@@ -67,8 +69,10 @@ public class HitbtcAdapters {
     BigDecimal last = hitbtcTicker.getLast();
     BigDecimal volume = hitbtcTicker.getVolume();
     Date timestamp = hitbtcTicker.getTimestamp();
+    BigDecimal open = hitbtcTicker.getOpen();
+    BigDecimal quoteVol = hitbtcTicker.getVolumeQuote();
 
-    return new Ticker.Builder().currencyPair(currencyPair).last(last).bid(bid).ask(ask).high(high).low(low).volume(volume).timestamp(timestamp)
+    return new Ticker.Builder().currencyPair(currencyPair).open(open).quoteVolume(quoteVol).last(last).bid(bid).ask(ask).high(high).low(low).volume(volume).timestamp(timestamp)
                                .build();
   }
 
