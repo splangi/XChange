@@ -1,0 +1,9 @@
+
+apply from: '../xchange-build.gradle'
+
+description = 'XChange Binance'
+
+
+dependencies {
+  implementation project(':xchange-core')
+}

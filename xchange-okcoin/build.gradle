@@ -1,0 +1,5 @@
+apply from: '../xchange-build.gradle'
+description = 'XChange OKCoin'
+dependencies {
+  implementation project(':xchange-core')
+}

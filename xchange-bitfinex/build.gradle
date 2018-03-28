@@ -1,0 +1,5 @@
+apply from: '../xchange-build.gradle'
+description = 'XChange BitFinex'
+dependencies {
+  implementation project(':xchange-core')
+}

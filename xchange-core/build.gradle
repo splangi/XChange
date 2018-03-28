@@ -1,0 +1,10 @@
+apply from : '../xchange-build.gradle'
+
+description = 'XChange Core'
+
+dependencies {
+    implementation group: 'com.github.mmazi', name: 'rescu', version:'2.0.1'
+    implementation group: 'commons-io', name: 'commons-io', version:'2.6'
+    testImplementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.7'
+}
+
