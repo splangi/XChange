@@ -1,5 +1,13 @@
 package org.knowm.xchange.bitfinex.v1;
 
+import org.knowm.xchange.bitfinex.v1.dto.BitfinexException;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexDepth;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexLend;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexLendDepth;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexSymbolDetail;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexTicker;
+import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexTrade;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -10,14 +18,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
-import org.knowm.xchange.bitfinex.v1.dto.BitfinexException;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexDepth;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexLend;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexLendDepth;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexSymbolDetail;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexTicker;
-import org.knowm.xchange.bitfinex.v1.dto.marketdata.BitfinexTrade;
 
 @Path("v1")
 @Produces(MediaType.APPLICATION_JSON)
@@ -30,7 +30,7 @@ public interface Bitfinex {
   @GET
   @Path("book/{symbol}")
   BitfinexDepth getBook(@PathParam("symbol") String symbol, @QueryParam("limit_bids") int limit_bids, @QueryParam("limit_asks") int limit_asks)
-      throws IOException, BitfinexException;
+          throws IOException, BitfinexException;
 
   @GET
   @Path("book/{symbol}")

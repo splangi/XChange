@@ -1,14 +1,5 @@
 package org.knowm.xchange.bitfinex.v1;
 
-import java.io.IOException;
-
-import javax.ws.rs.Consumes;
-import javax.ws.rs.HeaderParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.knowm.xchange.bitfinex.v1.dto.BitfinexException;
 import org.knowm.xchange.bitfinex.v1.dto.account.BitfinexAccountFeesResponse;
 import org.knowm.xchange.bitfinex.v1.dto.account.BitfinexBalancesRequest;
@@ -45,6 +36,15 @@ import org.knowm.xchange.bitfinex.v1.dto.trade.BitfinexPastTradesRequest;
 import org.knowm.xchange.bitfinex.v1.dto.trade.BitfinexReplaceOrderRequest;
 import org.knowm.xchange.bitfinex.v1.dto.trade.BitfinexTradeResponse;
 
+import java.io.IOException;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.HeaderParam;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import si.mazi.rescu.ParamsDigest;
 
 @Path("v1")
@@ -70,8 +70,8 @@ public interface BitfinexAuthenticated extends Bitfinex {
   @POST
   @Path("order/new/multi")
   BitfinexNewOrderMultiResponse newOrderMulti(@HeaderParam("X-BFX-APIKEY") String apiKey, @HeaderParam("X-BFX-PAYLOAD") ParamsDigest payload,
-      @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexNewOrderMultiRequest newOrderMultiRequest)
-      throws IOException, BitfinexException;
+                                              @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexNewOrderMultiRequest newOrderMultiRequest)
+          throws IOException, BitfinexException;
 
   @POST
   @Path("offer/new")
@@ -91,8 +91,8 @@ public interface BitfinexAuthenticated extends Bitfinex {
   @POST
   @Path("order/cancel/multi")
   BitfinexCancelOrderMultiResponse cancelOrderMulti(@HeaderParam("X-BFX-APIKEY") String apiKey, @HeaderParam("X-BFX-PAYLOAD") ParamsDigest payload,
-      @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexCancelOrderMultiRequest cancelOrderRequest)
-      throws IOException, BitfinexException;
+                                                    @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexCancelOrderMultiRequest cancelOrderRequest)
+          throws IOException, BitfinexException;
 
   @POST
   @Path("order/cancel/replace")
@@ -112,8 +112,8 @@ public interface BitfinexAuthenticated extends Bitfinex {
   @POST
   @Path("orders/hist")
   BitfinexOrderStatusResponse[] ordersHist(@HeaderParam("X-BFX-APIKEY") String apiKey, @HeaderParam("X-BFX-PAYLOAD") ParamsDigest payload,
-      @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexOrdersHistoryRequest ordersHistoryRequest)
-      throws IOException, BitfinexException;
+                                           @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexOrdersHistoryRequest ordersHistoryRequest)
+          throws IOException, BitfinexException;
 
   @POST
   @Path("offers")
@@ -147,14 +147,14 @@ public interface BitfinexAuthenticated extends Bitfinex {
   @POST
   @Path("mytrades_funding")
   BitfinexFundingTradeResponse[] pastFundingTrades(@HeaderParam("X-BFX-APIKEY") String apiKey, @HeaderParam("X-BFX-PAYLOAD") ParamsDigest payload,
-      @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexPastFundingTradesRequest bitfinexPastFundingTradesRequest)
-      throws IOException, BitfinexException;
+                                                   @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexPastFundingTradesRequest bitfinexPastFundingTradesRequest)
+          throws IOException, BitfinexException;
 
   @POST
   @Path("credits")
   BitfinexCreditResponse[] activeCredits(@HeaderParam("X-BFX-APIKEY") String apiKey, @HeaderParam("X-BFX-PAYLOAD") ParamsDigest payload,
-      @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexActiveCreditsRequest activeCreditsRequest)
-      throws IOException, BitfinexException;
+                                         @HeaderParam("X-BFX-SIGNATURE") ParamsDigest signature, BitfinexActiveCreditsRequest activeCreditsRequest)
+          throws IOException, BitfinexException;
 
   @POST
   @Path("margin_infos")

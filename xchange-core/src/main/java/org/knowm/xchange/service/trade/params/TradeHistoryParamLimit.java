@@ -4,5 +4,5 @@ public interface TradeHistoryParamLimit extends TradeHistoryParams {
 
   Integer getLimit();
 
-  void setLimit(Integer limit);
+    void setLimit(Integer limit);
 }

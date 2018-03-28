@@ -1,13 +1,6 @@
 package org.knowm.xchange.bitfinex.v1;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Test;
 import org.knowm.xchange.bitfinex.v1.dto.account.BitfinexBalancesResponse;
@@ -28,7 +21,14 @@ import org.knowm.xchange.dto.marketdata.Trades;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.OpenOrders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class BitfinexAdaptersTest {
 
@@ -167,8 +167,8 @@ public class BitfinexAdaptersTest {
       BigDecimal originalAmount = new BigDecimal("70");
       BigDecimal remainingAmount = originalAmount.subtract(new BigDecimal(i * 1));
       BigDecimal executedAmount = originalAmount.subtract(remainingAmount);
-      responses[i] = new BitfinexOrderStatusResponse(i, SYMBOL, price, avgExecutionPrice, side, type, timestamp, isLive, isCancelled, wasForced,
-          originalAmount, remainingAmount, executedAmount);
+        responses[i] = new BitfinexOrderStatusResponse(i, SYMBOL, price, avgExecutionPrice, side, type, timestamp, isLive, isCancelled, wasForced,
+                originalAmount, remainingAmount, executedAmount);
     }
 
     return responses;
@@ -239,14 +239,14 @@ public class BitfinexAdaptersTest {
         assertThat(record.getStatus()).isEqualTo(FundingRecord.Status.PROCESSING);
         assertEquals(new BigDecimal("0.01"), record.getAmount());
         assertEquals("jlsd98087sdfkjldsflj432kjlsdf8", record.getAddress());
-        assertEquals(null, record.getBlockchainTransactionHash());
+          assertEquals(null, record.getBlockchainTransactionHash());
         assertEquals(Currency.BTC, record.getCurrency());
       } else {
         assertThat(record.getStatus()).isEqualTo(FundingRecord.Status.COMPLETE);
         assertEquals(new BigDecimal("0.07"), record.getAmount());
         assertEquals("3QXYWgRGX2BPYBpUDBssGbeWEa5zq6snBZ", record.getAddress());
         assertEquals("3QXYWgRGX2BPYBpUDBssGbeWEa5zq6snBZ, txid: offchain transfer", record.getDescription());
-        assertEquals("offchain transfer", record.getBlockchainTransactionHash());
+          assertEquals("offchain transfer", record.getBlockchainTransactionHash());
         assertEquals(Currency.BTC, record.getCurrency());
       }
     }

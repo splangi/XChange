@@ -3,5 +3,5 @@ description = 'XChange Kraken'
 apply from: '../xchange-build.gradle'
 
 dependencies{
-    compile project(":xchange-core")
+    implementation project(":xchange-core")
 }

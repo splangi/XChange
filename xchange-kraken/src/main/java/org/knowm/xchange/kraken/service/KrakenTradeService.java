@@ -1,8 +1,5 @@
 package org.knowm.xchange.kraken.service;
 
-import java.io.IOException;
-import java.util.Collection;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.LimitOrder;
@@ -22,6 +19,9 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.utils.DateUtils;
+
+import java.io.IOException;
+import java.util.Collection;
 
 public class KrakenTradeService extends KrakenTradeServiceRaw implements TradeService {
 
@@ -116,11 +116,11 @@ public class KrakenTradeService extends KrakenTradeServiceRaw implements TradeSe
     return null;
   }
 
-  @Override
-  public Collection<Order> getOrder(String... orderIds) throws IOException {
+    @Override
+    public Collection<Order> getOrder(String... orderIds) throws IOException {
 
-    return KrakenAdapters.adaptOrders(super.getOrders(orderIds));
-  }
+        return KrakenAdapters.adaptOrders(super.getOrders(orderIds));
+    }
 
   public static class KrakenTradeHistoryParams extends DefaultTradeHistoryParamsTimeSpan implements TradeHistoryParamOffset {
 
@@ -131,10 +131,10 @@ public class KrakenTradeService extends KrakenTradeServiceRaw implements TradeSe
       return offset;
     }
 
-    @Override
-    public void setOffset(Long offset) {
-      this.offset = offset;
-    }
+      @Override
+      public void setOffset(Long offset) {
+          this.offset = offset;
+      }
   }
 
 }

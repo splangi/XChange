@@ -127,9 +127,9 @@ public class CertHelper {
         }
 
         if (filtered.isEmpty())
-          throw new IOException(
-              "No supported SSL attributed enabled.  " + Arrays.toString(original) + " provided, " + disabled.toString() + " disabled, " + Arrays
-                  .toString(supported) + " supported, result: " + filtered.toString());
+            throw new IOException(
+                    "No supported SSL attributed enabled.  " + Arrays.toString(original) + " provided, " + disabled.toString() + " disabled, " + Arrays
+                            .toString(supported) + " supported, result: " + filtered.toString());
 
         return filtered.toArray(new String[filtered.size()]);
       }

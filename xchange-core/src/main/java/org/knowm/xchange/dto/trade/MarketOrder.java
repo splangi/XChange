@@ -1,11 +1,11 @@
 package org.knowm.xchange.dto.trade;
 
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.Order;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
-
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.Order;
 
 /**
  * DTO representing a market order
@@ -74,8 +74,8 @@ public class MarketOrder extends Order {
     public static Builder from(Order order) {
 
       return new Builder(order.getType(), order.getCurrencyPair()).originalAmount(order.getOriginalAmount()).timestamp(order.getTimestamp())
-                                                                  .id(order.getId()).flags(order.getOrderFlags())
-                                                                  .averagePrice(order.getAveragePrice()).orderStatus(order.getStatus());
+              .id(order.getId()).flags(order.getOrderFlags())
+              .averagePrice(order.getAveragePrice()).orderStatus(order.getStatus());
     }
 
     @Override
@@ -146,7 +146,7 @@ public class MarketOrder extends Order {
 
     public MarketOrder build() {
 
-      MarketOrder order = new MarketOrder(orderType, originalAmount, currencyPair, id, timestamp, averagePrice, cumulativeAmount, fee, status);
+        MarketOrder order = new MarketOrder(orderType, originalAmount, currencyPair, id, timestamp, averagePrice, cumulativeAmount, fee, status);
       order.setOrderFlags(flags);
       return order;
     }

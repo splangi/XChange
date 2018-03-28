@@ -1,10 +1,10 @@
 package org.knowm.xchange.dto;
 
+import org.knowm.xchange.dto.Order.OrderType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import org.knowm.xchange.dto.Order.OrderType;
 
 /**
  * Data object representing an order for a loan

@@ -1,14 +1,5 @@
 package org.knowm.xchange.okcoin.service;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -38,9 +29,18 @@ import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class OkCoinFuturesTradeService extends OkCoinTradeServiceRaw implements TradeService {
 
-  private static final OpenOrders noOpenOrders = new OpenOrders(Collections.<LimitOrder>emptyList());
+    private static final OpenOrders noOpenOrders = new OpenOrders(Collections.<LimitOrder>emptyList());
   private final Logger log = LoggerFactory.getLogger(OkCoinFuturesTradeService.class);
 
   private final int leverRate;
@@ -273,63 +273,63 @@ public class OkCoinFuturesTradeService extends OkCoinTradeServiceRaw implements 
     return openOrders;
   }
 
-  // TODO if Futures ever get a generic interface, move this interface to xchange-core
-  public interface TradeHistoryParamFuturesContract extends TradeHistoryParams {
-    FuturesContract getFuturesContract();
+    // TODO if Futures ever get a generic interface, move this interface to xchange-core
+    public interface TradeHistoryParamFuturesContract extends TradeHistoryParams {
+        FuturesContract getFuturesContract();
 
-    void setFuturesContract(FuturesContract futuresContract);
+        void setFuturesContract(FuturesContract futuresContract);
 
-    String getOrderId();
+        String getOrderId();
 
-    void setOrderId(String orderId);
-  }
-
-  final public static class OkCoinFuturesTradeHistoryParams extends DefaultTradeHistoryParamPaging
-      implements TradeHistoryParamCurrencyPair, TradeHistoryParamFuturesContract {
-    private CurrencyPair currencyPair;
-    private FuturesContract futuresContract;
-    private String orderId;
-
-    public OkCoinFuturesTradeHistoryParams() {
+        void setOrderId(String orderId);
     }
 
-    public OkCoinFuturesTradeHistoryParams(Integer pageLength, Integer pageNumber, CurrencyPair currencyPair, FuturesContract futuresContract,
-        String orderId) {
-      super(pageLength, pageNumber);
-      this.currencyPair = currencyPair;
-      this.futuresContract = futuresContract;
-      this.orderId = orderId;
-    }
+    final public static class OkCoinFuturesTradeHistoryParams extends DefaultTradeHistoryParamPaging
+            implements TradeHistoryParamCurrencyPair, TradeHistoryParamFuturesContract {
+        private CurrencyPair currencyPair;
+        private FuturesContract futuresContract;
+        private String orderId;
 
-    @Override
-    public CurrencyPair getCurrencyPair() {
-      return currencyPair;
-    }
+        public OkCoinFuturesTradeHistoryParams() {
+        }
 
-    @Override
-    public void setCurrencyPair(CurrencyPair pair) {
-      this.currencyPair = pair;
-    }
+        public OkCoinFuturesTradeHistoryParams(Integer pageLength, Integer pageNumber, CurrencyPair currencyPair, FuturesContract futuresContract,
+                                               String orderId) {
+            super(pageLength, pageNumber);
+            this.currencyPair = currencyPair;
+            this.futuresContract = futuresContract;
+            this.orderId = orderId;
+        }
 
-    @Override
-    public FuturesContract getFuturesContract() {
-      return futuresContract;
-    }
+        @Override
+        public CurrencyPair getCurrencyPair() {
+            return currencyPair;
+        }
 
-    @Override
-    public void setFuturesContract(FuturesContract futuresContract) {
-      this.futuresContract = futuresContract;
-    }
+        @Override
+        public void setCurrencyPair(CurrencyPair pair) {
+            this.currencyPair = pair;
+        }
 
-    @Override
-    public String getOrderId() {
-      return orderId;
-    }
+        @Override
+        public FuturesContract getFuturesContract() {
+            return futuresContract;
+        }
 
-    @Override
-    public void setOrderId(String orderId) {
-      this.orderId = orderId;
+        @Override
+        public void setFuturesContract(FuturesContract futuresContract) {
+            this.futuresContract = futuresContract;
+        }
+
+        @Override
+        public String getOrderId() {
+            return orderId;
+        }
+
+        @Override
+        public void setOrderId(String orderId) {
+            this.orderId = orderId;
+        }
     }
-  }
 
 }

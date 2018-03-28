@@ -1,14 +1,5 @@
 package org.knowm.xchange.hitbtc.v2.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.security.SecureRandom;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -24,6 +15,14 @@ import org.knowm.xchange.hitbtc.v2.dto.HitbtcException;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.security.SecureRandom;
+import java.util.Date;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Test ignored in default build because it requires production authentication credentials. See {@link BaseAuthenticatedServiceTest}.
@@ -89,7 +88,7 @@ public class HitbtcTradeServiceRawIntegration extends BaseAuthenticatedServiceTe
       hitbtcOrder = service.placeLimitOrderRaw(limitOrder);
       assertThat(hitbtcOrder).isNotNull();
 
-      hitbtcOrder = service.updateMarketOrderRaw(hitbtcOrder.clientOrderId, new BigDecimal("0.02"), "", Optional.empty());
+        hitbtcOrder = service.updateMarketOrderRaw(hitbtcOrder.clientOrderId, new BigDecimal("0.02"), "", null);
     } finally {
       if (hitbtcOrder != null) {
         service.cancelOrderRaw(hitbtcOrder.clientOrderId);
@@ -111,9 +110,7 @@ public class HitbtcTradeServiceRawIntegration extends BaseAuthenticatedServiceTe
       hitbtcOrder = service.placeLimitOrderRaw(limitOrder);
       assertThat(hitbtcOrder).isNotNull();
 
-      Optional<BigDecimal> newPrice = Optional.of(new BigDecimal("0.051"));
-
-      hitbtcOrder = service.updateMarketOrderRaw(hitbtcOrder.clientOrderId, new BigDecimal("0.02"), "", newPrice);
+        hitbtcOrder = service.updateMarketOrderRaw(hitbtcOrder.clientOrderId, new BigDecimal("0.02"), "", new BigDecimal("0.051"));
     } finally {
       if (hitbtcOrder != null) {
         service.cancelOrderRaw(hitbtcOrder.clientOrderId);

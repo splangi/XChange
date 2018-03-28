@@ -1,10 +1,5 @@
 package org.knowm.xchange.binance;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Map;
-
 import org.knowm.xchange.BaseExchange;
 import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.binance.dto.meta.BinanceCurrencyPairMetaData;
@@ -20,6 +15,11 @@ import org.knowm.xchange.dto.meta.CurrencyMetaData;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.utils.AuthUtils;
 import org.knowm.xchange.utils.nonce.AtomicLongCurrentTimeIncrementalNonceFactory;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.Map;
 
 import si.mazi.rescu.RestProxyFactory;
 import si.mazi.rescu.SynchronizedValueFactory;
@@ -74,41 +74,41 @@ public class BinanceExchange extends BaseExchange {
       for (Symbol symbol : exchangeInfo.getSymbols()) {
 
         CurrencyPair pair = new CurrencyPair(symbol.getBaseAsset(), symbol.getQuoteAsset());
-        // defaults
-        BigDecimal tradingFee = BigDecimal.ZERO;
-        BigDecimal minAmount = BigDecimal.ZERO;
-        BigDecimal maxAmount = BigDecimal.ZERO;
-        Integer priceScale = DEFAULT_PRECISION;
-        BigDecimal minNotional = BigDecimal.ZERO;
+          // defaults
+          BigDecimal tradingFee = BigDecimal.ZERO;
+          BigDecimal minAmount = BigDecimal.ZERO;
+          BigDecimal maxAmount = BigDecimal.ZERO;
+          Integer priceScale = DEFAULT_PRECISION;
+          BigDecimal minNotional = BigDecimal.ZERO;
 
-        CurrencyPairMetaData pairMetaData = currencyPairs.get(pair);
-        if (pairMetaData != null) { // use old values as defaults where available.
-          tradingFee = pairMetaData.getTradingFee();
-          minAmount = pairMetaData.getMinimumAmount();
-          maxAmount = pairMetaData.getMaximumAmount();
-          priceScale = pairMetaData.getPriceScale();
-          if (pairMetaData instanceof BinanceCurrencyPairMetaData) {
-            minNotional = ((BinanceCurrencyPairMetaData) pairMetaData).getMinNotional();
+          CurrencyPairMetaData pairMetaData = currencyPairs.get(pair);
+          if (pairMetaData != null) { // use old values as defaults where available.
+              tradingFee = pairMetaData.getTradingFee();
+              minAmount = pairMetaData.getMinimumAmount();
+              maxAmount = pairMetaData.getMaximumAmount();
+              priceScale = pairMetaData.getPriceScale();
+              if (pairMetaData instanceof BinanceCurrencyPairMetaData) {
+                  minNotional = ((BinanceCurrencyPairMetaData) pairMetaData).getMinNotional();
+              }
           }
-        }
 
-        for (Filter filter : symbol.getFilters()) { // replace with the new values where available.
-          switch (filter.getFilterType()) {
-            case "PRICE_FILTER":
+          for (Filter filter : symbol.getFilters()) { // replace with the new values where available.
+              switch (filter.getFilterType()) {
+                  case "PRICE_FILTER":
               priceScale = numberOfDecimals(filter.getTickSize());
-              break;
-            case "LOT_SIZE":
+                      break;
+                  case "LOT_SIZE":
               minAmount = new BigDecimal(filter.getMinQty());
               maxAmount = new BigDecimal(filter.getMaxQty());
-              break;
-            case "MIN_NOTIONAL":
-              minNotional = new BigDecimal(filter.getMinNotional());
-              break;
+                      break;
+                  case "MIN_NOTIONAL":
+                      minNotional = new BigDecimal(filter.getMinNotional());
+                      break;
+              }
           }
-        }
-        pairMetaData = new BinanceCurrencyPairMetaData(tradingFee, minAmount, maxAmount, priceScale, minNotional);
+          pairMetaData = new BinanceCurrencyPairMetaData(tradingFee, minAmount, maxAmount, priceScale, minNotional);
 
-        currencyPairs.put(pair, pairMetaData);
+          currencyPairs.put(pair, pairMetaData);
 
         CurrencyMetaData baseMetaData = currencies.get(pair.base);
         if (baseMetaData == null) {
@@ -136,9 +136,9 @@ public class BinanceExchange extends BaseExchange {
     }
   }
 
-  public void clearDeltaServerTime() {
-    deltaServerTime = null;
-  }
+    public void clearDeltaServerTime() {
+        deltaServerTime = null;
+    }
 
   public long deltaServerTime() throws IOException {
     if (deltaServerTime == null) {

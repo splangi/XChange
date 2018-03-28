@@ -4,5 +4,5 @@ public interface TradeHistoryParamOffset extends TradeHistoryParams {
 
   Long getOffset();
 
-  void setOffset(Long offset);
+    void setOffset(Long offset);
 }

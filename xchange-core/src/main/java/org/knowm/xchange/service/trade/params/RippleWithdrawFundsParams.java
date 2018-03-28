@@ -1,10 +1,10 @@
 package org.knowm.xchange.service.trade.params;
 
+import org.knowm.xchange.currency.Currency;
+
 import java.math.BigDecimal;
 
 import javax.annotation.Nullable;
-
-import org.knowm.xchange.currency.Currency;
 
 public class RippleWithdrawFundsParams extends DefaultWithdrawFundsParams {
   @Nullable
@@ -21,7 +21,7 @@ public class RippleWithdrawFundsParams extends DefaultWithdrawFundsParams {
 
   @Override
   public String toString() {
-    return "RippleWithdrawFundsParams{" + "address='" + address + '\'' + ", tag='" + tag + '\'' + ", currency=" + currency + ", amount=" + amount
-        + ", commission=" + commission + '}';
+      return "RippleWithdrawFundsParams{" + "address='" + address + '\'' + ", tag='" + tag + '\'' + ", currency=" + currency + ", amount=" + amount
+              + ", commission=" + commission + '}';
   }
 }

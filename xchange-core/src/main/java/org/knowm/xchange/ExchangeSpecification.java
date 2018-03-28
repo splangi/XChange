@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class ExchangeSpecification {
 
-  private final String exchangeClassName;
+    private final String exchangeClassName;
   private String exchangeName;
   private String exchangeDescription;
   private String userName;
@@ -163,26 +163,26 @@ public class ExchangeSpecification {
     return port;
   }
 
-  /**
-   * Set the port number of the server providing direct socket data (e.g. "1337").
-   *
-   * @param port the port number
-   */
-  public void setPort(int port) {
+    /**
+     * Set the port number of the server providing direct socket data (e.g. "1337").
+     *
+     * @param port the port number
+     */
+    public void setPort(int port) {
 
-    this.port = port;
-  }
+        this.port = port;
+    }
 
-  /**
-   * Get the http connection timeout for the connection. If the default value of zero is returned then the default rescu timeout will be applied.
-   * Check the exchange code to see if this option has been implemented.
-   *
-   * @return the http read timeout in milliseconds
-   */
-  public int getHttpConnTimeout() {
+    /**
+     * Get the http connection timeout for the connection. If the default value of zero is returned then the default rescu timeout will be applied.
+     * Check the exchange code to see if this option has been implemented.
+     *
+     * @return the http read timeout in milliseconds
+     */
+    public int getHttpConnTimeout() {
 
-    return httpConnTimeout;
-  }
+        return httpConnTimeout;
+    }
 
   /**
    * Set the http connection timeout for the connection. If not supplied the default rescu timeout will be used. Check the exchange code to see if
@@ -196,15 +196,15 @@ public class ExchangeSpecification {
     this.httpConnTimeout = milliseconds;
   }
 
-  /**
-   * Get the http read timeout for the connection. If the default value of zero is returned then the default rescu timeout will be applied. Check the
-   * exchange code to see if this option has been implemented.
+    /**
+     * Get the http read timeout for the connection. If the default value of zero is returned then the default rescu timeout will be applied. Check the
+     * exchange code to see if this option has been implemented.
    *
    * @return the http read timeout in milliseconds
-   */
-  public int getHttpReadTimeout() {
+     */
+    public int getHttpReadTimeout() {
 
-    return httpReadTimeout;
+        return httpReadTimeout;
   }
 
   /**

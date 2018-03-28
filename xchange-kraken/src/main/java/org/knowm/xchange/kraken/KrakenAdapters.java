@@ -1,16 +1,5 @@
 package org.knowm.xchange.kraken;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -50,6 +39,17 @@ import org.knowm.xchange.kraken.dto.trade.KrakenTrade;
 import org.knowm.xchange.kraken.dto.trade.KrakenType;
 import org.knowm.xchange.kraken.dto.trade.KrakenUserTrade;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 public class KrakenAdapters {
 
   public static OrderBook adaptOrderBook(KrakenDepth krakenDepth, CurrencyPair currencyPair) {
@@ -80,10 +80,10 @@ public class KrakenAdapters {
 
     List<Order> orders = new ArrayList<>();
     for (Entry<String, KrakenOrder> krakenOrder : krakenOrdersMap
-        .entrySet()
-        ){
-      orders.add( adaptOrder(krakenOrder.getKey(), krakenOrder.getValue()));
-        }
+            .entrySet()
+            ) {
+        orders.add(adaptOrder(krakenOrder.getKey(), krakenOrder.getValue()));
+    }
 
     return orders;
 
@@ -108,11 +108,11 @@ public class KrakenAdapters {
 
     if (krakenOrder.getOrderDescription().getOrderType().equals(KrakenOrderType.LIMIT))
       return new LimitOrder(orderType, krakenOrder.getVolume(), currencyPair, orderId, timestamp, krakenOrder.getOrderDescription().getPrice(),
-          krakenOrder.getPrice(), krakenOrder.getVolumeExecuted(), krakenOrder.getFee(), adaptOrderStatus(krakenOrder.getStatus()));
+              krakenOrder.getPrice(), krakenOrder.getVolumeExecuted(), krakenOrder.getFee(), adaptOrderStatus(krakenOrder.getStatus()));
 
     if (krakenOrder.getOrderDescription().getOrderType().equals(KrakenOrderType.MARKET))
       return new MarketOrder(orderType, krakenOrder.getVolume(), currencyPair, orderId, timestamp, krakenOrder.getPrice(),
-          krakenOrder.getVolumeExecuted(), krakenOrder.getFee(), orderStatus);
+              krakenOrder.getVolumeExecuted(), krakenOrder.getFee(), orderStatus);
 
     throw new NotYetImplementedForExchangeException();
 
@@ -166,7 +166,7 @@ public class KrakenAdapters {
     Date timestamp = new Date((long) (krakenPublicTrade.getTime() * 1000L));
 
     return new Trade(type, originalAmount, currencyPair, krakenPublicTrade.getPrice(), timestamp,
-        String.valueOf((long) (krakenPublicTrade.getTime() * 10000L)));
+            String.valueOf((long) (krakenPublicTrade.getTime() * 10000L)));
   }
 
   public static Wallet adaptWallet(Map<String, BigDecimal> krakenWallet) {
@@ -240,7 +240,7 @@ public class KrakenAdapters {
     BigDecimal price = (averagePrice == null) ? krakenTrade.getPrice() : averagePrice;
 
     return new KrakenUserTrade(orderType, originalAmount, pair, price, timestamp, tradeId, krakenTrade.getOrderTxId(), krakenTrade.getFee(),
-        pair.counter, krakenTrade.getCost());
+            pair.counter, krakenTrade.getCost());
   }
 
   public static OrderType adaptOrderType(KrakenType krakenType) {
@@ -281,7 +281,7 @@ public class KrakenAdapters {
       KrakenAsset krakenAsset = krakenAssets.get(krakenAssetCode);
       Currency currencyCode = KrakenAdapters.adaptCurrency(krakenAssetCode);
       BigDecimal withdrawalFee =
-          originalMetaData.getCurrencies().get(currencyCode) == null ? null : originalMetaData.getCurrencies().get(currencyCode).getWithdrawalFee();
+              originalMetaData.getCurrencies().get(currencyCode) == null ? null : originalMetaData.getCurrencies().get(currencyCode).getWithdrawalFee();
       currencies.put(currencyCode, new CurrencyMetaData(krakenAsset.getScale(), withdrawalFee));
     }
 
@@ -312,8 +312,8 @@ public class KrakenAdapters {
           if (type != null) {
             final String internalId = krakenLedger.getRefId(); // or ledgerEntry.getKey()?
             FundingRecord fundingRecordEntry = new FundingRecord(null, timestamp, currency, krakenLedger.getTransactionAmount(), internalId, null,
-                FundingRecord.Type.fromString(krakenLedger.getLedgerType().name()), FundingRecord.Status.COMPLETE, krakenLedger.getBalance(),
-                krakenLedger.getFee(), null);
+                    FundingRecord.Type.fromString(krakenLedger.getLedgerType().name()), FundingRecord.Status.COMPLETE, krakenLedger.getBalance(),
+                    krakenLedger.getFee(), null);
             fundingRecords.add(fundingRecordEntry);
           }
         }

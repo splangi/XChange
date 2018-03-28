@@ -1,11 +1,11 @@
 package org.knowm.xchange.service.trade.params;
 
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.service.trade.TradeService;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.service.trade.TradeService;
 
 /**
  * Generic {@link TradeHistoryParams} implementation that implements all the interfaces in the hierarchy and can be safely (without getting
@@ -13,8 +13,8 @@ import org.knowm.xchange.service.trade.TradeService;
  * .
  */
 public class TradeHistoryParamsAll
-    implements TradeHistoryParamsTimeSpan, TradeHistoryParamPaging, TradeHistoryParamsIdSpan, TradeHistoryParamOffset, TradeHistoryParamCurrencyPair,
-    TradeHistoryParamMultiCurrencyPair {
+        implements TradeHistoryParamsTimeSpan, TradeHistoryParamPaging, TradeHistoryParamsIdSpan, TradeHistoryParamOffset, TradeHistoryParamCurrencyPair,
+        TradeHistoryParamMultiCurrencyPair {
 
   private Integer pageLength;
   private Integer pageNumber;
@@ -32,11 +32,11 @@ public class TradeHistoryParamsAll
     return pageLength;
   }
 
-  @Override
-  public void setPageLength(Integer count) {
+    @Override
+    public void setPageLength(Integer count) {
 
-    this.pageLength = count;
-  }
+        this.pageLength = count;
+    }
 
   @Override
   public String getStartId() {
@@ -47,7 +47,7 @@ public class TradeHistoryParamsAll
   @Override
   public void setStartId(String from) {
 
-    startId = from;
+      startId = from;
   }
 
   @Override
@@ -59,7 +59,7 @@ public class TradeHistoryParamsAll
   @Override
   public void setEndId(String endId) {
 
-    this.endId = endId;
+      this.endId = endId;
   }
 
   @Override
@@ -71,7 +71,7 @@ public class TradeHistoryParamsAll
   @Override
   public void setEndTime(Date to) {
 
-    endTime = to;
+      endTime = to;
   }
 
   @Override
@@ -83,7 +83,7 @@ public class TradeHistoryParamsAll
   @Override
   public void setStartTime(Date startTime) {
 
-    this.startTime = startTime;
+      this.startTime = startTime;
   }
 
   @Override
@@ -95,11 +95,11 @@ public class TradeHistoryParamsAll
       return (long) pageLength * pageNumber;
   }
 
-  @Override
-  public void setOffset(Long offset) {
+    @Override
+    public void setOffset(Long offset) {
 
-    this.offset = offset;
-  }
+        this.offset = offset;
+    }
 
   @Override
   public Integer getPageNumber() {
@@ -131,9 +131,9 @@ public class TradeHistoryParamsAll
     return pairs;
   }
 
-  @Override
-  public void setCurrencyPairs(Collection<CurrencyPair> value) {
+    @Override
+    public void setCurrencyPairs(Collection<CurrencyPair> value) {
 
-    pairs = value;
-  }
+        pairs = value;
+    }
 }

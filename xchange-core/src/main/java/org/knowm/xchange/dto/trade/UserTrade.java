@@ -1,15 +1,15 @@
 package org.knowm.xchange.dto.trade;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Objects;
-
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.marketdata.Trade;
 import org.knowm.xchange.service.trade.TradeService;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * Data object representing a user trade
@@ -78,15 +78,15 @@ public class UserTrade extends Trade {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || getClass() != o.getClass())
-      return false;
-    if (!super.equals(o))
-      return false;
+      if (this == o)
+          return true;
+      if (o == null || getClass() != o.getClass())
+          return false;
+      if (!super.equals(o))
+          return false;
     UserTrade userTrade = (UserTrade) o;
-    return Objects.equals(orderId, userTrade.orderId) && Objects.equals(feeAmount, userTrade.feeAmount) && Objects
-        .equals(feeCurrency, userTrade.feeCurrency);
+      return Objects.equals(orderId, userTrade.orderId) && Objects.equals(feeAmount, userTrade.feeAmount) && Objects
+              .equals(feeCurrency, userTrade.feeCurrency);
   }
 
   @Override
@@ -102,8 +102,8 @@ public class UserTrade extends Trade {
 
     public static Builder from(UserTrade trade) {
       return new Builder().type(trade.getType()).originalAmount(trade.getOriginalAmount()).currencyPair(trade.getCurrencyPair())
-                          .price(trade.getPrice()).timestamp(trade.getTimestamp()).id(trade.getId()).orderId(trade.getOrderId())
-                          .feeAmount(trade.getFeeAmount()).feeCurrency(trade.getFeeCurrency());
+              .price(trade.getPrice()).timestamp(trade.getTimestamp()).id(trade.getId()).orderId(trade.getOrderId())
+              .feeAmount(trade.getFeeAmount()).feeCurrency(trade.getFeeCurrency());
     }
 
     @Override

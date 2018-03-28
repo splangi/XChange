@@ -1,9 +1,9 @@
 package org.knowm.xchange.kraken.dto.marketdata;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Data object representing depth from Kraken
@@ -124,8 +124,8 @@ public class KrakenTicker {
   @Override
   public String toString() {
 
-    return "KrakenTicker [ask=" + ask + ", bid=" + bid + ", close=" + close + ", volume=" + Arrays.toString(volume) + ", volumeAvg=" + Arrays
-        .toString(volumeAvg) + ", trades=" + Arrays.toString(trades) + ", low=" + Arrays.toString(low) + ", high=" + Arrays.toString(high) + ", open="
-        + open + "]";
+      return "KrakenTicker [ask=" + ask + ", bid=" + bid + ", close=" + close + ", volume=" + Arrays.toString(volume) + ", volumeAvg=" + Arrays
+              .toString(volumeAvg) + ", trades=" + Arrays.toString(trades) + ", low=" + Arrays.toString(low) + ", high=" + Arrays.toString(high) + ", open="
+              + open + "]";
   }
 }

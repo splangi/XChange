@@ -1,11 +1,11 @@
 package org.knowm.xchange.dto.account;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-
 import org.knowm.xchange.currency.Currency;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -103,17 +103,17 @@ public final class Balance implements Comparable<Balance>, Serializable {
     this.depositing = depositing;
   }
 
-  /**
-   * Returns a zero balance.
-   *
-   * @param currency the balance currency.
-   * @return a zero balance.
-   */
-  public static Balance zero(Currency currency) {
+    /**
+     * Returns a zero balance.
+     *
+     * @param currency the balance currency.
+     * @return a zero balance.
+     */
+    public static Balance zero(Currency currency) {
 
-    return new Balance(currency, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
-        BigDecimal.ZERO);
-  }
+        return new Balance(currency, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO);
+    }
 
   public Currency getCurrency() {
 
@@ -348,9 +348,22 @@ public final class Balance implements Comparable<Balance>, Serializable {
     public static Builder from(Balance balance) {
 
       return new Builder().currency(balance.getCurrency()).available(balance.getAvailable()).frozen(balance.getFrozen())
-                          .borrowed(balance.getBorrowed()).loaned(balance.getLoaned()).withdrawing(balance.getWithdrawing())
-                          .depositing(balance.getDepositing());
+              .borrowed(balance.getBorrowed()).loaned(balance.getLoaned()).withdrawing(balance.getWithdrawing())
+              .depositing(balance.getDepositing());
     }
+
+      public Builder add(Balance balance) {
+          if (!this.currency.equals(balance.currency))
+              throw new IllegalStateException("Currencies do not comply!");
+          this.total = this.total.add(balance.total);
+          this.available = this.available.add(balance.available);
+          this.frozen = this.frozen.add(balance.frozen);
+          this.borrowed = this.borrowed.add(balance.borrowed);
+          this.loaned = this.loaned.add(balance.loaned);
+          this.withdrawing = this.withdrawing.add(balance.withdrawing);
+          this.depositing = this.depositing.add(balance.depositing);
+          return this;
+      }
 
     public Builder currency(Currency currency) {
 

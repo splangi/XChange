@@ -1,12 +1,6 @@
 package org.knowm.xchange;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.apache.commons.io.IOUtils;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -19,7 +13,13 @@ import org.knowm.xchange.service.trade.TradeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class BaseExchange implements Exchange {
 
@@ -30,7 +30,7 @@ public abstract class BaseExchange implements Exchange {
   protected TradeService tradeService;
   protected AccountService accountService;
 
-  protected abstract void initServices();
+    protected abstract void initServices();
 
   @Override
   public void applySpecification(ExchangeSpecification exchangeSpecification) {

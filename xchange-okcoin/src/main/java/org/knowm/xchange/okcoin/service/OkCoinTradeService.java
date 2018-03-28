@@ -1,9 +1,5 @@
 package org.knowm.xchange.okcoin.service;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Collections;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -28,11 +24,15 @@ import org.knowm.xchange.service.trade.params.orders.DefaultOpenOrdersParamCurre
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParamCurrencyPair;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+
 public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeService {
 
   private static final String ORDER_STATUS_FILLED = "1";
 
-  private static final OpenOrders NO_OPEN_ORDERS = new OpenOrders(Collections.<LimitOrder>emptyList());
+    private static final OpenOrders NO_OPEN_ORDERS = new OpenOrders(Collections.<LimitOrder>emptyList());
 
   /**
    * Constructor
@@ -46,28 +46,28 @@ public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeSe
 
   @Override
   public OpenOrders getOpenOrders() throws IOException {
-    throw new NotAvailableFromExchangeException();
+      throw new NotAvailableFromExchangeException();
   }
 
   @Override
   public OpenOrders getOpenOrders(OpenOrdersParams params) {
-    if (!(params instanceof OpenOrdersParamCurrencyPair)) {
-      throw new UnsupportedOperationException("Getting open orders is only available for a single market.");
-    }
-    CurrencyPair symbol = ((OpenOrdersParamCurrencyPair) params).getCurrencyPair();
-    OkCoinOrderResult orderResults;
-    try {
-      // orderId = -1 returns all of the orders on this market
-      orderResults = getOrder(-1, OkCoinAdapters.adaptSymbol(symbol));
-    } catch (Exception e) {
+      if (!(params instanceof OpenOrdersParamCurrencyPair)) {
+          throw new UnsupportedOperationException("Getting open orders is only available for a single market.");
+      }
+      CurrencyPair symbol = ((OpenOrdersParamCurrencyPair) params).getCurrencyPair();
+      OkCoinOrderResult orderResults;
+      try {
+          // orderId = -1 returns all of the orders on this market
+          orderResults = getOrder(-1, OkCoinAdapters.adaptSymbol(symbol));
+      } catch (Exception e) {
       return NO_OPEN_ORDERS;
-      // Market not present.
+          // Market not present.
     }
 
-    if (orderResults.getOrders() == null || orderResults.getOrders().length == 0) {
-      return NO_OPEN_ORDERS;
-    }
-    return OkCoinAdapters.adaptOpenOrders(Collections.singletonList(orderResults));
+      if (orderResults.getOrders() == null || orderResults.getOrders().length == 0) {
+          return NO_OPEN_ORDERS;
+      }
+      return OkCoinAdapters.adaptOpenOrders(Collections.singletonList(orderResults));
   }
 
   @Override
@@ -106,18 +106,18 @@ public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeSe
 
   @Override
   public boolean cancelOrder(CancelOrderParams orderParams) throws IOException {
-    if (!(orderParams instanceof OkCoinCancelOrderParam)) {
-      throw new UnsupportedOperationException("Cancelling an order is only available for a single market and a single id.");
-    }
-    long id = Long.valueOf(((OkCoinCancelOrderParam) orderParams).getId());
-    OkCoinTradeResult cancelResult = cancelOrder(id, OkCoinAdapters.adaptSymbol(((OkCoinCancelOrderParam) orderParams).getCurrencyPair()));
-    return id == cancelResult.getOrderId();
+      if (!(orderParams instanceof OkCoinCancelOrderParam)) {
+          throw new UnsupportedOperationException("Cancelling an order is only available for a single market and a single id.");
+      }
+      long id = Long.valueOf(((OkCoinCancelOrderParam) orderParams).getId());
+      OkCoinTradeResult cancelResult = cancelOrder(id, OkCoinAdapters.adaptSymbol(((OkCoinCancelOrderParam) orderParams).getCurrencyPair()));
+      return id == cancelResult.getOrderId();
   }
 
-  @Override
-  public boolean cancelOrder(String orderId) throws IOException {
-    throw new NotAvailableFromExchangeException();
-  }
+    @Override
+    public boolean cancelOrder(String orderId) throws IOException {
+        throw new NotAvailableFromExchangeException();
+    }
 
   /**
    * OKEX does not support trade history in the usual way, it only provides a aggregated view on a per order basis of how much the order has been
@@ -142,8 +142,8 @@ public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeSe
     }
 
     CurrencyPair pair = null;
-    if (params instanceof TradeHistoryParamCurrencyPair) {
-      pair = ((TradeHistoryParamCurrencyPair) params).getCurrencyPair();
+      if (params instanceof TradeHistoryParamCurrencyPair) {
+          pair = ((TradeHistoryParamCurrencyPair) params).getCurrencyPair();
     }
     if (pair == null) {
       pair = useIntl ? CurrencyPair.BTC_USD : CurrencyPair.BTC_CNY;
@@ -165,10 +165,10 @@ public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeSe
     return new DefaultOpenOrdersParamCurrencyPair();
   }
 
-  @Override
-  public Collection<Order> getOrder(String... orderIds) throws IOException {
-    throw new NotYetImplementedForExchangeException();
-  }
+    @Override
+    public Collection<Order> getOrder(String... orderIds) throws IOException {
+        throw new NotYetImplementedForExchangeException();
+    }
 
   public static class OkCoinTradeHistoryParams extends DefaultTradeHistoryParamPaging implements TradeHistoryParamCurrencyPair {
 
@@ -189,29 +189,29 @@ public class OkCoinTradeService extends OkCoinTradeServiceRaw implements TradeSe
       return pair;
     }
 
-    @Override
-    public void setCurrencyPair(CurrencyPair pair) {
+      @Override
+      public void setCurrencyPair(CurrencyPair pair) {
 
-      this.pair = pair;
-    }
+          this.pair = pair;
+      }
   }
 
-  public static class OkCoinCancelOrderParam implements CancelOrderParams {
-    private final CurrencyPair currencyPair;
-    private final String id;
+    public static class OkCoinCancelOrderParam implements CancelOrderParams {
+        private final CurrencyPair currencyPair;
+        private final String id;
 
-    public OkCoinCancelOrderParam(CurrencyPair currencyPair, String id) {
-      this.currencyPair = currencyPair;
-      this.id = id;
-    }
+        public OkCoinCancelOrderParam(CurrencyPair currencyPair, String id) {
+            this.currencyPair = currencyPair;
+            this.id = id;
+        }
 
-    public CurrencyPair getCurrencyPair() {
-      return currencyPair;
-    }
+        public CurrencyPair getCurrencyPair() {
+            return currencyPair;
+        }
 
-    public String getId() {
-      return id;
-    }
+        public String getId() {
+            return id;
+        }
   }
 
 }

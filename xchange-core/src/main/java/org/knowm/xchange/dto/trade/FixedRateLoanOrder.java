@@ -1,10 +1,10 @@
 package org.knowm.xchange.dto.trade;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.knowm.xchange.dto.LoanOrder;
 import org.knowm.xchange.dto.Order.OrderType;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * DTO representing a fixed rate loan order

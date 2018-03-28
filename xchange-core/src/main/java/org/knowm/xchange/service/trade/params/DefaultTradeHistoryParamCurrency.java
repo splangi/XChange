@@ -18,8 +18,8 @@ public class DefaultTradeHistoryParamCurrency implements TradeHistoryParamCurren
     return this.currency;
   }
 
-  @Override
-  public void setCurrency(Currency currency) {
-    this.currency = currency;
-  }
+    @Override
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
 }

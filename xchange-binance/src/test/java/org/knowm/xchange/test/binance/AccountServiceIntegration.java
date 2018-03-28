@@ -1,8 +1,5 @@
 package org.knowm.xchange.test.binance;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -19,6 +16,11 @@ import org.knowm.xchange.dto.meta.CurrencyMetaData;
 import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 import org.knowm.xchange.service.account.AccountService;
 import org.knowm.xchange.utils.StreamUtils;
+
+import java.util.Map;
+import java.util.Map.Entry;
+
+import java8.util.stream.StreamSupport;
 
 public class AccountServiceIntegration {
 
@@ -39,23 +41,23 @@ public class AccountServiceIntegration {
   @Test
   public void testMetaData() throws Exception {
 
-    Map<CurrencyPair, CurrencyPairMetaData> currencyPairs = exchange.getExchangeMetaData().getCurrencyPairs();
+      Map<CurrencyPair, CurrencyPairMetaData> currencyPairs = exchange.getExchangeMetaData().getCurrencyPairs();
     Map<Currency, CurrencyMetaData> currencies = exchange.getExchangeMetaData().getCurrencies();
 
-    CurrencyPair currPair = currencyPairs.keySet().stream().filter(cp -> "ETH/BTC".equals(cp.toString())).collect(StreamUtils.singletonCollector());
+      CurrencyPair currPair = StreamSupport.stream(currencyPairs.keySet()).filter(cp -> "ETH/BTC".equals(cp.toString())).collect(StreamUtils.singletonCollector());
     Assert.assertNotNull(currPair);
 
-    Currency cur = currencies.keySet().stream().filter(c -> Currency.BTC == c).collect(StreamUtils.singletonCollector());
+      Currency cur = StreamSupport.stream(currencies.keySet()).filter(c -> Currency.BTC == c).collect(StreamUtils.singletonCollector());
     Assert.assertNotNull(cur);
   }
 
-  @Test
+    @Test
   public void testBalances() throws Exception {
 
     Wallet wallet = accountService.getAccountInfo().getWallet();
     Assert.assertNotNull(wallet);
 
-    Map<Currency, Balance> balances = wallet.getBalances();
+        Map<Currency, Balance> balances = wallet.getBalances();
     for (Entry<Currency, Balance> entry : balances.entrySet()) {
       Currency curr = entry.getKey();
       Balance bal = entry.getValue();

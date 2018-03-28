@@ -1,12 +1,5 @@
 package org.knowm.xchange.kraken.dto.trade;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.knowm.xchange.dto.Order.OrderType;
-import org.knowm.xchange.kraken.dto.trade.KrakenType.KrakenTypeDeserializer;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -14,6 +7,13 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import org.knowm.xchange.dto.Order.OrderType;
+import org.knowm.xchange.kraken.dto.trade.KrakenType.KrakenTypeDeserializer;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonDeserialize(using = KrakenTypeDeserializer.class)
 public enum KrakenType {
@@ -30,21 +30,21 @@ public enum KrakenType {
     fromString.put("s", SELL);
   }
 
-  public static KrakenType fromString(String typeString) {
+    public static KrakenType fromString(String typeString) {
 
-    return fromString.get(typeString.toLowerCase());
-  }
+        return fromString.get(typeString.toLowerCase());
+    }
 
-  public static KrakenType fromOrderType(OrderType type) {
+    public static KrakenType fromOrderType(OrderType type) {
 
-    return type == OrderType.ASK ? KrakenType.SELL : KrakenType.BUY;
-  }
+        return type == OrderType.ASK ? KrakenType.SELL : KrakenType.BUY;
+    }
 
-  @Override
-  public String toString() {
+    @Override
+    public String toString() {
 
-    return super.toString().toLowerCase();
-  }
+        return super.toString().toLowerCase();
+    }
 
   static class KrakenTypeDeserializer extends JsonDeserializer<KrakenType> {
 

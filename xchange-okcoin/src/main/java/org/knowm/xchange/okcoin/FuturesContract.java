@@ -26,7 +26,7 @@ public enum FuturesContract {
     throw new IllegalArgumentException(String.format("There is no value with name '%s' in Enum %s", name, enumeration.getName()));
   }
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 }

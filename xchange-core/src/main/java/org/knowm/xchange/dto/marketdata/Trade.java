@@ -1,12 +1,12 @@
 package org.knowm.xchange.dto.marketdata;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.service.marketdata.MarketDataService;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Data object representing a Trade
@@ -130,7 +130,7 @@ public class Trade implements Serializable {
 
     public static Builder from(Trade trade) {
       return new Builder().type(trade.getType()).originalAmount(trade.getOriginalAmount()).currencyPair(trade.getCurrencyPair())
-                          .price(trade.getPrice()).timestamp(trade.getTimestamp()).id(trade.getId());
+              .price(trade.getPrice()).timestamp(trade.getTimestamp()).id(trade.getId());
     }
 
     public Builder type(OrderType type) {

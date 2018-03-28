@@ -17,6 +17,8 @@ import org.knowm.xchange.utils.StreamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java8.util.stream.StreamSupport;
+
 public class TradeServiceIntegration {
 
   static Logger LOG = LoggerFactory.getLogger(TradeServiceIntegration.class);
@@ -45,7 +47,7 @@ public class TradeServiceIntegration {
     CurrencyPair pair = CurrencyPair.XRP_BTC;
 
     OpenOrders orders = tradeService.getOpenOrders(pair);
-    LimitOrder order = orders.getOpenOrders().stream().collect(StreamUtils.singletonCollector());
+      LimitOrder order = StreamSupport.stream(orders.getOpenOrders()).collect(StreamUtils.singletonCollector());
     if (order != null) {
       System.out.println(order);
     }

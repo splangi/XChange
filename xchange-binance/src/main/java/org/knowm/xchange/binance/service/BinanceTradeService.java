@@ -1,12 +1,5 @@
 package org.knowm.xchange.binance.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java8.util.stream.Collectors;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.binance.dto.trade.BinanceNewOrder;
@@ -42,6 +35,13 @@ import org.knowm.xchange.service.trade.params.orders.OrderQueryParamCurrencyPair
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
 import org.knowm.xchange.utils.Assert;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 
 public class BinanceTradeService extends BinanceTradeServiceRaw implements TradeService {
@@ -56,7 +56,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     List<BinanceOrder> binanceOpenOrders = super.openOrders(recvWindow, getTimestamp());
     List<LimitOrder> limitOrders = new ArrayList<>();
     List<Order> otherOrders = new ArrayList<>();
-    binanceOpenOrders.forEach(binanceOrder -> {
+      StreamSupport.stream(binanceOpenOrders).forEach(binanceOrder -> {
       Order order = BinanceAdapters.adaptOrder(binanceOrder);
       if (order instanceof LimitOrder) {
         limitOrders.add((LimitOrder) order);
@@ -79,7 +79,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     List<BinanceOrder> binanceOpenOrders = super.openOrders(pair, recvWindow, getTimestamp());
     List<LimitOrder> openOrders = StreamSupport.stream(binanceOpenOrders).map(
-    o ->new LimitOrder.Builder(BinanceAdapters.convert(o.side), pair)
+            o -> new LimitOrder.Builder(BinanceAdapters.convert(o.side), pair)
       .id(Long.toString(o.orderId))
       .originalAmount(o.origQty)
       .cumulativeAmount(o.executedQty)
@@ -108,14 +108,14 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
   private String placeOrder(OrderType type, Order order, BigDecimal limitPrice, BigDecimal stopPrice, TimeInForce tif) throws IOException {
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     BinanceNewOrder newOrder = newOrder(order.getCurrencyPair(), BinanceAdapters.convert(order.getType()), type, tif, order.getOriginalAmount(),
-        limitPrice, null, stopPrice, null, recvWindow, getTimestamp());
+            limitPrice, null, stopPrice, null, recvWindow, getTimestamp());
     return Long.toString(newOrder.orderId);
   }
 
   public void placeTestOrder(OrderType type, Order order, BigDecimal limitPrice, BigDecimal stopPrice) throws IOException {
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     testNewOrder(order.getCurrencyPair(), BinanceAdapters.convert(order.getType()), type, TimeInForce.GTC, order.getOriginalAmount(), limitPrice,
-        null, stopPrice, null, recvWindow, getTimestamp());
+            null, stopPrice, null, recvWindow, getTimestamp());
   }
 
   @Override
@@ -162,8 +162,8 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     Long recvWindow = (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     List<BinanceTrade> binanceTrades = super.myTrades(pair, limit, fromId, recvWindow, getTimestamp());
     List<UserTrade> trades = StreamSupport.stream(binanceTrades).map(
-        t -> new UserTrade(BinanceAdapters.convertType(t.isBuyer), t.qty, pair, t.price, t.getTime(), Long.toString(t.id), Long.toString(t.orderId),
-            t.commission, Currency.getInstance(t.commissionAsset))).collect(Collectors.toList());
+            t -> new UserTrade(BinanceAdapters.convertType(t.isBuyer), t.qty, pair, t.price, t.getTime(), Long.toString(t.id), Long.toString(t.orderId),
+                    t.commission, Currency.getInstance(t.commissionAsset))).collect(Collectors.toList());
     return new UserTrades(trades, TradeSortType.SortByTimestamp);
   }
 
@@ -195,8 +195,8 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
       }
 
       orders.add(BinanceAdapters.adaptOrder(super
-          .orderStatus(orderQueryParamCurrencyPair.getCurrencyPair(), BinanceAdapters.id(orderQueryParamCurrencyPair.getOrderId()), null,
-              (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow"), getTimestamp())));
+              .orderStatus(orderQueryParamCurrencyPair.getCurrencyPair(), BinanceAdapters.id(orderQueryParamCurrencyPair.getOrderId()), null,
+                      (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow"), getTimestamp())));
     }
     return orders;
   }

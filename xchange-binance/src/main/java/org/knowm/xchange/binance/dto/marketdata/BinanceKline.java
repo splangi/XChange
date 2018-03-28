@@ -1,9 +1,9 @@
 package org.knowm.xchange.binance.dto.marketdata;
 
+import org.knowm.xchange.currency.CurrencyPair;
+
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-
-import org.knowm.xchange.currency.CurrencyPair;
 
 public final class BinanceKline {
 
@@ -93,7 +93,7 @@ public final class BinanceKline {
     return takerBuyQuoteAssetVolume;
   }
 
-  public String toString() {
+    public String toString() {
     String tstamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(openTime);
     return String.format("[%s] %s %s O:%.6f A:%.6f C:%.6f", pair, tstamp, interval, open, getAveragePrice(), close);
   }

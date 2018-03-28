@@ -1,13 +1,8 @@
 package org.knowm.xchange.okcoin.service.account;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,9 +15,14 @@ import org.knowm.xchange.okcoin.OkCoinAdapters;
 import org.knowm.xchange.okcoin.dto.account.OkCoinAccountRecords;
 import org.knowm.xchange.okcoin.dto.marketdata.OkCoinDepth;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class OkCoinAdaptersTest {
 
@@ -57,36 +57,36 @@ public class OkCoinAdaptersTest {
     assertThat(withdrawalRecord.getAddress()).isEqualTo("8OKSDF39aOIUl34lksUIYW3kl3l39d");
   }
 
-  @Test
-  public void testAdaptOrderBook() {
-    BigDecimal ask1Price = new BigDecimal("8");
-    BigDecimal ask1Amount = new BigDecimal("28");
-    BigDecimal ask2Price = new BigDecimal("5");
-    BigDecimal ask2Amount = new BigDecimal("20");
-    BigDecimal ask3Price = new BigDecimal("7");
-    BigDecimal ask3Amount = new BigDecimal("24");
+    @Test
+    public void testAdaptOrderBook() {
+        BigDecimal ask1Price = new BigDecimal("8");
+        BigDecimal ask1Amount = new BigDecimal("28");
+        BigDecimal ask2Price = new BigDecimal("5");
+        BigDecimal ask2Amount = new BigDecimal("20");
+        BigDecimal ask3Price = new BigDecimal("7");
+        BigDecimal ask3Amount = new BigDecimal("24");
 
-    BigDecimal bid1Price = new BigDecimal("4");
-    BigDecimal bid1Amount = new BigDecimal("35");
-    BigDecimal bid2Price = new BigDecimal("2");
-    BigDecimal bid2Amount = new BigDecimal("45");
+        BigDecimal bid1Price = new BigDecimal("4");
+        BigDecimal bid1Amount = new BigDecimal("35");
+        BigDecimal bid2Price = new BigDecimal("2");
+        BigDecimal bid2Amount = new BigDecimal("45");
 
-    BigDecimal[][] asks = {{ask1Price, ask1Amount}, {ask2Price, ask2Amount}, {ask3Price, ask3Amount}};
-    BigDecimal[][] bids = {{bid1Price, bid1Amount}, {bid2Price, bid2Amount}};
-    Date date = new Date();
-    OkCoinDepth depth = new OkCoinDepth(asks, bids, date);
+        BigDecimal[][] asks = {{ask1Price, ask1Amount}, {ask2Price, ask2Amount}, {ask3Price, ask3Amount}};
+        BigDecimal[][] bids = {{bid1Price, bid1Amount}, {bid2Price, bid2Amount}};
+        Date date = new Date();
+        OkCoinDepth depth = new OkCoinDepth(asks, bids, date);
 
-    OrderBook orderBook = OkCoinAdapters.adaptOrderBook(depth, CurrencyPair.ETH_BTC);
+        OrderBook orderBook = OkCoinAdapters.adaptOrderBook(depth, CurrencyPair.ETH_BTC);
 
-    Assert.assertEquals(orderBook.getAsks().size(), asks.length);
-    Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask1Amount, CurrencyPair.ETH_BTC, null, date, ask1Price)));
-    Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask2Amount, CurrencyPair.ETH_BTC, null, date, ask2Price)));
-    Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask3Amount, CurrencyPair.ETH_BTC, null, date, ask3Price)));
-    Assert.assertTrue(orderBook.getAsks().stream().sorted().collect(Collectors.toList()).equals(orderBook.getAsks()));
+        Assert.assertEquals(orderBook.getAsks().size(), asks.length);
+        Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask1Amount, CurrencyPair.ETH_BTC, null, date, ask1Price)));
+        Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask2Amount, CurrencyPair.ETH_BTC, null, date, ask2Price)));
+        Assert.assertTrue(orderBook.getAsks().contains(new LimitOrder(Order.OrderType.ASK, ask3Amount, CurrencyPair.ETH_BTC, null, date, ask3Price)));
+        Assert.assertTrue(orderBook.getAsks().stream().sorted().collect(Collectors.toList()).equals(orderBook.getAsks()));
 
-    Assert.assertEquals(orderBook.getBids().size(), bids.length);
-    Assert.assertTrue(orderBook.getBids().contains(new LimitOrder(Order.OrderType.BID, bid1Amount, CurrencyPair.ETH_BTC, null, date, bid1Price)));
-    Assert.assertTrue(orderBook.getBids().contains(new LimitOrder(Order.OrderType.BID, bid2Amount, CurrencyPair.ETH_BTC, null, date, bid2Price)));
-    Assert.assertTrue(orderBook.getBids().stream().sorted().collect(Collectors.toList()).equals(orderBook.getBids()));
-  }
+        Assert.assertEquals(orderBook.getBids().size(), bids.length);
+        Assert.assertTrue(orderBook.getBids().contains(new LimitOrder(Order.OrderType.BID, bid1Amount, CurrencyPair.ETH_BTC, null, date, bid1Price)));
+        Assert.assertTrue(orderBook.getBids().contains(new LimitOrder(Order.OrderType.BID, bid2Amount, CurrencyPair.ETH_BTC, null, date, bid2Price)));
+        Assert.assertTrue(orderBook.getBids().stream().sorted().collect(Collectors.toList()).equals(orderBook.getBids()));
+    }
 }

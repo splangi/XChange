@@ -10,10 +10,10 @@ import org.knowm.xchange.service.trade.TradeService;
  * </ul>
  */
 public interface OrderQueryParams {
-  String getOrderId();
+    String getOrderId();
 
-  /**
-   * Sets the orderId
-   */
-  void setOrderId(String orderId);
+    /**
+     * Sets the orderId
+     */
+    void setOrderId(String orderId);
 }

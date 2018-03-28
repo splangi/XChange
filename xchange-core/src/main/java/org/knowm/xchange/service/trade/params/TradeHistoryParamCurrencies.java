@@ -6,5 +6,5 @@ public interface TradeHistoryParamCurrencies extends TradeHistoryParams {
 
   Currency[] getCurrencies();
 
-  void setCurrencies(Currency[] currencies);
+    void setCurrencies(Currency[] currencies);
 }

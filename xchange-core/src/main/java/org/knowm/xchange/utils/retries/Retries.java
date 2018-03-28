@@ -1,9 +1,9 @@
 package org.knowm.xchange.utils.retries;
 
-import java.util.concurrent.Callable;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.concurrent.Callable;
 
 public class Retries {
 
@@ -23,7 +23,7 @@ public class Retries {
    * @author Matija Mazi and Bryan Hernandez
    */
   public static <V> V callWithRetries(int nAttempts, int initialRetrySec, Callable<V> action, IPredicate<Exception> retryableException)
-      throws Exception {
+          throws Exception {
     int retryDelaySec = initialRetrySec;
     for (int attemptsLeftAfterThis = nAttempts - 1; attemptsLeftAfterThis >= 0; attemptsLeftAfterThis--) {
       try {

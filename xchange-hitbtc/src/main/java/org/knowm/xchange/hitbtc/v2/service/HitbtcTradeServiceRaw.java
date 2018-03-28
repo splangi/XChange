@@ -1,10 +1,5 @@
 package org.knowm.xchange.hitbtc.v2.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
@@ -12,6 +7,10 @@ import org.knowm.xchange.hitbtc.v2.HitbtcAdapters;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcBalance;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcOrder;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcOwnTrade;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class HitbtcTradeServiceRaw extends HitbtcBaseService {
 
@@ -39,10 +38,10 @@ public class HitbtcTradeServiceRaw extends HitbtcBaseService {
     return hitbtc.postHitbtcNewOrder(null, symbol, side, limitOrder.getLimitPrice(), limitOrder.getOriginalAmount(), "limit", "GTC");
   }
 
-  public HitbtcOrder updateMarketOrderRaw(String clientOrderId, BigDecimal quantity, String requestClientId, Optional<BigDecimal> price)
+    public HitbtcOrder updateMarketOrderRaw(String clientOrderId, BigDecimal quantity, String requestClientId, BigDecimal price)
       throws IOException {
 
-    return hitbtc.updateHitbtcOrder(clientOrderId, quantity, requestClientId, price.orElse(null));
+        return hitbtc.updateHitbtcOrder(clientOrderId, quantity, requestClientId, price);
   }
 
   public HitbtcOrder cancelOrderRaw(String clientOrderId) throws IOException {

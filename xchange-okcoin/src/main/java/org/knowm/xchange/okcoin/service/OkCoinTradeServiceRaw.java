@@ -1,7 +1,5 @@
 package org.knowm.xchange.okcoin.service;
 
-import java.io.IOException;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.okcoin.FuturesContract;
@@ -12,6 +10,8 @@ import org.knowm.xchange.okcoin.dto.trade.OkCoinOrderResult;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinPositionResult;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinPriceLimit;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinTradeResult;
+
+import java.io.IOException;
 
 public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
 
@@ -56,8 +56,8 @@ public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
   public OkCoinTradeResult futuresTrade(String symbol, String type, String price, String amount, FuturesContract contract, int matchPrice,
       int leverRate) throws IOException {
 
-    OkCoinTradeResult tradeResult = okCoin
-        .futuresTrade(apikey, symbol, contract.getName(), type, price, amount, matchPrice, leverRate, signatureCreator);
+      OkCoinTradeResult tradeResult = okCoin
+              .futuresTrade(apikey, symbol, contract.getName(), type, price, amount, matchPrice, leverRate, signatureCreator);
     return returnOrThrow(tradeResult);
   }
 
@@ -67,11 +67,11 @@ public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
     return returnOrThrow(tradeResult);
   }
 
-  public OkCoinFuturesOrderResult getFuturesOrder(long orderId, String symbol, String currentPage, String pageLength, FuturesContract contract)
-      throws IOException {
+    public OkCoinFuturesOrderResult getFuturesOrder(long orderId, String symbol, String currentPage, String pageLength, FuturesContract contract)
+            throws IOException {
 
-    OkCoinFuturesOrderResult futuresOrder = okCoin
-        .getFuturesOrder(apikey, orderId, symbol, "1", currentPage, pageLength, contract.getName(), signatureCreator);
+        OkCoinFuturesOrderResult futuresOrder = okCoin
+                .getFuturesOrder(apikey, orderId, symbol, "1", currentPage, pageLength, contract.getName(), signatureCreator);
     return returnOrThrow(futuresOrder);
   }
 
@@ -81,11 +81,11 @@ public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
 
   }
 
-  public OkCoinFuturesOrderResult getFuturesFilledOrder(long orderId, String symbol, String currentPage, String pageLength, FuturesContract contract)
-      throws IOException {
+    public OkCoinFuturesOrderResult getFuturesFilledOrder(long orderId, String symbol, String currentPage, String pageLength, FuturesContract contract)
+            throws IOException {
 
-    OkCoinFuturesOrderResult futuresOrder = okCoin
-        .getFuturesOrder(apikey, orderId, symbol, "2", currentPage, pageLength, contract.getName(), signatureCreator);
+        OkCoinFuturesOrderResult futuresOrder = okCoin
+                .getFuturesOrder(apikey, orderId, symbol, "2", currentPage, pageLength, contract.getName(), signatureCreator);
     return returnOrThrow(futuresOrder);
   }
 

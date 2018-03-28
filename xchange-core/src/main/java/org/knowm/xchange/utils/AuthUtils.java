@@ -1,12 +1,12 @@
 package org.knowm.xchange.utils;
 
+import org.knowm.xchange.ExchangeSpecification;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-
-import org.knowm.xchange.ExchangeSpecification;
 
 public class AuthUtils {
 
@@ -57,7 +57,7 @@ public class AuthUtils {
     InputStream inStream = AuthUtils.class.getResourceAsStream("/" + resource);
 
     // Next try to find the keys in the user's home/.ssh dir
-    File keyfile = new File(System.getProperty("user.home") + "/" + ".ssh", resource);
+      File keyfile = new File(System.getProperty("user.home") + "/" + ".ssh", resource);
     if (inStream == null && keyfile.isFile()) {
       try {
         inStream = new FileInputStream(keyfile);
@@ -66,7 +66,7 @@ public class AuthUtils {
       }
     }
 
-    Properties props = null;
+      Properties props = null;
     if (inStream != null) {
       try {
         props = new Properties();

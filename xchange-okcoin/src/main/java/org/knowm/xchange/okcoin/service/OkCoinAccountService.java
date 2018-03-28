@@ -1,9 +1,5 @@
 package org.knowm.xchange.okcoin.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.List;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -22,6 +18,10 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamCurrencyPair;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamPaging;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.List;
 
 public class OkCoinAccountService extends OkCoinAccountServiceRaw implements AccountService {
 
@@ -129,7 +129,7 @@ public class OkCoinAccountService extends OkCoinAccountServiceRaw implements Acc
 
     @Override
     public void setCurrency(Currency currency) {
-      this.currency = currency;
+        this.currency = currency;
     }
 
     @Override
@@ -137,10 +137,10 @@ public class OkCoinAccountService extends OkCoinAccountServiceRaw implements Acc
       return this.currencyPair;
     }
 
-    @Override
-    public void setCurrencyPair(CurrencyPair currencyPair) {
-      this.currencyPair = currencyPair;
-    }
+      @Override
+      public void setCurrencyPair(CurrencyPair currencyPair) {
+          this.currencyPair = currencyPair;
+      }
   }
 
 }

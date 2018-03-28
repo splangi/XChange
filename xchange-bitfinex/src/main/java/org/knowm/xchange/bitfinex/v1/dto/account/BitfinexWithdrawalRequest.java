@@ -1,9 +1,9 @@
 package org.knowm.xchange.bitfinex.v1.dto.account;
 
-import java.math.BigDecimal;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+
+import java.math.BigDecimal;
 
 public class BitfinexWithdrawalRequest {
 
@@ -17,13 +17,13 @@ public class BitfinexWithdrawalRequest {
   private final String address;
   @JsonProperty("payment_id")
   private final String paymentId;
-  @JsonProperty("request")
-  protected String request;
-  @JsonProperty("nonce")
-  protected String nonce;
-  @JsonProperty("options")
-  @JsonRawValue
-  protected String options;
+    @JsonProperty("request")
+    protected String request;
+    @JsonProperty("nonce")
+    protected String nonce;
+    @JsonProperty("options")
+    @JsonRawValue
+    protected String options;
 
   /**
    * Constructor

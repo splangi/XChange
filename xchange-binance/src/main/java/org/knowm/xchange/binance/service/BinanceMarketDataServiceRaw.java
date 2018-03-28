@@ -1,9 +1,5 @@
 package org.knowm.xchange.binance.service;
 
-import java.io.IOException;
-import java.util.List;
-import java8.util.stream.Collectors;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.binance.dto.marketdata.BinanceAggTrades;
@@ -16,6 +12,10 @@ import org.knowm.xchange.binance.dto.marketdata.KlineInterval;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.utils.StreamUtils;
 
+import java.io.IOException;
+import java.util.List;
+
+import java8.util.stream.Collectors;
 import java8.util.stream.StreamSupport;
 
 public class BinanceMarketDataServiceRaw extends BinanceBaseService {
@@ -61,7 +61,7 @@ public class BinanceMarketDataServiceRaw extends BinanceBaseService {
   }
 
   public BinancePrice tickerPrice(CurrencyPair pair) throws IOException {
-    return StreamSupport.stream(tickerAllPrices()).filter(p -> p.getCurrencyPair().equals(pair)).collect(StreamUtils.singletonCollector());
+      return StreamSupport.stream(tickerAllPrices()).filter(p -> p.getCurrencyPair().equals(pair)).collect(StreamUtils.singletonCollector());
   }
 
   public List<BinancePrice> tickerAllPrices() throws IOException {

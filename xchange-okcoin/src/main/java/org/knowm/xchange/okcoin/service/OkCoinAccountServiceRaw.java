@@ -1,13 +1,13 @@
 package org.knowm.xchange.okcoin.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.okcoin.dto.account.OKCoinWithdraw;
 import org.knowm.xchange.okcoin.dto.account.OkCoinAccountRecords;
 import org.knowm.xchange.okcoin.dto.account.OkCoinFuturesUserInfoCross;
 import org.knowm.xchange.okcoin.dto.account.OkCoinUserInfo;
+
+import java.io.IOException;
+import java.math.BigDecimal;
 
 public class OkCoinAccountServiceRaw extends OKCoinBaseTradeService {
   private final String tradepwd;
@@ -59,9 +59,9 @@ public class OkCoinAccountServiceRaw extends OKCoinBaseTradeService {
   }
 
   public OKCoinWithdraw withdraw(String currencySymbol, String withdrawAddress, BigDecimal amount, String target, String fee) throws IOException {
-    OKCoinWithdraw withdrawResult = okCoin
-        .withdraw(exchange.getExchangeSpecification().getApiKey(), currencySymbol, signatureCreator, fee, tradepwd, withdrawAddress,
-            amount.toString(), target);
+      OKCoinWithdraw withdrawResult = okCoin
+              .withdraw(exchange.getExchangeSpecification().getApiKey(), currencySymbol, signatureCreator, fee, tradepwd, withdrawAddress,
+                      amount.toString(), target);
 
     return returnOrThrow(withdrawResult);
   }

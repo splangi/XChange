@@ -1,5 +1,9 @@
 package org.knowm.xchange.dto.marketdata;
 
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.Order.OrderType;
+import org.knowm.xchange.dto.trade.LimitOrder;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collections;
@@ -7,10 +11,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.Order.OrderType;
-import org.knowm.xchange.dto.trade.LimitOrder;
 
 /**
  * DTO representing the exchange order book
@@ -25,10 +25,10 @@ public final class OrderBook implements Serializable {
    * the bids
    */
   private final List<LimitOrder> bids;
-  /**
-   * the timestamp of the orderbook according to the exchange's server, null if not provided
-   */
-  private Date timeStamp;
+    /**
+     * the timestamp of the orderbook according to the exchange's server, null if not provided
+     */
+    private Date timeStamp;
 
   /**
    * Constructor
@@ -44,30 +44,30 @@ public final class OrderBook implements Serializable {
     this.bids = bids;
   }
 
-  /**
-   * Constructor
-   *
-   * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if not provided
-   * @param asks      The ASK orders
-   * @param bids      The BID orders
-   */
-  public OrderBook(Date timeStamp, Stream<LimitOrder> asks, Stream<LimitOrder> bids) {
+    /**
+     * Constructor
+     *
+     * @param timeStamp - the timestamp of the orderbook according to the exchange's server, null if not provided
+     * @param asks      The ASK orders
+     * @param bids      The BID orders
+     */
+    public OrderBook(Date timeStamp, Stream<LimitOrder> asks, Stream<LimitOrder> bids) {
 
-    this.timeStamp = timeStamp;
-    this.asks = asks.collect(Collectors.toList());
-    this.bids = bids.collect(Collectors.toList());
-  }
+        this.timeStamp = timeStamp;
+        this.asks = asks.collect(Collectors.toList());
+        this.bids = bids.collect(Collectors.toList());
+    }
 
-  // Returns a copy of limitOrder with tradeableAmount replaced.
-  private static LimitOrder withAmount(LimitOrder limitOrder, BigDecimal tradeableAmount) {
+    // Returns a copy of limitOrder with tradeableAmount replaced.
+    private static LimitOrder withAmount(LimitOrder limitOrder, BigDecimal tradeableAmount) {
 
-    OrderType type = limitOrder.getType();
-    CurrencyPair currencyPair = limitOrder.getCurrencyPair();
-    String id = limitOrder.getId();
-    Date date = limitOrder.getTimestamp();
-    BigDecimal limit = limitOrder.getLimitPrice();
-    return new LimitOrder(type, tradeableAmount, currencyPair, id, date, limit);
-  }
+        OrderType type = limitOrder.getType();
+        CurrencyPair currencyPair = limitOrder.getCurrencyPair();
+        String id = limitOrder.getId();
+        Date date = limitOrder.getTimestamp();
+        BigDecimal limit = limitOrder.getLimitPrice();
+        return new LimitOrder(type, tradeableAmount, currencyPair, id, date, limit);
+    }
 
   public Date getTimeStamp() {
 

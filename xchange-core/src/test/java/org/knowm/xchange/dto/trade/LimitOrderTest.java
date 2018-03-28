@@ -1,16 +1,16 @@
 package org.knowm.xchange.dto.trade;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.junit.Test;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.Order.IOrderFlags;
 import org.knowm.xchange.dto.Order.OrderType;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertEquals;
 
 public class LimitOrderTest {
   @Test
@@ -24,7 +24,7 @@ public class LimitOrderTest {
     final Order.OrderStatus status = Order.OrderStatus.FILLED;
 
     final LimitOrder copy = new LimitOrder.Builder(type, currencyPair).originalAmount(originalAmount).limitPrice(limitPrice).orderStatus(status)
-                                                                      .timestamp(timestamp).id(id).flag(TestFlags.TEST1).build();
+            .timestamp(timestamp).id(id).flag(TestFlags.TEST1).build();
 
     assertThat(copy.getType()).isEqualTo(type);
     assertThat(copy.getOriginalAmount()).isEqualTo(originalAmount);
@@ -112,7 +112,7 @@ public class LimitOrderTest {
     assertEquals(1, ask1.compareTo(bid2));
   }
 
-  private enum TestFlags implements IOrderFlags {
-    TEST1, TEST2, TEST3
-  }
+    private enum TestFlags implements IOrderFlags {
+        TEST1, TEST2, TEST3
+    }
 }

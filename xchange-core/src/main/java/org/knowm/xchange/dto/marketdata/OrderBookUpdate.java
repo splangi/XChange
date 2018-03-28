@@ -1,12 +1,12 @@
 package org.knowm.xchange.dto.marketdata;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.dto.trade.LimitOrder;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Immutable data object representing a Market Depth update.

@@ -19,9 +19,9 @@ public class DefaultTradeHistoryParamCurrencyPair implements TradeHistoryParamCu
     return pair;
   }
 
-  @Override
-  public void setCurrencyPair(CurrencyPair pair) {
+    @Override
+    public void setCurrencyPair(CurrencyPair pair) {
 
-    this.pair = pair;
-  }
+        this.pair = pair;
+    }
 }

@@ -1,15 +1,15 @@
 package org.knowm.xchange.dto.meta;
 
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.utils.ObjectMapperHelper;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * This class is loaded during creation of the Exchange and is intended to hold both data that is readily available from an HTTP API request at an
@@ -71,25 +71,25 @@ public class ExchangeMetaData implements Serializable {
     return result;
   }
 
-  public Map<CurrencyPair, CurrencyPairMetaData> getCurrencyPairs() {
-    return currencyPairs;
-  }
+    public Map<CurrencyPair, CurrencyPairMetaData> getCurrencyPairs() {
+        return currencyPairs;
+    }
 
-  public Map<Currency, CurrencyMetaData> getCurrencies() {
-    return currencies;
-  }
+    public Map<Currency, CurrencyMetaData> getCurrencies() {
+        return currencies;
+    }
 
-  public RateLimit[] getPublicRateLimits() {
-    return publicRateLimits;
-  }
+    public RateLimit[] getPublicRateLimits() {
+        return publicRateLimits;
+    }
 
-  public RateLimit[] getPrivateRateLimits() {
-    return privateRateLimits;
-  }
+    public RateLimit[] getPrivateRateLimits() {
+        return privateRateLimits;
+    }
 
-  public boolean isShareRateLimits() {
-    return shareRateLimits;
-  }
+    public boolean isShareRateLimits() {
+        return shareRateLimits;
+    }
 
   @JsonIgnore
   public String toJSONString() {
@@ -98,8 +98,8 @@ public class ExchangeMetaData implements Serializable {
 
   @Override
   public String toString() {
-    return "ExchangeMetaData [currencyPairs=" + currencyPairs + ", currencies=" + currencies + ", publicRateLimits=" + Arrays
-        .toString(publicRateLimits) + ", privateRateLimits=" + Arrays.toString(privateRateLimits) + ", shareRateLimits=" + shareRateLimits + "]";
+      return "ExchangeMetaData [currencyPairs=" + currencyPairs + ", currencies=" + currencies + ", publicRateLimits=" + Arrays
+              .toString(publicRateLimits) + ", privateRateLimits=" + Arrays.toString(privateRateLimits) + ", shareRateLimits=" + shareRateLimits + "]";
   }
 
 }

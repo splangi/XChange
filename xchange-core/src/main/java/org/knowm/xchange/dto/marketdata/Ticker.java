@@ -1,12 +1,12 @@
 package org.knowm.xchange.dto.marketdata;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.utils.Assert;
 import org.knowm.xchange.utils.DateUtils;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -48,7 +48,7 @@ public final class Ticker implements Serializable {
    * @param timestamp    - the timestamp of the ticker according to the exchange's server, null if not provided
    */
   private Ticker(CurrencyPair currencyPair, BigDecimal open, BigDecimal last, BigDecimal bid, BigDecimal ask, BigDecimal high, BigDecimal low,
-      BigDecimal vwap, BigDecimal volume, BigDecimal quoteVolume, Date timestamp) {
+                 BigDecimal vwap, BigDecimal volume, BigDecimal quoteVolume, Date timestamp) {
     this.open = open;
     this.currencyPair = currencyPair;
     this.last = last;
@@ -122,9 +122,9 @@ public final class Ticker implements Serializable {
   @Override
   public String toString() {
 
-    return "Ticker [currencyPair=" + currencyPair + ", open=" + open + ", last=" + last + ", bid=" + bid + ", ask=" + ask + ", high=" + high
-        + ", low=" + low + ",avg=" + vwap + ", volume=" + volume + ", quoteVolume=" + quoteVolume + ", timestamp=" + DateUtils
-        .toMillisNullSafe(timestamp) + "]";
+      return "Ticker [currencyPair=" + currencyPair + ", open=" + open + ", last=" + last + ", bid=" + bid + ", ask=" + ask + ", high=" + high
+              + ", low=" + low + ",avg=" + vwap + ", volume=" + volume + ", quoteVolume=" + quoteVolume + ", timestamp=" + DateUtils
+              .toMillisNullSafe(timestamp) + "]";
   }
 
   /**

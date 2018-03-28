@@ -1,12 +1,12 @@
 package org.knowm.xchange.dto.marketdata;
 
-import static org.knowm.xchange.dto.marketdata.Trades.TradeSortType.SortByID;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import static org.knowm.xchange.dto.marketdata.Trades.TradeSortType.SortByID;
 
 /**
  * <p>
@@ -96,10 +96,10 @@ public class Trades implements Serializable {
   public String toString() {
 
     StringBuilder sb = new StringBuilder("Trades\n");
-    sb.append("lastID= ").append(lastID).append("\n");
+      sb.append("lastID= ").append(lastID).append("\n");
 
     for (Trade trade : getTrades()) {
-      sb.append("[trade=").append(trade.toString()).append("]\n");
+        sb.append("[trade=").append(trade.toString()).append("]\n");
     }
     return sb.toString();
   }

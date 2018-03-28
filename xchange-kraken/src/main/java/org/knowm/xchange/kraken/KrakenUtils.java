@@ -1,13 +1,13 @@
 package org.knowm.xchange.kraken;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.kraken.dto.marketdata.KrakenAsset;
 import org.knowm.xchange.kraken.dto.marketdata.KrakenAssetPair;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author timmolter
@@ -32,7 +32,7 @@ public class KrakenUtils {
         //  skip dark markets!
         if (!entry.getKey().endsWith(".d")) {
           CurrencyPair pair = new CurrencyPair(translateKrakenCurrencyCode(entry.getValue().getBase()),
-              translateKrakenCurrencyCode(entry.getValue().getQuote()));
+                  translateKrakenCurrencyCode(entry.getValue().getQuote()));
           assetPairMap.put(entry.getKey(), pair);
           assetPairMapReverse.put(pair, entry.getKey());
         }

@@ -33,7 +33,7 @@ public class DefaultTradeHistoryParamsTimeSpan implements TradeHistoryParamsTime
   @Override
   public void setEndTime(Date endTime) {
 
-    this.endTime = endTime;
+      this.endTime = endTime;
   }
 
   @Override
@@ -42,9 +42,9 @@ public class DefaultTradeHistoryParamsTimeSpan implements TradeHistoryParamsTime
     return startTime;
   }
 
-  @Override
-  public void setStartTime(Date time) {
+    @Override
+    public void setStartTime(Date time) {
 
-    startTime = time;
-  }
+        startTime = time;
+    }
 }

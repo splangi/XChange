@@ -94,7 +94,7 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency ETB = createCurrency("ETB", "Ethiopian Birr", null);
   public static final Currency ETC = createCurrency("ETC", "Ether Classic", null);
   public static final Currency ETH = createCurrency("ETH", "Ether", null);
-  public static final Currency EUR = createCurrency("EUR", "Euro", null);
+    public static final Currency EUR = createCurrency("EUR", "Euro", "€");
   public static final Currency FJD = createCurrency("FJD", "Fijian Dollar", null);
   public static final Currency _1ST = createCurrency("1ST", "First Blood", null);
   public static final Currency FKP = createCurrency("FKP", "Falkland Islands Pound", null);
@@ -283,27 +283,26 @@ public class Currency implements Comparable<Currency>, Serializable {
   public static final Currency ELF = createCurrency("ELF", "aelf", null);
   public static final Currency STORJ = createCurrency("STORJ", "Storj", null);
   public static final Currency MOD = createCurrency("MOD", "Modum", null);
-  private final String code;
-  private final CurrencyAttributes attributes;
+    public static final Currency CMT = createCurrency("CMT", "CyberMiles", null);
+    public static final Currency RDN = createCurrency("RDN", "Raiden Network Token", null);
+    public static final Currency RPX = createCurrency("RPX", "Red Pulse", null);
+    private final String code;
+    private final CurrencyAttributes attributes;
 
-  /**
-   * Public constructor. Links to an existing currency.
-   */
-  public Currency(String code) {
+    /**
+     * Public constructor. Links to an existing currency.
+     */
+    public Currency(String code) {
 
-    this.code = code;
-    this.attributes = getInstance(code).attributes;
-  }
+        this.code = code;
+        this.attributes = getInstance(code).attributes;
+    }
 
-  private Currency(String alternativeCode, CurrencyAttributes attributes) {
+    private Currency(String alternativeCode, CurrencyAttributes attributes) {
 
-    this.code = alternativeCode;
-    this.attributes = attributes;
-  }
-
-  public static final Currency CMT = createCurrency("CMT", "CyberMiles", null);
-  public static final Currency RDN = createCurrency("RDN", "Raiden Network Token", null);
-  public static final Currency RPX = createCurrency("RPX", "Red Pulse", null);
+        this.code = alternativeCode;
+        this.attributes = attributes;
+    }
 
   /**
    * Gets the set of available currencies.
@@ -343,34 +342,34 @@ public class Currency implements Comparable<Currency>, Serializable {
     return currencies.get(currencyCode.toUpperCase());
   }
 
-  /**
-   * Factory
-   *
-   * @param commonCode       commonly used code for this currency: "BTC"
-   * @param name             Name of the currency: "Bitcoin"
-   * @param unicode          Unicode symbol for the currency: "\u20BF" or "฿"
-   * @param alternativeCodes Alternative codes for the currency: "XBT"
-   */
-  private static Currency createCurrency(String commonCode, String name, String unicode, String... alternativeCodes) {
+    /**
+     * Factory
+     *
+     * @param commonCode       commonly used code for this currency: "BTC"
+     * @param name             Name of the currency: "Bitcoin"
+     * @param unicode          Unicode symbol for the currency: "\u20BF" or "฿"
+     * @param alternativeCodes Alternative codes for the currency: "XBT"
+     */
+    private static Currency createCurrency(String commonCode, String name, String unicode, String... alternativeCodes) {
 
-    CurrencyAttributes attributes = new CurrencyAttributes(commonCode, name, unicode, alternativeCodes);
+        CurrencyAttributes attributes = new CurrencyAttributes(commonCode, name, unicode, alternativeCodes);
 
-    Currency currency = new Currency(commonCode, attributes);
+        Currency currency = new Currency(commonCode, attributes);
 
-    for (String code : attributes.codes) {
-      if (commonCode.equals(code)) {
-        // common code will always be part of the currencies map
+        for (String code : attributes.codes) {
+            if (commonCode.equals(code)) {
+                // common code will always be part of the currencies map
 
-        currencies.put(code, currency);
+                currencies.put(code, currency);
 
-      } else if (!currencies.containsKey(code)) {
-        // alternative codes will never overwrite common codes
+            } else if (!currencies.containsKey(code)) {
+                // alternative codes will never overwrite common codes
 
-        currencies.put(code, new Currency(code, attributes));
-      }
-    }
+                currencies.put(code, new Currency(code, attributes));
+            }
+        }
 
-    return currency;
+        return currency;
   }
 
   /**

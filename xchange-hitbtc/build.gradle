@@ -1,6 +1,8 @@
+apply from: '../xchange-build.gradle'
 
 description = 'XChange Hitbtc'
+
 dependencies {
-  compile project(':xchange-core')
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.7'
+  implementation project(':xchange-core')
+  implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.7'
 }

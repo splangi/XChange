@@ -1,12 +1,12 @@
 package org.knowm.xchange.dto.account;
 
+import org.knowm.xchange.currency.Currency;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.knowm.xchange.currency.Currency;
 
 /**
  * <p>
@@ -63,10 +63,10 @@ public final class FundingRecord implements Serializable {
    * Transaction Fee Amount in given transaction currency (always positive)
    */
   private final BigDecimal fee;
-  /**
-   * Description of the transaction
-   */
-  private String description;
+    /**
+     * Description of the transaction
+     */
+    private String description;
 
   /**
    * Constructs a {@link FundingRecord}.
@@ -86,11 +86,11 @@ public final class FundingRecord implements Serializable {
    */
   @Deprecated
   public FundingRecord(final String address, final Date date, final Currency currency, final BigDecimal amount, final String internalId,
-      final String blockchainTransactionHash, final Type type, final String status, final BigDecimal balance, final BigDecimal fee,
-      final String description) {
-    this(address, date, currency, amount, internalId, blockchainTransactionHash, type, Status.resolveStatus(status), balance, fee, description);
+                       final String blockchainTransactionHash, final Type type, final String status, final BigDecimal balance, final BigDecimal fee,
+                       final String description) {
+      this(address, date, currency, amount, internalId, blockchainTransactionHash, type, Status.resolveStatus(status), balance, fee, description);
     if (this.status == null && status != null) {
-      this.description = this.description == null || this.description.isEmpty() ? status : status + ": " + this.description;
+        this.description = this.description == null || this.description.isEmpty() ? status : status + ": " + this.description;
     }
   }
 
@@ -110,14 +110,14 @@ public final class FundingRecord implements Serializable {
    * @param description               Description of the transaction. It is a good idea to put here any extra info sent back from the exchange that doesn't fit elsewhere so users can still access it.
    */
   public FundingRecord(final String address, final Date date, final Currency currency, final BigDecimal amount, final String internalId,
-      final String blockchainTransactionHash, final Type type, final Status status, final BigDecimal balance, final BigDecimal fee,
-      final String description) {
+                       final String blockchainTransactionHash, final Type type, final Status status, final BigDecimal balance, final BigDecimal fee,
+                       final String description) {
     this.address = address;
     this.date = date;
     this.currency = currency;
     this.amount = amount == null ? null : amount.abs();
     this.internalId = internalId;
-    this.blockchainTransactionHash = blockchainTransactionHash;
+      this.blockchainTransactionHash = blockchainTransactionHash;
     this.type = type;
     this.status = status;
     this.balance = balance;
@@ -160,16 +160,16 @@ public final class FundingRecord implements Serializable {
     return internalId;
   }
 
-  @Deprecated//for backward compatibility.  Will be removed
+    @Deprecated//for backward compatibility.  Will be removed
   public String getExternalId() {
-    return blockchainTransactionHash;
-  }
+        return blockchainTransactionHash;
+    }
 
-  /**
-   * @return External Transaction id that identifies the transaction within the public ledger, eg. blockchain transaction hash.
-   */
-  public String getBlockchainTransactionHash() {
-    return blockchainTransactionHash;
+    /**
+     * @return External Transaction id that identifies the transaction within the public ledger, eg. blockchain transaction hash.
+     */
+    public String getBlockchainTransactionHash() {
+        return blockchainTransactionHash;
   }
 
   /**
@@ -209,83 +209,83 @@ public final class FundingRecord implements Serializable {
 
   @Override
   public String toString() {
-    return String.format(
-        "FundingRecord{address='%s', date=%s, currency=%s, amount=%s, internalId=%s, blockchainTransactionHash=%s, description='%s', type=%s, status=%s, balance=%s, fee=%s}",
-        address, date, currency, amount, internalId, blockchainTransactionHash, description, type, status, balance, fee);
+      return String.format(
+              "FundingRecord{address='%s', date=%s, currency=%s, amount=%s, internalId=%s, blockchainTransactionHash=%s, description='%s', type=%s, status=%s, balance=%s, fee=%s}",
+              address, date, currency, amount, internalId, blockchainTransactionHash, description, type, status, balance, fee);
   }
 
-  /**
-   * <p>
-   * Enum representing funding transaction type
-   * </p>
-   */
-  public enum Type {
-    WITHDRAWAL, DEPOSIT;
-
-    private static final Map<String, Type> fromString = new HashMap<>();
-
-    static {
-      for (Type type : values())
-        fromString.put(type.toString(), type);
-    }
-
-    public static Type fromString(String ledgerTypeString) {
-      return fromString.get(ledgerTypeString.toUpperCase());
-    }
-  }
-
-  public enum Status {
     /**
-     * The user has requested the withdrawal or deposit, or the exchange has detected an initiated deposit,
-     * but the exchange still has to fully process the funding.
-     * The funds are not available to the user. The funding request may possibly still be cancelled though.
+     * <p>
+     * Enum representing funding transaction type
+     * </p>
      */
-    PROCESSING("WAIT CONFIRMATION", "EMAIL CONFIRMATION", "EMAIL SENT", "AWAITING APPROVAL", "VERIFYING", "PENDING_APPROVAL", "PENDING"),
+    public enum Type {
+        WITHDRAWAL, DEPOSIT;
 
-    /**
-     * The exchange has processed the transfer fully and successfully.
-     * The funding typically cannot be cancelled any more.
-     * For withdrawals, the funds are gone from the exchange, though they may have not reached their destination yet.
-     * For deposits, the funds are available to the user.
-     */
-    COMPLETE("COMPLETED"),
+        private static final Map<String, Type> fromString = new HashMap<>();
 
-    /**
-     * The transfer was cancelled either by the user or by the exchange.
-     */
-    CANCELLED("REVOKED", "CANCEL", "REFUND"),
-
-    /**
-     * The transfer has failed for any reason other than user cancellation after it was initiated and before it was successfully processed.
-     * For withdrawals, the funds are available to the user again.
-     */
-    FAILED("FAILURE"),;
-
-    private static final Map<String, Status> fromString = new HashMap<>();
-
-    static {
-      for (final Status status : values()) {
-        final String[] statusArray = status.statusArray;
-        if (statusArray != null) {
-          for (final String statusStr : statusArray) {
-            fromString.put(statusStr, status);
-          }
+        static {
+            for (Type type : values())
+                fromString.put(type.toString(), type);
         }
-        fromString.put(status.toString(), status);
-      }
+
+        public static Type fromString(String ledgerTypeString) {
+            return fromString.get(ledgerTypeString.toUpperCase());
+        }
     }
 
-    private String[] statusArray;
+    public enum Status {
+        /**
+         * The user has requested the withdrawal or deposit, or the exchange has detected an initiated deposit,
+         * but the exchange still has to fully process the funding.
+         * The funds are not available to the user. The funding request may possibly still be cancelled though.
+         */
+        PROCESSING("WAIT CONFIRMATION", "EMAIL CONFIRMATION", "EMAIL SENT", "AWAITING APPROVAL", "VERIFYING", "PENDING_APPROVAL", "PENDING"),
 
-    Status(String... statusArray) {
-      this.statusArray = statusArray;
-    }
+        /**
+         * The exchange has processed the transfer fully and successfully.
+         * The funding typically cannot be cancelled any more.
+         * For withdrawals, the funds are gone from the exchange, though they may have not reached their destination yet.
+         * For deposits, the funds are available to the user.
+         */
+        COMPLETE("COMPLETED"),
 
-    public static Status resolveStatus(String str) {
-      if (str == null) {
-        return null;
-      }
-      return fromString.get(str.toUpperCase());
+        /**
+         * The transfer was cancelled either by the user or by the exchange.
+         */
+        CANCELLED("REVOKED", "CANCEL", "REFUND"),
+
+        /**
+         * The transfer has failed for any reason other than user cancellation after it was initiated and before it was successfully processed.
+         * For withdrawals, the funds are available to the user again.
+         */
+        FAILED("FAILURE"),;
+
+        private static final Map<String, Status> fromString = new HashMap<>();
+
+        static {
+            for (final Status status : values()) {
+                final String[] statusArray = status.statusArray;
+                if (statusArray != null) {
+                    for (final String statusStr : statusArray) {
+                        fromString.put(statusStr, status);
+                    }
+                }
+                fromString.put(status.toString(), status);
+            }
+        }
+
+        private String[] statusArray;
+
+        Status(String... statusArray) {
+            this.statusArray = statusArray;
+        }
+
+        public static Status resolveStatus(String str) {
+            if (str == null) {
+                return null;
+            }
+            return fromString.get(str.toUpperCase());
     }
 
   }
@@ -295,8 +295,8 @@ public final class FundingRecord implements Serializable {
     private String address;
     private Date date;
     private Currency currency;
-    private BigDecimal amount;
-    private String internalId;
+      private BigDecimal amount;
+      private String internalId;
     private String blockchainTransactionHash;
     private String description;
     private Type type;
@@ -325,11 +325,11 @@ public final class FundingRecord implements Serializable {
     }
 
     public Builder setInternalId(String internalId) {
-      this.internalId = internalId;
-      return this;
+        this.internalId = internalId;
+        return this;
     }
 
-    public Builder setBlockchainTransactionHash(String blockchainTransactionHash) {
+      public Builder setBlockchainTransactionHash(String blockchainTransactionHash) {
       this.blockchainTransactionHash = blockchainTransactionHash;
       return this;
     }
@@ -356,11 +356,11 @@ public final class FundingRecord implements Serializable {
 
     public Builder setFee(BigDecimal fee) {
       this.fee = fee;
-      return this;
+        return this;
     }
 
-    public FundingRecord build() {
-      return new FundingRecord(address, date, currency, amount, internalId, blockchainTransactionHash, type, status, balance, fee, description);
+      public FundingRecord build() {
+          return new FundingRecord(address, date, currency, amount, internalId, blockchainTransactionHash, type, status, balance, fee, description);
     }
   }
 }

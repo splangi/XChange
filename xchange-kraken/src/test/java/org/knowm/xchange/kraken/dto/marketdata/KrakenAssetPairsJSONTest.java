@@ -1,6 +1,10 @@
 package org.knowm.xchange.kraken.dto.marketdata;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.knowm.xchange.kraken.dto.marketdata.results.KrakenAssetPairsResult;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,11 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.knowm.xchange.kraken.dto.marketdata.results.KrakenAssetPairsResult;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class KrakenAssetPairsJSONTest {
 
@@ -28,8 +28,8 @@ public class KrakenAssetPairsJSONTest {
     fees.add(new KrakenFee(new BigDecimal("0"), new BigDecimal("0.1")));
     List<String> leverage_buy = Arrays.asList("2", "3", "4", "5");
     List<String> leverage_sell = Arrays.asList("2", "3", "4", "5");
-    expectedAssetPairInfo = new KrakenAssetPair("XBTUSD", "currency", "XXBT", "currency", "ZUSD", "unit", 3, 8, new BigDecimal(1), fees, fees_maker,
-        "ZUSD", new BigDecimal(80), new BigDecimal(40), leverage_buy, leverage_sell);
+      expectedAssetPairInfo = new KrakenAssetPair("XBTUSD", "currency", "XXBT", "currency", "ZUSD", "unit", 3, 8, new BigDecimal(1), fees, fees_maker,
+              "ZUSD", new BigDecimal(80), new BigDecimal(40), leverage_buy, leverage_sell);
   }
 
   @Test

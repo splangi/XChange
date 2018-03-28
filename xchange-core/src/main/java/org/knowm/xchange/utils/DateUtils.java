@@ -1,12 +1,12 @@
 package org.knowm.xchange.utils;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
 /**
  * <p>
@@ -95,7 +95,7 @@ public class DateUtils {
    * @throws com.fasterxml.jackson.databind.exc.InvalidFormatException
    */
   public static Date fromRfc1123DateString(String rfc1123FormattedDate, Locale locale)
-      throws com.fasterxml.jackson.databind.exc.InvalidFormatException {
+          throws com.fasterxml.jackson.databind.exc.InvalidFormatException {
 
     SimpleDateFormat rfc1123DateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz", locale);
     try {

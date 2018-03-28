@@ -1,10 +1,5 @@
 package org.knowm.xchange.hitbtc.v2.service;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.hitbtc.v2.HitbtcAdapters;
@@ -14,6 +9,13 @@ import org.knowm.xchange.hitbtc.v2.dto.HitbtcSort;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcSymbol;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcTicker;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcTrade;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
 
 public class HitbtcMarketDataServiceRaw extends HitbtcBaseService {
 
@@ -28,7 +30,7 @@ public class HitbtcMarketDataServiceRaw extends HitbtcBaseService {
 
   public Map<String, HitbtcTicker> getHitbtcTickers() throws IOException {
 
-    return hitbtc.getHitbtcTickers().stream().collect(Collectors.toMap(hitbtcTicker -> hitbtcTicker.getSymbol(), hitbtcTicker -> hitbtcTicker));
+      return StreamSupport.stream(hitbtc.getHitbtcTickers()).collect(Collectors.toMap(hitbtcTicker -> hitbtcTicker.getSymbol(), hitbtcTicker -> hitbtcTicker));
   }
 
   public HitbtcTicker getHitbtcTicker(CurrencyPair currencyPair) throws IOException {

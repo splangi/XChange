@@ -1,5 +1,12 @@
 package org.knowm.xchange.bitfinex.v1.dto.account;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,17 +15,10 @@ import java.util.Map;
 
 import javax.annotation.Generated;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({"margin_balance", "tradable_balance", "unrealized_pl", "unrealized_swap", "net_value", "required_margin", "leverage",
-    "margin_requirement", "margin_limits", "message"})
+        "margin_requirement", "margin_limits", "message"})
 public class BitfinexMarginInfosResponse {
 
   @JsonProperty("margin_balance")
@@ -178,8 +178,8 @@ public class BitfinexMarginInfosResponse {
 
   @Override
   public String toString() {
-    return "BitfinexMarginInfosResponse{" + "marginBalance=" + marginBalance + ", tradableBalance=" + tradableBalance + ", unrealizedPl="
-        + unrealizedPl + ", unrealizedSwap=" + unrealizedSwap + ", netValue=" + netValue + ", requiredMargin=" + requiredMargin + ", leverage="
-        + leverage + ", marginRequirement=" + marginRequirement + ", marginLimits=" + marginLimits + ", message='" + message + '\'' + '}';
+      return "BitfinexMarginInfosResponse{" + "marginBalance=" + marginBalance + ", tradableBalance=" + tradableBalance + ", unrealizedPl="
+              + unrealizedPl + ", unrealizedSwap=" + unrealizedSwap + ", netValue=" + netValue + ", requiredMargin=" + requiredMargin + ", leverage="
+              + leverage + ", marginRequirement=" + marginRequirement + ", marginLimits=" + marginLimits + ", message='" + message + '\'' + '}';
   }
 }

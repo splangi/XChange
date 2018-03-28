@@ -5,5 +5,5 @@ description = 'XChange Binance'
 
 
 dependencies {
-  compile project(':xchange-core')
+  implementation project(':xchange-core')
 }

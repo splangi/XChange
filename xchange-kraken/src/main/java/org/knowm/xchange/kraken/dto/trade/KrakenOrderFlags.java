@@ -1,19 +1,19 @@
 package org.knowm.xchange.kraken.dto.trade;
 
-import java.io.IOException;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
-import org.knowm.xchange.dto.Order.IOrderFlags;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+
+import org.knowm.xchange.dto.Order.IOrderFlags;
+
+import java.io.IOException;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public enum KrakenOrderFlags implements IOrderFlags {
 
@@ -30,16 +30,16 @@ public enum KrakenOrderFlags implements IOrderFlags {
       fromString.put(orderFlag.toString(), orderFlag);
   }
 
-  public static KrakenOrderFlags fromString(String orderTypeString) {
+    public static KrakenOrderFlags fromString(String orderTypeString) {
 
-    return fromString.get(orderTypeString.toLowerCase());
-  }
+        return fromString.get(orderTypeString.toLowerCase());
+    }
 
-  @Override
-  public String toString() {
+    @Override
+    public String toString() {
 
-    return super.toString().toLowerCase();
-  }
+        return super.toString().toLowerCase();
+    }
 
   static class KrakenOrderFlagsDeserializer extends JsonDeserializer<Set<KrakenOrderFlags>> {
 

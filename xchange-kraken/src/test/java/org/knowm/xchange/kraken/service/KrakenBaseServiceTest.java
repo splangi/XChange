@@ -1,12 +1,5 @@
 package org.knowm.xchange.kraken.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.Test;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
@@ -14,6 +7,13 @@ import org.knowm.xchange.ExchangeSpecification;
 import org.knowm.xchange.dto.Order.IOrderFlags;
 import org.knowm.xchange.kraken.KrakenExchange;
 import org.knowm.xchange.kraken.dto.trade.KrakenOrderFlags;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class KrakenBaseServiceTest {
 
@@ -48,8 +48,8 @@ public class KrakenBaseServiceTest {
     }
   }
 
-  private enum OtherExchangeFlags implements IOrderFlags {
-    OTHER
-  }
+    private enum OtherExchangeFlags implements IOrderFlags {
+        OTHER
+    }
 
 }

@@ -1,9 +1,9 @@
 package org.knowm.xchange.currency;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.io.Serializable;
 import java.util.List;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * <p>
@@ -276,29 +276,6 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     this.counter = counter;
   }
 
-  public static CurrencyPair parse(String currencyPairIn, List<CurrencyPair> exchangePairs){
-    for (CurrencyPair currencyPair : exchangePairs){
-      boolean baseIn = false;
-      boolean counterIn = false;
-      for (String base : currencyPair.base.getCurrencyCodes()){
-        if (currencyPairIn.contains(base)){
-          baseIn = true;
-          break;
-        }
-      }
-      for (String counter : currencyPair.counter.getCurrencyCodes()){
-        if (currencyPairIn.contains(counter)){
-          counterIn = true;
-          break;
-        }
-      }
-      if (baseIn && counterIn){
-        return currencyPair;
-      }
-    }
-    return null;
-  }
-
   /**
    * <p>
    * String constructor
@@ -329,6 +306,29 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
     this.base = Currency.getInstance(base);
     this.counter = Currency.getInstance(counter);
   }
+
+    public static CurrencyPair parse(String currencyPairIn, List<CurrencyPair> exchangePairs) {
+        for (CurrencyPair currencyPair : exchangePairs) {
+            boolean baseIn = false;
+            boolean counterIn = false;
+            for (String base : currencyPair.base.getCurrencyCodes()) {
+                if (currencyPairIn.contains(base)) {
+                    baseIn = true;
+                    break;
+                }
+            }
+            for (String counter : currencyPair.counter.getCurrencyCodes()) {
+                if (currencyPairIn.contains(counter)) {
+                    counterIn = true;
+                    break;
+                }
+            }
+            if (baseIn && counterIn) {
+                return currencyPair;
+            }
+        }
+        return null;
+    }
 
   @Override
   public String toString() {

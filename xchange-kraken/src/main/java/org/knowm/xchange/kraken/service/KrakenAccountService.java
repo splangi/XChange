@@ -1,11 +1,5 @@
 package org.knowm.xchange.kraken.service;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.dto.account.AccountInfo;
@@ -23,6 +17,12 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamOffset;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class KrakenAccountService extends KrakenAccountServiceRaw implements AccountService {
 
@@ -126,7 +126,7 @@ public class KrakenAccountService extends KrakenAccountServiceRaw implements Acc
 
     @Override
     public void setOffset(final Long offset) {
-      this.offset = offset;
+        this.offset = offset;
     }
 
     @Override
@@ -134,10 +134,10 @@ public class KrakenAccountService extends KrakenAccountServiceRaw implements Acc
       return this.currencies;
     }
 
-    @Override
-    public void setCurrencies(Currency[] currencies) {
-      this.currencies = currencies;
-    }
+      @Override
+      public void setCurrencies(Currency[] currencies) {
+          this.currencies = currencies;
+      }
 
     @Override
     public FundingRecord.Type getType() {

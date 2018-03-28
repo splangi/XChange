@@ -11,5 +11,5 @@ public interface OpenOrdersParamCurrencyPair extends OpenOrdersParams {
 
   CurrencyPair getCurrencyPair();
 
-  void setCurrencyPair(CurrencyPair pair);
+    void setCurrencyPair(CurrencyPair pair);
 }

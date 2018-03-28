@@ -1,8 +1,5 @@
 package org.knowm.xchange.service.trade;
 
-import java.io.IOException;
-import java.util.Collection;
-
 import org.knowm.xchange.dto.Order;
 import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.dto.trade.MarketOrder;
@@ -18,6 +15,9 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsAll;
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
+
+import java.io.IOException;
+import java.util.Collection;
 
 /**
  * <p>
@@ -195,17 +195,17 @@ public interface TradeService extends BaseService {
    */
   Collection<Order> getOrder(String... orderIds) throws IOException;
 
-  /**
-   * get's the latest order form the order book that with matching orderQueryParams
-   *
-   * @return the order as it is on the exchange.
-   * @throws ExchangeException                     - Indication that the exchange reported some kind of error with the request or response
-   * @throws NotAvailableFromExchangeException     - Indication that the exchange does not support the requested function or data
-   * @throws NotYetImplementedForExchangeException - Indication that the exchange supports the requested function or data, but it has not yet been
-   *                                               implemented
-   * @throws IOException                           - Indication that a networking error occurred while fetching JSON data
-   */
-  default Collection<Order> getOrder(OrderQueryParams... orderQueryParams) throws IOException {
-    throw new NotAvailableFromExchangeException();
-  }
+    /**
+     * get's the latest order form the order book that with matching orderQueryParams
+     *
+     * @return the order as it is on the exchange.
+     * @throws ExchangeException                     - Indication that the exchange reported some kind of error with the request or response
+     * @throws NotAvailableFromExchangeException     - Indication that the exchange does not support the requested function or data
+     * @throws NotYetImplementedForExchangeException - Indication that the exchange supports the requested function or data, but it has not yet been
+     *                                               implemented
+     * @throws IOException                           - Indication that a networking error occurred while fetching JSON data
+     */
+    default Collection<Order> getOrder(OrderQueryParams... orderQueryParams) throws IOException {
+        throw new NotAvailableFromExchangeException();
+    }
 }

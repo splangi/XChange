@@ -2,7 +2,7 @@ allprojects  {
   apply plugin: 'maven'
 
   group = 'org.knowm.xchange'
-version = '4.3.4-SNAPSHOT'
+version = '4.3.4'
 }
 
 

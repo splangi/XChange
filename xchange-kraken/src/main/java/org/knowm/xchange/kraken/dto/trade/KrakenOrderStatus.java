@@ -1,11 +1,5 @@
 package org.knowm.xchange.kraken.dto.trade;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.knowm.xchange.kraken.dto.trade.KrakenOrderStatus.KrakenOrderStatusDeserializer;
-
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -13,6 +7,12 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import org.knowm.xchange.kraken.dto.trade.KrakenOrderStatus.KrakenOrderStatusDeserializer;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @JsonDeserialize(using = KrakenOrderStatusDeserializer.class)
 public enum KrakenOrderStatus {
@@ -26,16 +26,16 @@ public enum KrakenOrderStatus {
       fromString.put(orderStatus.toString(), orderStatus);
   }
 
-  public static KrakenOrderStatus fromString(String orderStatusString) {
+    public static KrakenOrderStatus fromString(String orderStatusString) {
 
-    return fromString.get(orderStatusString.toLowerCase());
-  }
+        return fromString.get(orderStatusString.toLowerCase());
+    }
 
-  @Override
-  public String toString() {
+    @Override
+    public String toString() {
 
-    return super.toString().toLowerCase();
-  }
+        return super.toString().toLowerCase();
+    }
 
   static class KrakenOrderStatusDeserializer extends JsonDeserializer<KrakenOrderStatus> {
 

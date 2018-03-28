@@ -1,5 +1,7 @@
 package org.knowm.xchange.dto.account;
 
+import org.knowm.xchange.currency.Currency;
+
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,8 +9,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import org.knowm.xchange.currency.Currency;
 
 /**
  * <p>
@@ -20,10 +20,10 @@ import org.knowm.xchange.currency.Currency;
  */
 public final class Wallet implements Serializable {
 
-  /**
-   * The keys represent the currency of the wallet.
-   */
-  private final Map<Currency, Balance> balances;
+    /**
+     * The keys represent the currency of the wallet.
+     */
+    private final Map<Currency, Balance> balances;
   /**
    * A unique identifier for this wallet
    */

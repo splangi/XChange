@@ -1,5 +1,7 @@
 package org.knowm.xchange.service;
 
+import net.iharder.Base64;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -9,7 +11,6 @@ import javax.crypto.Mac;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-import net.iharder.Base64;
 import si.mazi.rescu.ParamsDigest;
 
 public abstract class BaseParamsDigest implements ParamsDigest {
@@ -88,8 +89,8 @@ public abstract class BaseParamsDigest implements ParamsDigest {
     }
   }
 
-  protected Mac getMac() {
+    protected Mac getMac() {
 
-    return threadLocalMac.get();
-  }
+        return threadLocalMac.get();
+    }
 }
