@@ -13,10 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Generated;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({"margin_balance", "tradable_balance", "unrealized_pl", "unrealized_swap", "net_value", "required_margin", "leverage",
         "margin_requirement", "margin_limits", "message"})
 public class BitfinexMarginInfosResponse {

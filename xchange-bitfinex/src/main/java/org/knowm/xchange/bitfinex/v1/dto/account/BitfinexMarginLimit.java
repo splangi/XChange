@@ -11,10 +11,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Generated;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({"on_pair", "initial_margin", "margin_requirement", "tradable_balance"})
 public class BitfinexMarginLimit {
 

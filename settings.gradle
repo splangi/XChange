@@ -1,10 +1,10 @@
 /*rootProject.name = 'xchange-parent'
-include ':xchange-abucoins'
+/*include ':xchange-abucoins'
 include ':xchange-anx'
 include ':xchange-acx'
 include ':xchange-bibox'
 include ':xchange-binance'
-include ':xchange-bitbay'
+/*include ':xchange-bitbay'
 include ':xchange-bitcoinaverage'
 include ':xchange-bitcoincharts'
 include ':xchange-bitcoincore'
@@ -33,9 +33,9 @@ include ':xchange-coinbase'
 include ':xchange-coinegg'
 include ':xchange-coinmarketcap'
 include ':xchange-coinfloor'
-include ':xchange-coinmate'
+include ':xchange-coinmate'*/
 include ':xchange-core'
-include ':xchange-cryptofacilities'
+/*include ':xchange-cryptofacilities'
 include ':xchange-cryptopia'
 include ':xchange-cryptonit'
 include ':xchange-dsx'
@@ -73,14 +73,14 @@ include ':xchange-vaultoro'
 include ':xchange-vircurex'
 include ':xchange-yobit'
 include ':xchange-wex'
-include ':xchange-zaif'
+include ':xchange-zaif'*/
 
-project(':xchange-abucoins').projectDir = "$rootDir/xchange-abucoins" as File
+/*project(':xchange-abucoins').projectDir = "$rootDir/xchange-abucoins" as File
 project(':xchange-anx').projectDir = "$rootDir/xchange-anx" as File
 project(':xchange-acx').projectDir = "$rootDir/xchange-acx" as File
-project(':xchange-bibox').projectDir = "$rootDir/xchange-bibox" as File
+project(':xchange-bibox').projectDir = "$rootDir/xchange-bibox" as File*/
 project(':xchange-binance').projectDir = "$rootDir/xchange-binance" as File
-project(':xchange-bitbay').projectDir = "$rootDir/xchange-bitbay" as File
+/*project(':xchange-bitbay').projectDir = "$rootDir/xchange-bitbay" as File
 project(':xchange-bitcoinaverage').projectDir = "$rootDir/xchange-bitcoinaverage" as File
 project(':xchange-bitcoincharts').projectDir = "$rootDir/xchange-bitcoincharts" as File
 project(':xchange-bitcoincore').projectDir = "$rootDir/xchange-bitcoincore" as File
@@ -111,7 +111,7 @@ project(':xchange-coinmarketcap').projectDir = "$rootDir/xchange-coinmarketcap" 
 project(':xchange-coinfloor').projectDir = "$rootDir/xchange-coinfloor" as File
 project(':xchange-coinmate').projectDir = "$rootDir/xchange-coinmate" as File
 project(':xchange-core').projectDir = "$rootDir/xchange-core" as File
-project(':xchange-cryptofacilities').projectDir = "$rootDir/xchange-cryptofacilities" as File
+/*project(':xchange-cryptofacilities').projectDir = "$rootDir/xchange-cryptofacilities" as File
 project(':xchange-cryptopia').projectDir = "$rootDir/xchange-cryptopia" as File
 project(':xchange-cryptonit').projectDir = "$rootDir/xchange-cryptonit" as File
 project(':xchange-dsx').projectDir = "$rootDir/xchange-dsx" as File

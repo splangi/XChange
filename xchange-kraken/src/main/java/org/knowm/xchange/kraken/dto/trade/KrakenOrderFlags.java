@@ -48,7 +48,8 @@ public enum KrakenOrderFlags implements IOrderFlags {
 
       ObjectCodec oc = jsonParser.getCodec();
       JsonNode node = oc.readTree(jsonParser);
-      String orderFlagsString = node.textValue();
+
+        String orderFlagsString = node.textValue();
       Set<KrakenOrderFlags> orderFlags = EnumSet.noneOf(KrakenOrderFlags.class);
       if (!orderFlagsString.isEmpty()) {
         for (String orderFlag : orderFlagsString.split(","))

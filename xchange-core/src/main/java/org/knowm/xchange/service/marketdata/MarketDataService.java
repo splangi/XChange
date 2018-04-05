@@ -11,6 +11,7 @@ import org.knowm.xchange.exceptions.NotYetImplementedForExchangeException;
 import org.knowm.xchange.service.BaseService;
 
 import java.io.IOException;
+import java.util.Collection;
 
 /**
  * <p>
@@ -38,6 +39,11 @@ public interface MarketDataService extends BaseService {
    * @throws IOException                           - Indication that a networking error occurred while fetching JSON data
    */
   Ticker getTicker(CurrencyPair currencyPair, Object... args) throws IOException;
+
+
+  default Collection<Ticker> getAllTickers() throws IOException {
+    throw new NotYetImplementedForExchangeException("Not implemented");
+  }
 
   /**
    * <p>
