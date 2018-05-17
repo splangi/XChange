@@ -7,6 +7,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import org.knowm.xchange.dto.Order.OrderType;
+import org.knowm.xchange.kraken.dto.trade.KrakenType.KrakenTypeDeserializer;
 
 import org.knowm.xchange.dto.Order.OrderType;
 import org.knowm.xchange.kraken.dto.trade.KrakenType.KrakenTypeDeserializer;
@@ -17,14 +22,13 @@ import java.util.Map;
 
 @JsonDeserialize(using = KrakenTypeDeserializer.class)
 public enum KrakenType {
-
-  BUY, SELL;
+  BUY,
+  SELL;
 
   private static final Map<String, KrakenType> fromString = new HashMap<>();
 
   static {
-    for (KrakenType type : values())
-      fromString.put(type.toString(), type);
+    for (KrakenType type : values()) fromString.put(type.toString(), type);
 
     fromString.put("b", BUY);
     fromString.put("s", SELL);
@@ -49,7 +53,8 @@ public enum KrakenType {
   static class KrakenTypeDeserializer extends JsonDeserializer<KrakenType> {
 
     @Override
-    public KrakenType deserialize(JsonParser jsonParser, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public KrakenType deserialize(JsonParser jsonParser, DeserializationContext ctxt)
+        throws IOException, JsonProcessingException {
 
       ObjectCodec oc = jsonParser.getCodec();
       JsonNode node = oc.readTree(jsonParser);

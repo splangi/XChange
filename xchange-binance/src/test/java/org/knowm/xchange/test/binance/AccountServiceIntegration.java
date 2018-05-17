@@ -1,5 +1,7 @@
 package org.knowm.xchange.test.binance;
 
+import java.util.Map;
+import java.util.Map.Entry;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;

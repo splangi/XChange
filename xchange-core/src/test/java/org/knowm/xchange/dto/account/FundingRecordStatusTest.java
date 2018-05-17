@@ -1,11 +1,11 @@
 package org.knowm.xchange.dto.account;
 
-import org.junit.Test;
-
 import static java.math.BigDecimal.ONE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.knowm.xchange.currency.Currency.BTC;
 import static org.knowm.xchange.dto.account.FundingRecord.Type.DEPOSIT;
+
+import org.junit.Test;
 
 public class FundingRecordStatusTest {
 
@@ -31,12 +31,21 @@ public class FundingRecordStatusTest {
 
   @Test
   public void shouldPrependUnrecognizedStatusStringToDescription() throws Exception {
-      testStatusDesc("AdminCancelled", "The administrator has cancelled the transfers.", null,
-              "AdminCancelled: The administrator has cancelled the transfers.");
+    testStatusDesc(
+        "AdminCancelled",
+        "The administrator has cancelled the transfers.",
+        null,
+        "AdminCancelled: The administrator has cancelled the transfers.");
   }
 
-    private void testStatusDesc(String statusInput, String descriptionInput, FundingRecord.Status expectedStatus, String expectedDescription) {
-    final FundingRecord fundingRecord = new FundingRecord("", null, BTC, ONE, "", "", DEPOSIT, statusInput, ONE, ONE, descriptionInput);
+  private void testStatusDesc(
+      String statusInput,
+      String descriptionInput,
+      FundingRecord.Status expectedStatus,
+      String expectedDescription) {
+    final FundingRecord fundingRecord =
+        new FundingRecord(
+            "", null, BTC, ONE, "", "", DEPOSIT, statusInput, ONE, ONE, descriptionInput);
     assertThat(fundingRecord.getStatus()).isEqualTo(expectedStatus);
     assertThat(fundingRecord.getDescription()).isEqualTo(expectedDescription);
   }

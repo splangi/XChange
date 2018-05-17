@@ -6,25 +6,29 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.Generated;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({"on_pair", "initial_margin", "margin_requirement", "tradable_balance"})
 public class BitfinexMarginLimit {
 
   @JsonProperty("on_pair")
   private String onPair;
+
   @JsonProperty("initial_margin")
   private BigDecimal initialMargin;
+
   @JsonProperty("margin_requirement")
   private BigDecimal marginRequirement;
+
   @JsonProperty("tradable_balance")
   private BigDecimal tradableBalance;
-  @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+  @JsonIgnore private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   @JsonProperty("on_pair")
   public String getOnPair() {
@@ -88,7 +92,16 @@ public class BitfinexMarginLimit {
 
   @Override
   public String toString() {
-      return "BitfinexMarginLimit{" + "onPair='" + onPair + '\'' + ", initialMargin=" + initialMargin + ", marginRequirement=" + marginRequirement
-              + ", tradableBalance=" + tradableBalance + '}';
+    return "BitfinexMarginLimit{"
+        + "onPair='"
+        + onPair
+        + '\''
+        + ", initialMargin="
+        + initialMargin
+        + ", marginRequirement="
+        + marginRequirement
+        + ", tradableBalance="
+        + tradableBalance
+        + '}';
   }
 }

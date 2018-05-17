@@ -1,13 +1,12 @@
 package org.knowm.xchange.kraken.dto.trade;
 
-import org.knowm.xchange.currency.CurrencyPair;
-import org.knowm.xchange.dto.Order.IOrderFlags;
-
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import org.knowm.xchange.currency.CurrencyPair;
+import org.knowm.xchange.dto.Order.IOrderFlags;
 
 public class KrakenStandardOrder {
 
@@ -26,9 +25,21 @@ public class KrakenStandardOrder {
   private final boolean validateOnly;
   private final Map<String, String> closeOrder;
 
-  private KrakenStandardOrder(CurrencyPair currencyPair, KrakenType type, KrakenOrderType orderType, String price, String secondaryPrice,
-      BigDecimal volume, String leverage, String positionTxId, Set<IOrderFlags> orderFlags, String startTime, String expireTime, String userRefId,
-      boolean validateOnly, Map<String, String> closeOrder) {
+  private KrakenStandardOrder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      KrakenOrderType orderType,
+      String price,
+      String secondaryPrice,
+      BigDecimal volume,
+      String leverage,
+      String positionTxId,
+      Set<IOrderFlags> orderFlags,
+      String startTime,
+      String expireTime,
+      String userRefId,
+      boolean validateOnly,
+      Map<String, String> closeOrder) {
 
     this.currencyPair = currencyPair;
     this.type = type;
@@ -46,166 +57,232 @@ public class KrakenStandardOrder {
     this.closeOrder = closeOrder;
   }
 
-  public static KrakenOrderBuilder getMarketOrderBuilder(CurrencyPair currencyPair, KrakenType type, BigDecimal volume) {
+  public static KrakenOrderBuilder getMarketOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, BigDecimal volume) {
 
     return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.MARKET, volume);
   }
 
-  public static KrakenOrderBuilder getLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String limitPrice, BigDecimal volume) {
+  public static KrakenOrderBuilder getLimitOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, String limitPrice, BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.LIMIT, volume).withPrice(limitPrice);
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.LIMIT, volume)
+        .withPrice(limitPrice);
   }
 
-  public static KrakenOrderBuilder getStopLossOrderBuilder(CurrencyPair currencyPair, KrakenType type, String stopLossPrice, BigDecimal volume) {
+  public static KrakenOrderBuilder getStopLossOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, String stopLossPrice, BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS, volume).withPrice(stopLossPrice);
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS, volume)
+        .withPrice(stopLossPrice);
   }
 
-  public static KrakenOrderBuilder getTakeProfitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String takeProfitPrice, BigDecimal volume) {
+  public static KrakenOrderBuilder getTakeProfitOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, String takeProfitPrice, BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TAKE_PROFIT, volume).withPrice(takeProfitPrice);
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TAKE_PROFIT, volume)
+        .withPrice(takeProfitPrice);
   }
 
-  public static KrakenOrderBuilder getStopLossProfitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String stopLossPrice,
-      String takeProfitPrice, BigDecimal volume) {
-
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_PROFIT, volume).withPrice(stopLossPrice)
-            .withSecondaryPrice(takeProfitPrice);
-  }
-
-  public static KrakenOrderBuilder getStopLossProfitLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String stopLossPrice,
-      String takeProfitPrice, BigDecimal volume) {
-
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_PROFIT_LIMIT, volume).withPrice(stopLossPrice)
-            .withSecondaryPrice(takeProfitPrice);
-  }
-
-  public static KrakenOrderBuilder getStopLossLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String stopLossTriggerPrice,
-      String triggeredLimitPrice, BigDecimal volume) {
-
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_LIMIT, volume).withPrice(stopLossTriggerPrice)
-            .withSecondaryPrice(triggeredLimitPrice);
-  }
-
-  public static KrakenOrderBuilder getTakeProfitLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String takeProfitTriggerPrice,
-      String triggeredLimitPrice, BigDecimal volume) {
-
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TAKE_PROFIT_LIMIT, volume).withPrice(takeProfitTriggerPrice)
-            .withSecondaryPrice(triggeredLimitPrice);
-  }
-
-  public static KrakenOrderBuilder getTrailingStopOrderBuilder(CurrencyPair currencyPair, KrakenType type, String trailingStopOffset,
+  public static KrakenOrderBuilder getStopLossProfitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String stopLossPrice,
+      String takeProfitPrice,
       BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TRAILING_STOP, volume).withPrice(trailingStopOffset);
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_PROFIT, volume)
+        .withPrice(stopLossPrice)
+        .withSecondaryPrice(takeProfitPrice);
   }
 
-  public static KrakenOrderBuilder getTrailingStopLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String trailingStopOffset,
-      String triggeredLimitOffset, BigDecimal volume) {
+  public static KrakenOrderBuilder getStopLossProfitLimitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String stopLossPrice,
+      String takeProfitPrice,
+      BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TRAILING_STOP_LIMIT, volume).withPrice(trailingStopOffset)
-            .withSecondaryPrice(triggeredLimitOffset);
+    return new KrakenOrderBuilder(
+            currencyPair, type, KrakenOrderType.STOP_LOSS_PROFIT_LIMIT, volume)
+        .withPrice(stopLossPrice)
+        .withSecondaryPrice(takeProfitPrice);
   }
 
-  public static KrakenOrderBuilder getStopLossAndLimitOrderBuilder(CurrencyPair currencyPair, KrakenType type, String stopLossPrice,
-      String limitPrice, BigDecimal volume) {
+  public static KrakenOrderBuilder getStopLossLimitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String stopLossTriggerPrice,
+      String triggeredLimitPrice,
+      BigDecimal volume) {
 
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_AND_LIMIT, volume).withPrice(stopLossPrice)
-            .withSecondaryPrice(limitPrice);
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_LIMIT, volume)
+        .withPrice(stopLossTriggerPrice)
+        .withSecondaryPrice(triggeredLimitPrice);
   }
 
-  public static KrakenOrderBuilder getSettlePositionOrderBuilder(CurrencyPair currencyPair, KrakenType type, BigDecimal volume) {
+  public static KrakenOrderBuilder getTakeProfitLimitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String takeProfitTriggerPrice,
+      String triggeredLimitPrice,
+      BigDecimal volume) {
 
-    //Leverage parameter is required but its value is irrelevant for settling position
-    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.SETTLE_POSITION, volume).withLeverage("2");
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TAKE_PROFIT_LIMIT, volume)
+        .withPrice(takeProfitTriggerPrice)
+        .withSecondaryPrice(triggeredLimitPrice);
   }
 
-    public CurrencyPair getAssetPair() {
+  public static KrakenOrderBuilder getTrailingStopOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, String trailingStopOffset, BigDecimal volume) {
 
-        return currencyPair;
-    }
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TRAILING_STOP, volume)
+        .withPrice(trailingStopOffset);
+  }
 
-    public KrakenType getType() {
+  public static KrakenOrderBuilder getTrailingStopLimitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String trailingStopOffset,
+      String triggeredLimitOffset,
+      BigDecimal volume) {
 
-        return type;
-    }
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.TRAILING_STOP_LIMIT, volume)
+        .withPrice(trailingStopOffset)
+        .withSecondaryPrice(triggeredLimitOffset);
+  }
 
-    public KrakenOrderType getOrderType() {
+  public static KrakenOrderBuilder getStopLossAndLimitOrderBuilder(
+      CurrencyPair currencyPair,
+      KrakenType type,
+      String stopLossPrice,
+      String limitPrice,
+      BigDecimal volume) {
 
-        return orderType;
-    }
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.STOP_LOSS_AND_LIMIT, volume)
+        .withPrice(stopLossPrice)
+        .withSecondaryPrice(limitPrice);
+  }
 
-    public String getPrice() {
+  public static KrakenOrderBuilder getSettlePositionOrderBuilder(
+      CurrencyPair currencyPair, KrakenType type, BigDecimal volume) {
 
-        return price;
-    }
+    // Leverage parameter is required but its value is irrelevant for settling position
+    return new KrakenOrderBuilder(currencyPair, type, KrakenOrderType.SETTLE_POSITION, volume)
+        .withLeverage("2");
+  }
 
-    public String getSecondaryPrice() {
+  public CurrencyPair getAssetPair() {
 
-        return secondaryPrice;
-    }
+    return currencyPair;
+  }
 
-    public BigDecimal getVolume() {
+  public KrakenType getType() {
 
-        return volume;
-    }
+    return type;
+  }
 
-    public String getLeverage() {
+  public KrakenOrderType getOrderType() {
 
-        return leverage;
-    }
+    return orderType;
+  }
 
-    public String getPositionTxId() {
+  public String getPrice() {
 
-        return positionTxId;
-    }
+    return price;
+  }
 
-    public Set<IOrderFlags> getOrderFlags() {
+  public String getSecondaryPrice() {
 
-        return orderFlags;
-    }
+    return secondaryPrice;
+  }
 
-    public String getStartTime() {
+  public BigDecimal getVolume() {
 
-        return startTime;
-    }
+    return volume;
+  }
 
-    public String getExpireTime() {
+  public String getLeverage() {
 
-        return expireTime;
-    }
+    return leverage;
+  }
 
-    public String getUserRefId() {
+  public String getPositionTxId() {
 
-        return userRefId;
-    }
+    return positionTxId;
+  }
 
-    public boolean isValidateOnly() {
+  public Set<IOrderFlags> getOrderFlags() {
 
-        return validateOnly;
-    }
+    return orderFlags;
+  }
 
-    public Map<String, String> getCloseOrder() {
+  public String getStartTime() {
 
-        return closeOrder;
-    }
+    return startTime;
+  }
 
-    @Override
-    public String toString() {
+  public String getExpireTime() {
 
-        return "KrakenStandardOrder [currencyPair=" + currencyPair + ", type=" + type + ", orderType=" + orderType + ", price=" + price
-                + ", secondaryPrice=" + secondaryPrice + ", volume=" + volume + ", leverage=" + leverage + ", positionTxId=" + positionTxId + ", orderFlags="
-                + orderFlags + ", startTime=" + startTime + ", expireTime=" + expireTime + ", userRefId=" + userRefId + ", validateOnly=" + validateOnly
-                + ", closeOrder=" + closeOrder + "]";
-    }
+    return expireTime;
+  }
+
+  public String getUserRefId() {
+
+    return userRefId;
+  }
+
+  public boolean isValidateOnly() {
+
+    return validateOnly;
+  }
+
+  public Map<String, String> getCloseOrder() {
+
+    return closeOrder;
+  }
+
+  @Override
+  public String toString() {
+
+    return "KrakenStandardOrder [currencyPair="
+        + currencyPair
+        + ", type="
+        + type
+        + ", orderType="
+        + orderType
+        + ", price="
+        + price
+        + ", secondaryPrice="
+        + secondaryPrice
+        + ", volume="
+        + volume
+        + ", leverage="
+        + leverage
+        + ", positionTxId="
+        + positionTxId
+        + ", orderFlags="
+        + orderFlags
+        + ", startTime="
+        + startTime
+        + ", expireTime="
+        + expireTime
+        + ", userRefId="
+        + userRefId
+        + ", validateOnly="
+        + validateOnly
+        + ", closeOrder="
+        + closeOrder
+        + "]";
+  }
 
   public static class KrakenOrderBuilder {
 
     private final CurrencyPair currencyPair;
     private final KrakenType type;
     private final KrakenOrderType orderType;
-      private final BigDecimal volume;
-      private final Set<IOrderFlags> orderFlags;
+    private final BigDecimal volume;
+    private final Set<IOrderFlags> orderFlags;
     private String price;
     private String secondaryPrice;
     private String leverage;
@@ -216,7 +293,8 @@ public class KrakenStandardOrder {
     private boolean validateOnly;
     private Map<String, String> closeOrder;
 
-    private KrakenOrderBuilder(CurrencyPair currencyPair, KrakenType type, KrakenOrderType orderType, BigDecimal volume) {
+    private KrakenOrderBuilder(
+        CurrencyPair currencyPair, KrakenType type, KrakenOrderType orderType, BigDecimal volume) {
 
       this.currencyPair = currencyPair;
       this.type = type;
@@ -286,7 +364,8 @@ public class KrakenStandardOrder {
       return this;
     }
 
-    public KrakenOrderBuilder withCloseOrder(KrakenOrderType orderType, String price, String secondaryPrice) {
+    public KrakenOrderBuilder withCloseOrder(
+        KrakenOrderType orderType, String price, String secondaryPrice) {
 
       closeOrder = new HashMap<>();
       closeOrder.put("ordertype", orderType.toString());
@@ -297,17 +376,55 @@ public class KrakenStandardOrder {
 
     public KrakenStandardOrder buildOrder() {
 
-      return new KrakenStandardOrder(currencyPair, type, orderType, price, secondaryPrice, volume, leverage, positionTxId, orderFlags, startTime,
-          expireTime, userRefId, validateOnly, closeOrder);
+      return new KrakenStandardOrder(
+          currencyPair,
+          type,
+          orderType,
+          price,
+          secondaryPrice,
+          volume,
+          leverage,
+          positionTxId,
+          orderFlags,
+          startTime,
+          expireTime,
+          userRefId,
+          validateOnly,
+          closeOrder == null ? new HashMap<>() : closeOrder);
     }
 
     @Override
     public String toString() {
 
-      return "KrakenOrderBuilder [currencyPair=" + currencyPair + ", type=" + type + ", orderType=" + orderType + ", price=" + price
-          + ", secondaryPrice=" + secondaryPrice + ", volume=" + volume + ", leverage=" + leverage + ", positionTxId=" + positionTxId
-          + ", orderFlags=" + orderFlags + ", startTime=" + startTime + ", expireTime=" + expireTime + ", userRefId=" + userRefId + ", validateOnly="
-          + validateOnly + ", closeOrder=" + closeOrder + "]";
+      return "KrakenOrderBuilder [currencyPair="
+          + currencyPair
+          + ", type="
+          + type
+          + ", orderType="
+          + orderType
+          + ", price="
+          + price
+          + ", secondaryPrice="
+          + secondaryPrice
+          + ", volume="
+          + volume
+          + ", leverage="
+          + leverage
+          + ", positionTxId="
+          + positionTxId
+          + ", orderFlags="
+          + orderFlags
+          + ", startTime="
+          + startTime
+          + ", expireTime="
+          + expireTime
+          + ", userRefId="
+          + userRefId
+          + ", validateOnly="
+          + validateOnly
+          + ", closeOrder="
+          + closeOrder
+          + "]";
     }
 
     public CurrencyPair getAssetPair() {

@@ -7,11 +7,12 @@
 
     <groupId>org.knowm.xchange</groupId>
     <artifactId>xchange-parent</artifactId>
-    <version>4.3.5-SNAPSHOT</version>
+    <version>4.3.6-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>XChange</name>
-    <description>XChange is a Java library providing a simple and consistent API for interacting with a diverse set of cryptocurrency exchanges.
+    <description>XChange is a Java library providing a simple and consistent API for interacting with
+        a diverse set of cryptocurrency exchanges.
     </description>
     <url>http://knowm.org/open-source/xchange</url>
     <inceptionYear>2012</inceptionYear>
@@ -25,11 +26,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <version.assertj>3.8.0</version.assertj>
+        <version.assertj>3.9.1</version.assertj>
         <version.commons.io>2.6</version.commons.io>
         <version.commons.lang3>3.7</version.commons.lang3>
-        <version.fasterxml>2.9.1</version.fasterxml>
-        <version.github.mmazi>2.0.1</version.github.mmazi>
+        <version.fasterxml>2.9.5</version.fasterxml>
+        <version.github.mmazi>2.0.2</version.github.mmazi>
         <version.junit>4.12</version.junit>
         <version.knowm.xchart>3.5.1</version.knowm.xchart>
         <version.powermock>1.7.3</version.powermock>
@@ -99,7 +100,6 @@
         <module>xchange-bitcoinde</module>
         <module>xchange-bitcoinium</module>
         <module>xchange-bitcointoyou</module>
-        <module>xchange-bitcurex</module>
         <module>xchange-bitfinex</module>
         <module>xchange-bitmex</module>
         <module>xchange-bitflyer</module>
@@ -134,6 +134,7 @@
         <module>xchange-gdax</module>
         <module>xchange-gemini</module>
         <module>xchange-hitbtc</module>
+        <module>xchange-huobi</module>
         <module>xchange-itbit</module>
         <module>xchange-independentreserve</module>
         <module>xchange-koineks</module>
@@ -162,7 +163,7 @@
         <module>xchange-wex</module>
         <module>xchange-yobit</module>
         <module>xchange-zaif</module>
-  </modules>
+    </modules>
 
     <repositories>
         <repository>
@@ -185,6 +186,12 @@
                 <groupId>com.github.mmazi</groupId>
                 <artifactId>rescu</artifactId>
                 <version>${version.github.mmazi}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-codec</groupId>
+                        <artifactId>commons-codec</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
 
             <dependency>
@@ -214,8 +221,21 @@
                 <version>${version.reflections}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-csv</artifactId>
+                <version>${version.fasterxml}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>1.10.19</version>
+                <!-- <version>2.15.0</version> -->
+                <scope>test</scope>
+            </dependency>
 
             <!-- PowerMockito for unit tests -->
+            <!-- when removing powermock, please upgrade mockito -->
             <dependency>
                 <groupId>org.powermock</groupId>
                 <artifactId>powermock-module-junit4</artifactId>
@@ -425,7 +445,22 @@
                     </includes>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>2.4.0</version>
+                <configuration>
+                    <filesNamePattern>.*\.java</filesNamePattern>
+                    <skip>false</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
