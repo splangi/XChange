@@ -87,18 +87,4 @@ public class BitcointoyouPublicTrade {
 
     this.additionalProperties.put(name, value);
   }
-
-  @Override
-  public String toString() {
-
-    return new ToStringBuilder(this)
-        .append("date", date)
-        .append("price", price)
-        .append("amount", amount)
-        .append("tid", tid)
-        .append("type", type)
-        .append("currency", currency)
-        .append("additionalProperties", additionalProperties)
-        .toString();
-  }
 }

@@ -93,7 +93,6 @@ import java.util.regex.Pattern;
     "orderId": "5241152072"
   },
 
-
   status - "d" — done (fully executed), "c" — canceled (not executed), "cd" — cancel-done (partially executed)
   ta:USD/tta:USD – total amount in current currency (Maker/Taker)
   fa:USD/tfa:USD – fee amount in current currency (Maker/Taker)
@@ -213,7 +212,8 @@ public class CexIOArchivedOrder {
       if (amount.compareTo(BigDecimal.ZERO) == 0)
         amount =
             new BigDecimal(
-                map.get("amount2")); // madness - i think the 'amount' field changes name for market
+                map.get(
+                    "amount2")); // madness - i think the 'amount' field changes name for market//
       // orders
 
       return new CexIOArchivedOrder(
