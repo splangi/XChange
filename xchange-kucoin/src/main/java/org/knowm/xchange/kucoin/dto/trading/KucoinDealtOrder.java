@@ -9,11 +9,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import javax.annotation.Generated;
+
 import org.knowm.xchange.kucoin.dto.KucoinOrderType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
+
 @JsonPropertyOrder({
   "createdAt",
   "amount",

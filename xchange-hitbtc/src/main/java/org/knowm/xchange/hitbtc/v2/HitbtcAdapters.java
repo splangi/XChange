@@ -88,6 +88,26 @@ public class HitbtcAdapters {
     return tickers;
   }
 
+  public static List<Ticker> adaptTickers(Map<String, HitbtcTicker> hitbtcTickers, CurrencyPair... currencyPairs) {
+
+    List<CurrencyPair> pairs = Arrays.asList(currencyPairs);
+
+    List<Ticker> tickers = new ArrayList<>(hitbtcTickers.size());
+
+    for (Map.Entry<String, HitbtcTicker> ticker : hitbtcTickers.entrySet()) {
+
+      Ticker adapted = adaptTicker(ticker.getValue(), adaptSymbol(ticker.getKey()));
+
+      if (pairs.contains(adapted.getCurrencyPair())){
+        tickers.add(adapted);
+      }
+
+    }
+
+    return tickers;
+  }
+
+
   public static OrderBook adaptOrderBook(
       HitbtcOrderBook hitbtcOrderBook, CurrencyPair currencyPair) {
 

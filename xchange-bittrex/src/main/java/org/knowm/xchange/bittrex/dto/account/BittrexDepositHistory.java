@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.annotation.Generated;
+
 
 /** @author npinot */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
+
 @JsonPropertyOrder({"Id", "Amount", "Currency", "LastUpdated", "TxId", "CryptoAddress"})
 public class BittrexDepositHistory {
   @JsonProperty("Id")

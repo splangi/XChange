@@ -32,7 +32,6 @@ public enum ExchangeFactory {
    *     org.knowm.xchange.ExchangeSpecification}
    */
   public Exchange createExchange(String exchangeClassName) {
-
     return createExchange(exchangeClassName, null, null);
   }
 

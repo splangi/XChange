@@ -258,8 +258,7 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   public static final CurrencyPair EOS_ETH = new CurrencyPair(Currency.EOS, Currency.ETH);
   public static final CurrencyPair EOS_BTC = new CurrencyPair(Currency.EOS, Currency.BTC);
 
-  public static final CurrencyPair BCC_USD = new CurrencyPair(Currency.BCC, Currency.USD);
-  public static final CurrencyPair BCC_BTC = new CurrencyPair(Currency.BCC, Currency.BTC);
+  public static final CurrencyPair BCC_USD = new CurrencyPair(Currency.BCH, Currency.USD);
 
   public static final CurrencyPair BAT_USD = new CurrencyPair(Currency.BAT, Currency.USD);
   public static final CurrencyPair BAT_BTC = new CurrencyPair(Currency.BAT, Currency.BTC);
@@ -363,7 +362,8 @@ public class CurrencyPair implements Comparable<CurrencyPair>, Serializable {
   @Override
   public String toString() {
 
-    return base + "/" + counter;
+    return base.getCurrencyCode() + "/" + counter.getCurrencyCode();
+
   }
 
   public boolean contains(Currency currency) {

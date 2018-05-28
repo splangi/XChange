@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.math.BigDecimal;
 import java.util.Map;
-import javax.annotation.Generated;
+
 
 /** @author Panchen */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
+
 @JsonPropertyOrder({
   "type",
   "currency",

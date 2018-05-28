@@ -1,6 +1,9 @@
 package org.knowm.xchange.hitbtc.v2.service;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.OrderBook;
@@ -10,6 +13,8 @@ import org.knowm.xchange.hitbtc.v2.HitbtcAdapters;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcSort;
 import org.knowm.xchange.hitbtc.v2.dto.HitbtcTrade;
 import org.knowm.xchange.service.marketdata.MarketDataService;
+import org.knowm.xchange.service.marketdata.params.CurrencyPairsParam;
+import org.knowm.xchange.service.marketdata.params.Params;
 
 public class HitbtcMarketDataService extends HitbtcMarketDataServiceRaw
     implements MarketDataService {
@@ -51,5 +56,16 @@ public class HitbtcMarketDataService extends HitbtcMarketDataServiceRaw
     return HitbtcAdapters.adaptTrades(
         getHitbtcTrades(currencyPair, from, sortBy, sortDirection, startIndex, max_results),
         currencyPair);
+  }
+
+  @Override
+  public List<Ticker> getTickers(Params params) throws IOException {
+    if (!(params instanceof CurrencyPairsParam)) {
+      throw new IllegalArgumentException("Params must be instance of CurrencyPairsParam");
+    }
+    Collection<CurrencyPair> pairs = ((CurrencyPairsParam) params).getCurrencyPairs();
+    CurrencyPair[] pair = pairs.toArray(new CurrencyPair[pairs.size()]);
+
+    return HitbtcAdapters.adaptTickers(getHitbtcTickers(), pair);
   }
 }
