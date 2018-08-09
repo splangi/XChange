@@ -3,7 +3,9 @@ package org.knowm.xchange.bitfinex.v2.service;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
+
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.bitfinex.v2.BitfinexAdapters;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -26,7 +28,7 @@ public class BitfinexMarketDataService extends BitfinexMarketDataServiceRaw
 
   @Override
   public List<Ticker> getTickers(Params params) throws IOException {
-    return Arrays.stream(getBitfinexTickers(exchange.getExchangeSymbols()))
+    return StreamSupport.stream(Arrays.asList(getBitfinexTickers(exchange.getExchangeSymbols())))
         .map(BitfinexAdapters::adaptTicker)
         .collect(Collectors.toList());
   }

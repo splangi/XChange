@@ -1,7 +1,8 @@
 package org.knowm.xchange.bitfinex.common.service;
 
+import android.util.Base64;
+
 import java.math.BigInteger;
-import java.util.Base64;
 import javax.crypto.Mac;
 import org.knowm.xchange.service.BaseParamsDigest;
 import si.mazi.rescu.RestInvocation;
@@ -30,7 +31,7 @@ public class BitfinexHmacPostBodyDigest extends BaseParamsDigest {
 
     String postBody = restInvocation.getRequestBody();
     Mac mac = getMac();
-    mac.update(Base64.getEncoder().encodeToString(postBody.getBytes()).getBytes());
+    mac.update(Base64.encode(postBody.getBytes(), Base64.NO_WRAP));
 
     return String.format("%096x", new BigInteger(1, mac.doFinal()));
   }

@@ -1,5 +1,7 @@
 package org.knowm.xchange.kraken.service;
 
+import android.text.TextUtils;
+
 import java.io.IOException;
 import java.util.Map;
 import org.knowm.xchange.Exchange;
@@ -283,7 +285,7 @@ public class KrakenTradeServiceRaw extends KrakenBaseService {
 
   public Map<String, KrakenOrder> getOrders(String... orderIds) throws IOException {
 
-    String orderIdsString = String.join(",", orderIds);
+    String orderIdsString = TextUtils.join(",", orderIds);
 
     KrakenQueryOrderResult krakenOrderResult =
         kraken.queryOrders(

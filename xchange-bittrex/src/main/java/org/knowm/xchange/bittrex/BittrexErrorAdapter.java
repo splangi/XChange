@@ -1,6 +1,5 @@
 package org.knowm.xchange.bittrex;
 
-import org.apache.commons.lang3.StringUtils;
 import org.knowm.xchange.bittrex.dto.BittrexException;
 import org.knowm.xchange.exceptions.CurrencyPairNotValidException;
 import org.knowm.xchange.exceptions.ExchangeException;
@@ -10,7 +9,7 @@ public class BittrexErrorAdapter {
 
   public static ExchangeException adapt(BittrexException e) {
     String message = e.getMessage();
-    if (StringUtils.isEmpty(message)) {
+    if (message.isEmpty()) {
       return new ExchangeException("Operation failed without any error message");
     }
     switch (message) {

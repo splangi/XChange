@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.function.BiConsumer;
+import java8.util.function.BiConsumer;
+
+import java8.util.stream.StreamSupport;
 
 public final class BinanceOrderbook {
 
@@ -30,8 +32,8 @@ public final class BinanceOrderbook {
     TreeMap<BigDecimal, BigDecimal> bids = new TreeMap<>((k1, k2) -> -k1.compareTo(k2));
     TreeMap<BigDecimal, BigDecimal> asks = new TreeMap<>();
 
-    bidsJson.stream().forEach(e -> entryProcessor.accept(e, bids));
-    asksJson.stream().forEach(e -> entryProcessor.accept(e, asks));
+    StreamSupport.stream(bidsJson).forEach(e -> entryProcessor.accept(e, bids));
+    StreamSupport.stream(asksJson).forEach(e -> entryProcessor.accept(e, asks));
 
     this.bids = Collections.unmodifiableSortedMap(bids);
     this.asks = Collections.unmodifiableSortedMap(asks);

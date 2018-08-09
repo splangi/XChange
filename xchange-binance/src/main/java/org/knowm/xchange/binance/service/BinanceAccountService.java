@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.dto.account.BinanceAccountInformation;
 import org.knowm.xchange.currency.Currency;
@@ -26,6 +26,8 @@ import org.knowm.xchange.service.trade.params.TradeHistoryParamCurrency;
 import org.knowm.xchange.service.trade.params.TradeHistoryParams;
 import org.knowm.xchange.service.trade.params.TradeHistoryParamsTimeSpan;
 import org.knowm.xchange.service.trade.params.WithdrawFundsParams;
+
+import java8.util.stream.StreamSupport;
 
 public class BinanceAccountService extends BinanceAccountServiceRaw implements AccountService {
 
@@ -70,8 +72,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
         (Long) exchange.getExchangeSpecification().getExchangeSpecificParametersItem("recvWindow");
     BinanceAccountInformation acc = super.account(recvWindow, getTimestamp());
     List<Balance> balances =
-        acc.balances
-            .stream()
+            StreamSupport.stream(acc.balances)
             .map(b -> new Balance(b.getCurrency(), b.getTotal(), b.getAvailable()))
             .collect(Collectors.toList());
     return new AccountInfo(new Wallet(balances));
@@ -155,7 +156,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
 
     List<FundingRecord> result = new ArrayList<>();
     if (withdrawals) {
-      super.withdrawHistory(asset, startTime, endTime, recvWindow, getTimestamp())
+      StreamSupport.stream(super.withdrawHistory(asset, startTime, endTime, recvWindow, getTimestamp()))
           .forEach(
               w -> {
                 result.add(
@@ -175,7 +176,7 @@ public class BinanceAccountService extends BinanceAccountServiceRaw implements A
     }
 
     if (deposits) {
-      super.depositHistory(asset, startTime, endTime, recvWindow, getTimestamp())
+      StreamSupport.stream(super.depositHistory(asset, startTime, endTime, recvWindow, getTimestamp()))
           .forEach(
               d -> {
                 result.add(

@@ -2,7 +2,7 @@ package org.knowm.xchange.okcoin.service;
 
 import java.io.IOException;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.okcoin.FuturesContract;
@@ -14,6 +14,8 @@ import org.knowm.xchange.okcoin.dto.trade.OkCoinOrderResult;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinPositionResult;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinPriceLimit;
 import org.knowm.xchange.okcoin.dto.trade.OkCoinTradeResult;
+
+import java8.util.stream.StreamSupport;
 
 public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
 
@@ -47,7 +49,7 @@ public class OkCoinTradeServiceRaw extends OKCoinBaseTradeService {
       throws IOException {
 
     String ids =
-        orderIds.stream().map(Object::toString).collect(Collectors.joining(BATCH_DELIMITER));
+            StreamSupport.stream(orderIds).map(Object::toString).collect(Collectors.joining(BATCH_DELIMITER));
     return okCoin.cancelOrders(apikey, ids, symbol, signatureCreator());
   }
 

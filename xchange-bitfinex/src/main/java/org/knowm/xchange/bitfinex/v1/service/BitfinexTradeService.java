@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.bitfinex.v1.BitfinexAdapters;
@@ -63,7 +64,12 @@ public class BitfinexTradeService extends BitfinexTradeServiceRaw implements Tra
     }
 
     List<LimitOrder> openOrdersList = rawOpenOrders.getOpenOrders();
-    openOrdersList.removeIf(openOrder -> !params.accept(openOrder));
+    Iterator<LimitOrder> it = openOrdersList.iterator();
+    while (it.hasNext()){
+      if (!params.accept(it.next())){
+        it.remove();
+      }
+    }
     return new OpenOrders(openOrdersList);
   }
 

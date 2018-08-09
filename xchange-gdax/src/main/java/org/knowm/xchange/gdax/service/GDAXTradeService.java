@@ -28,6 +28,8 @@ import org.knowm.xchange.service.trade.params.orders.DefaultOpenOrdersParamCurre
 import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
 
+import java8.util.stream.StreamSupport;
+
 public class GDAXTradeService extends GDAXTradeServiceRaw implements TradeService {
 
   public GDAXTradeService(Exchange exchange) {
@@ -115,6 +117,6 @@ public class GDAXTradeService extends GDAXTradeServiceRaw implements TradeServic
   @Override
   public Collection<Order> getOrder(OrderQueryParams... orderQueryParams) throws IOException {
     return getOrder(
-        Arrays.stream(orderQueryParams).map(OrderQueryParams::getOrderId).toArray(String[]::new));
+            StreamSupport.stream(Arrays.asList(orderQueryParams)).map(OrderQueryParams::getOrderId).toArray(String[]::new));
   }
 }

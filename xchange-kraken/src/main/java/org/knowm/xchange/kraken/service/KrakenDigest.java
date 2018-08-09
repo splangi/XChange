@@ -1,8 +1,9 @@
 package org.knowm.xchange.kraken.service;
 
+import android.util.Base64;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import javax.crypto.Mac;
 import javax.ws.rs.FormParam;
 import org.knowm.xchange.service.BaseParamsDigest;
@@ -26,7 +27,7 @@ public class KrakenDigest extends BaseParamsDigest {
   public static KrakenDigest createInstance(String secretKeyBase64) {
 
     if (secretKeyBase64 != null) {
-      return new KrakenDigest(Base64.getDecoder().decode(secretKeyBase64.getBytes()));
+      return new KrakenDigest(Base64.decode(secretKeyBase64.getBytes(), Base64.NO_WRAP));
     } else return null;
   }
 
@@ -47,6 +48,6 @@ public class KrakenDigest extends BaseParamsDigest {
     mac512.update(("/" + restInvocation.getPath()).getBytes());
     mac512.update(sha256.digest());
 
-    return Base64.getEncoder().encodeToString(mac512.doFinal()).trim();
+    return new String(Base64.encode(mac512.doFinal(), Base64.NO_WRAP)).trim();
   }
 }

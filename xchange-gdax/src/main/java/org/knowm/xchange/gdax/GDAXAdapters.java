@@ -5,8 +5,8 @@ import java.math.MathContext;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java8.util.stream.Collectors;
+import java8.util.stream.Stream;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -30,6 +30,8 @@ import org.knowm.xchange.gdax.dto.marketdata.*;
 import org.knowm.xchange.gdax.dto.trade.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java8.util.stream.StreamSupport;
 
 public class GDAXAdapters {
 
@@ -159,7 +161,7 @@ public class GDAXAdapters {
   @SuppressWarnings("unchecked")
   public static OpenOrders adaptOpenOrders(GDAXOrder[] coinbaseExOpenOrders) {
     Stream<Order> orders =
-        Arrays.asList(coinbaseExOpenOrders).stream().map(GDAXAdapters::adaptOrder);
+            StreamSupport.stream(Arrays.asList(coinbaseExOpenOrders)).map(GDAXAdapters::adaptOrder);
     Map<Boolean, List<Order>> twoTypes =
         orders.collect(Collectors.partitioningBy(t -> t instanceof LimitOrder));
     @SuppressWarnings("rawtypes")

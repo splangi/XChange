@@ -1,10 +1,8 @@
 package org.knowm.xchange.bittrex.service;
 
 import java.io.IOException;
-import java.rmi.server.ExportException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.bittrex.BittrexAdapters;
 import org.knowm.xchange.bittrex.BittrexErrorAdapter;
@@ -21,6 +19,9 @@ import org.knowm.xchange.dto.trade.LimitOrder;
 import org.knowm.xchange.service.marketdata.MarketDataService;
 import org.knowm.xchange.service.marketdata.params.CurrencyPairsParam;
 import org.knowm.xchange.service.marketdata.params.Params;
+
+import java8.util.stream.Collectors;
+import java8.util.stream.StreamSupport;
 
 /**
  * Implementation of the market data service for Bittrex
@@ -48,7 +49,7 @@ public class BittrexMarketDataService extends BittrexMarketDataServiceRaw
       BittrexMarketSummary summary =
           getBittrexMarketSummary(BittrexUtils.toPairString(currencyPair));
       if (summary == null) {
-        throw new ExportException("Bittrex didn't return any summary nor an error");
+        throw new IOException("Bittrex didn't return any summary nor an error");
       }
       return BittrexAdapters.adaptTicker(summary, currencyPair);
     } catch (BittrexException e) {
@@ -63,8 +64,7 @@ public class BittrexMarketDataService extends BittrexMarketDataServiceRaw
           (params instanceof CurrencyPairsParam)
               ? new ArrayList<>(((CurrencyPairsParam) params).getCurrencyPairs())
               : new ArrayList<>();
-      return getBittrexMarketSummaries()
-          .stream()
+      return StreamSupport.stream(getBittrexMarketSummaries())
           .map(
               bittrexMarketSummary ->
                   BittrexAdapters.adaptTicker(

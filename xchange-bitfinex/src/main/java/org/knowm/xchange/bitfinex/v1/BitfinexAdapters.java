@@ -45,6 +45,8 @@ import org.knowm.xchange.utils.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java8.util.stream.StreamSupport;
+
 public final class BitfinexAdapters {
 
   public static final Logger log = LoggerFactory.getLogger(BitfinexAdapters.class);
@@ -403,8 +405,7 @@ public final class BitfinexAdapters {
       ExchangeMetaData exchangeMetaData, List<BitfinexSymbolDetail> symbolDetails) {
     final Map<CurrencyPair, CurrencyPairMetaData> currencyPairs =
         exchangeMetaData.getCurrencyPairs();
-    symbolDetails
-        .parallelStream()
+    StreamSupport.parallelStream(symbolDetails)
         .forEach(
             bitfinexSymbolDetail -> {
               final CurrencyPair currencyPair = adaptCurrencyPair(bitfinexSymbolDetail.getPair());
@@ -434,16 +435,16 @@ public final class BitfinexAdapters {
       BitfinexAccountFeesResponse accountFeesResponse, ExchangeMetaData metaData) {
     Map<Currency, CurrencyMetaData> currencies = metaData.getCurrencies();
     final Map<Currency, BigDecimal> withdrawFees = accountFeesResponse.getWithdraw();
-    withdrawFees.forEach(
-        (currency, withdrawalFee) -> {
-          if (currencies.get(currency) == null) {
-            CurrencyMetaData currencyMetaData = new CurrencyMetaData(0, withdrawalFee);
-            currencies.put(currency, currencyMetaData);
+    StreamSupport.stream(withdrawFees.entrySet()).forEach(
+        (entry) -> {
+          if (currencies.get(entry.getKey()) == null) {
+            CurrencyMetaData currencyMetaData = new CurrencyMetaData(0, entry.getValue());
+            currencies.put(entry.getKey(), currencyMetaData);
           } else {
-            final CurrencyMetaData oldMetaData = currencies.get(currency);
+            final CurrencyMetaData oldMetaData = currencies.get(entry.getKey());
             CurrencyMetaData newMetaData =
-                new CurrencyMetaData(oldMetaData.getScale(), withdrawalFee);
-            currencies.put(currency, newMetaData);
+                new CurrencyMetaData(oldMetaData.getScale(), entry.getValue());
+            currencies.put(entry.getKey(), newMetaData);
           }
         });
     return metaData;
@@ -459,20 +460,21 @@ public final class BitfinexAdapters {
     // also setting the taker_fee as the trading_fee for now.
     final CurrencyPairMetaData metaData =
         new CurrencyPairMetaData(bitfinexAccountInfos[0].getTakerFees(), null, null, null);
-    currencyPairs
-        .keySet()
-        .parallelStream()
+   StreamSupport.parallelStream(currencyPairs.keySet())
         .forEach(
-            currencyPair ->
-                currencyPairs.merge(
-                    currencyPair,
-                    metaData,
-                    (oldMetaData, newMetaData) ->
-                        new CurrencyPairMetaData(
-                            newMetaData.getTradingFee(),
-                            oldMetaData.getMinimumAmount(),
-                            oldMetaData.getMaximumAmount(),
-                            oldMetaData.getPriceScale())));
+            currencyPair -> {
+              if (!currencyPairs.containsKey(currencyPair)){
+                currencyPairs.put(currencyPair, metaData);
+              } else{
+                CurrencyPairMetaData oldMetaData = currencyPairs.get(currencyPair);
+                CurrencyPairMetaData newMetaData = metaData;
+                currencyPairs.put(currencyPair, new CurrencyPairMetaData(
+                        newMetaData.getTradingFee(),
+                        oldMetaData.getMinimumAmount(),
+                        oldMetaData.getMaximumAmount(),
+                        oldMetaData.getPriceScale()));
+              }
+            });
 
     return exchangeMetaData;
   }

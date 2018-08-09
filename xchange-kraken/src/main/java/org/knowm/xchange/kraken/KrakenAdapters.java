@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order;
@@ -50,6 +50,8 @@ import org.knowm.xchange.kraken.dto.trade.KrakenTrade;
 import org.knowm.xchange.kraken.dto.trade.KrakenType;
 import org.knowm.xchange.kraken.dto.trade.KrakenUserTrade;
 
+import java8.util.stream.StreamSupport;
+
 public class KrakenAdapters {
 
   public static OrderBook adaptOrderBook(KrakenDepth krakenDepth, CurrencyPair currencyPair) {
@@ -82,9 +84,7 @@ public class KrakenAdapters {
 
   public static List<Order> adaptOrders(Map<String, KrakenOrder> krakenOrdersMap) {
 
-    return krakenOrdersMap
-        .entrySet()
-        .stream()
+    return StreamSupport.stream(krakenOrdersMap.entrySet())
         .map(krakenOrderEntry -> adaptOrder(krakenOrderEntry.getKey(), krakenOrderEntry.getValue()))
         .collect(Collectors.toList());
   }

@@ -1,5 +1,7 @@
 package org.knowm.xchange.utils;
 
+import android.util.Base64;
+
 import org.knowm.xchange.ExchangeSpecification;
 
 import java.io.File;
@@ -18,7 +20,7 @@ public class AuthUtils {
    */
   public static String getBasicAuth(String user, final String pass) {
 
-    return "Basic " + java.util.Base64.getEncoder().encodeToString((user + ":" + pass).getBytes());
+    return "Basic " + Base64.encode((user + ":" + pass).getBytes(), Base64.NO_WRAP);
   }
 
   /**

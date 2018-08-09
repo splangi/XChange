@@ -2,7 +2,6 @@ package org.knowm.xchange.hitbtc.v2.service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,8 @@ import org.knowm.xchange.Exchange;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.exceptions.ExchangeException;
 import org.knowm.xchange.hitbtc.v2.dto.*;
+import org.threeten.bp.Instant;
+
 import si.mazi.rescu.HttpStatusIOException;
 
 public class HitbtcAccountServiceRaw extends HitbtcBaseService {

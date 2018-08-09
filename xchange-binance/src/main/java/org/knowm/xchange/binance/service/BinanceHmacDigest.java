@@ -10,6 +10,8 @@ import org.knowm.xchange.binance.BinanceAuthenticated;
 import org.knowm.xchange.service.BaseParamsDigest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java8.util.stream.StreamSupport;
 import si.mazi.rescu.Params;
 import si.mazi.rescu.RestInvocation;
 
@@ -37,12 +39,11 @@ public class BinanceHmacDigest extends BaseParamsDigest {
   /** @return the query string except of the "signature" parameter */
   private static String getQuery(RestInvocation restInvocation) {
     final Params p = Params.of();
-    restInvocation
+    StreamSupport.stream(restInvocation
         .getParamsMap()
         .get(QueryParam.class)
         .asHttpHeaders()
-        .entrySet()
-        .stream()
+        .entrySet())
         .filter(e -> !BinanceAuthenticated.SIGNATURE.equals(e.getKey()))
         .forEach(e -> p.add(e.getKey(), e.getValue()));
     return p.asQueryString();

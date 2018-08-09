@@ -12,7 +12,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.stream.Stream;
+import java8.util.stream.Stream;
+import java8.util.stream.StreamSupport;
+
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.Order.OrderStatus;
@@ -214,7 +216,7 @@ public final class OkCoinAdapters {
 
   private static Stream<LimitOrder> adaptLimitOrders(
       OrderType type, BigDecimal[][] list, Date timestamp, CurrencyPair currencyPair) {
-    return Arrays.stream(list)
+    return StreamSupport.stream(Arrays.asList(list))
         .map(data -> adaptLimitOrder(type, data, currencyPair, null, timestamp));
   }
 

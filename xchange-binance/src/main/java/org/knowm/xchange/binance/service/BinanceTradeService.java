@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.binance.BinanceAdapters;
 import org.knowm.xchange.binance.dto.trade.BinanceNewOrder;
@@ -42,6 +42,8 @@ import org.knowm.xchange.service.trade.params.orders.OpenOrdersParams;
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParamCurrencyPair;
 import org.knowm.xchange.service.trade.params.orders.OrderQueryParams;
 import org.knowm.xchange.utils.Assert;
+
+import java8.util.stream.StreamSupport;
 
 public class BinanceTradeService extends BinanceTradeServiceRaw implements TradeService {
 
@@ -81,7 +83,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
 
     List<LimitOrder> limitOrders = new ArrayList<>();
     List<Order> otherOrders = new ArrayList<>();
-    binanceOpenOrders.forEach(
+    StreamSupport.stream(binanceOpenOrders).forEach(
         binanceOrder -> {
           Order order = BinanceAdapters.adaptOrder(binanceOrder);
           if (order instanceof LimitOrder) {
@@ -241,8 +243,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
     List<BinanceTrade> binanceTrades =
         super.myTrades(pair, limit, fromId, recvWindow, getTimestamp());
     List<UserTrade> trades =
-        binanceTrades
-            .stream()
+        StreamSupport.stream(binanceTrades)
             .map(
                 t ->
                     new UserTrade(
@@ -256,7 +257,7 @@ public class BinanceTradeService extends BinanceTradeServiceRaw implements Trade
                         t.commission,
                         Currency.getInstance(t.commissionAsset)))
             .collect(Collectors.toList());
-    long lastId = binanceTrades.stream().map(t -> t.id).max(Long::compareTo).orElse(0L);
+    long lastId = StreamSupport.stream(binanceTrades).map(t -> t.id).max(Long::compareTo).orElse(0L);
     return new UserTrades(trades, lastId, Trades.TradeSortType.SortByTimestamp);
   }
 

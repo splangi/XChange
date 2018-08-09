@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+import java8.util.stream.Collectors;
 import org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexPublicTrade;
 import org.knowm.xchange.bitfinex.v2.dto.marketdata.BitfinexTicker;
 import org.knowm.xchange.currency.CurrencyPair;
@@ -19,6 +19,8 @@ import org.knowm.xchange.utils.jackson.CurrencyPairDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java8.util.stream.StreamSupport;
+
 public final class BitfinexAdapters {
 
   public static final Logger log = LoggerFactory.getLogger(BitfinexAdapters.class);
@@ -26,8 +28,7 @@ public final class BitfinexAdapters {
   private BitfinexAdapters() {}
 
   public static String adaptCurrencyPairsToTickersParam(Collection<CurrencyPair> currencyPairs) {
-    return currencyPairs
-        .stream()
+    return StreamSupport.stream(currencyPairs)
         .map(currencyPair -> "t" + currencyPair.base + currencyPair.counter)
         .collect(Collectors.joining(","));
   }
