@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import java8.util.stream.StreamSupport;
+
 /**
  * A Currency class roughly modeled after {@link java.util.Currency}. Each object retains the code
  * it was acquired with -- so {@link #getInstance}("BTC").{@link #getCurrencyCode}() will always be
@@ -539,7 +541,6 @@ public class Currency implements Comparable<Currency>, Serializable {
 
     public CurrencyAttributes(
         String commonCode, String cccCode, String name, String unicode, String... alternativeCodes) {
-
       if (alternativeCodes.length > 0) {
         this.codes = new TreeSet<>(Arrays.asList(alternativeCodes));
         this.codes.add(commonCode);

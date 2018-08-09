@@ -52,3 +52,13 @@ GSYMS
 /build
 /captures
 .externalNativeBuild
+
+/xchange-*/**
+!/xchange-binance/**
+!/xchange-kraken/**
+!/xchange-bitfinex/**
+!/xchange-core/**
+!/xchange-gdax/**
+!/xchange-hitbtc/**
+!/xchange-okcoin/**
+!/xchange-bittrex/**

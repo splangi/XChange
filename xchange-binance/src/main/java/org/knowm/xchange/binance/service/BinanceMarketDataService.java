@@ -65,7 +65,7 @@ public class BinanceMarketDataService extends BinanceMarketDataServiceRaw
 
   @Override
   public List<Ticker> getTickers(Params params) throws IOException {
-    return ticker24h().stream().map(BinanceTicker24h::toTicker).collect(Collectors.toList());
+    return StreamSupport.stream(ticker24h()).map(BinanceTicker24h::toTicker).collect(Collectors.toList());
   }
 
   /**
